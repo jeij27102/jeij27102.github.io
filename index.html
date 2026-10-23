@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="정민채 포트폴리오: 콘텐츠 기획 · 영상 · 3D 아바타 커스터마이징">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>정민채 포트폴리오 스크롤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 흰 바탕 스크롤 스토리.
+   고정 히어로(이름이 갈라지고 민트 프레임이 화면을 채움) → 단어가 밝아지는 소개 → 키워드 띠
+   → 3D: 공용 모델→일러스트→성형본 3단계 고정 시퀀스 → 콘텐츠: 이미지가 열리며 등장하는 챕터
+   → 영상: 세로 스크롤로 가로로 흐르는 카드 트랙(폰은 스와이프) → About → 연락처 */
+:root{
+  --bg:#FFFFFF; --ink:#111615; --soft:#3E4846; --muted:#6B7674; --line:#E5EAE9; --tint:#F2F7F6; --dim:#BCC5C3;
+  --accent:#12A594; --accent-ink:#0A7065; --on-accent:#FFFFFF;
+  --f-latin:"Unbounded","Noto Sans KR",system-ui,sans-serif;
+  --f-num:"Unbounded","Noto Sans KR",system-ui,sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --wrap:1200px; --r:14px; --vh:100vh;
+  color-scheme:light;
+}
+@supports (height:100svh){:root{--vh:100svh}}
+/* shared pieces: placeholders, detail content, profile rows */
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.75;
+  -webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+h1,h2,h3,h4,h5{text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin-inline:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+
+.ph{position:relative;width:100%;max-width:100%;aspect-ratio:16/9;background:var(--tint);border-radius:var(--r);overflow:hidden;display:flex;align-items:flex-end}
+.ph-tall{aspect-ratio:3/4}.ph-story{aspect-ratio:9/16}.ph-sq{aspect-ratio:1}.ph-wide{aspect-ratio:16/9}.ph-card{aspect-ratio:4/3}
+.ph::before,.ph::after{content:"";position:absolute;width:18px;height:18px;border:1.5px solid var(--accent);opacity:.55}
+.ph::before{top:12px;left:12px;border-right:0;border-bottom:0}
+.ph::after{bottom:12px;right:12px;border-left:0;border-top:0}
+.ph span{position:relative;margin:14px 16px;font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.04em;color:var(--muted)}
+.thumbs{display:grid;gap:8px;margin-top:8px}
+.thumbs.n1{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.thumbs.n2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.thumbs.n3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.thumbs .ph span{margin:10px;font-size:.625rem}
+.thumbs .ph::before,.thumbs .ph::after{width:10px;height:10px}
+.thumbs .ph::before{top:8px;left:8px}.thumbs .ph::after{bottom:8px;right:8px}
+.cap{margin-top:8px;font-size:.75rem;color:var(--muted)}
+
+.dbody{display:grid;gap:18px;font-size:.9375rem;min-width:0;align-content:start}
+.dbody h5{font-size:.8125rem;font-weight:700;letter-spacing:.02em;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px}
+.stats div{background:var(--tint);border-radius:10px;padding:14px 16px}
+.stats b{display:block;font-family:var(--f-num);font-size:1.5rem;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--ink)}
+.stats span{font-size:.75rem;color:var(--muted)}
+.note{font-size:.8125rem;color:var(--muted)}
+.kv{display:grid;grid-template-columns:minmax(0,8.5rem) minmax(0,1fr);gap:10px 20px;margin:0;border-top:1px solid var(--line);padding-top:16px}
+.kv dt{font-weight:700;font-size:.875rem}
+.kv dd{margin:0;color:var(--soft);min-width:0;overflow-wrap:anywhere}
+@media (max-width:560px){.kv{grid-template-columns:1fr;gap:2px}.kv dd{margin-bottom:10px}}
+.steps{margin:0;padding-left:1.3em;display:grid;gap:6px;color:var(--soft)}
+.steps strong{color:var(--ink)}
+.links{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.links a{font-size:.8125rem;font-weight:500;text-decoration:none;padding:8px 14px;border-radius:999px;border:1px solid var(--ink);color:var(--ink);transition:background .2s,color .2s}
+.links a:hover{background:var(--ink);color:var(--bg)}
+
+.rows{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.9375rem}
+.rows>li{display:grid;grid-template-columns:minmax(0,6.75rem) minmax(0,1fr);gap:12px;min-width:0}
+.rows>li>*{min-width:0;overflow-wrap:anywhere}
+@container (max-width:360px){.rows>li{grid-template-columns:minmax(0,1fr);gap:0}.rows .when{padding-top:0}}
+.rows .when{font-family:var(--f-mono);font-size:.75rem;color:var(--muted);padding-top:3px;font-variant-numeric:tabular-nums}
+.rows ul{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:2px;color:var(--muted);font-size:.875rem}
+.skills strong{font-weight:700}
+.pblock h4{font-family:var(--f-mono);font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px}
+.copy{font:inherit;font-size:.75rem;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer}
+.copy:hover{border-color:var(--ink);color:var(--ink)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+.ph.has-img{background:var(--tint)}
+.ph.has-img::before,.ph.has-img::after{display:none}
+.ph img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block}
+
+/* zoomable images + lightbox */
+.ph.has-img[tabindex]{cursor:zoom-in}
+.ph.has-img[tabindex]::after{display:grid;place-items:center;content:"⤢";position:absolute;right:10px;bottom:10px;left:auto;top:auto;width:28px;height:28px;border:0;border-radius:50%;
+  background:rgba(17,22,21,.68);color:#fff;font-size:15px;line-height:1;opacity:.9;transition:transform .2s,opacity .2s}
+.thumbs .ph.has-img[tabindex]::after{width:22px;height:22px;right:6px;bottom:6px;font-size:12px}
+.ph.has-img[tabindex]:hover::after,.ph.has-img[tabindex]:focus-visible::after{opacity:1;transform:scale(1.12)}
+.ph.has-img img{transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover){.ph.has-img[tabindex]:hover img{transform:scale(1.03)}}
+dialog.lb{border:0;padding:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;background:rgba(10,14,13,.94);color:#fff}
+dialog.lb[open]{display:flex;flex-direction:column}
+dialog.lb::backdrop{background:transparent}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex:none;
+  padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+.lb-cap{font-size:.8125rem;opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-ctrls{display:flex;gap:6px;flex:none}
+.lb .ib{font:inherit;font-size:.8125rem;height:36px;min-width:36px;padding:0 12px;border-radius:999px;cursor:pointer;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.32)}
+.lb .ib:hover{border-color:#fff}
+.lb .ib.x{background:#fff;color:#111615;border-color:#fff}
+.lb-stage{flex:1;min-height:0;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb-stage img{display:block;width:100%;height:100%;object-fit:contain}
+
+/* video details: images stacked one per row at full width */
+.sheet-in[data-cat="video"] .thumbs{grid-template-columns:1fr;gap:10px;margin-top:10px}
+.sheet-in[data-cat="video"] .mcol{position:static}
+.sheet-in[data-cat="video"] .thumbs .ph::after{width:28px;height:28px;right:10px;bottom:10px;font-size:15px}
+
+/* rows never stretch */
+.tcol,.dhead,.mcol{align-content:start}
+.links a{display:inline-flex;align-items:center;line-height:1.4}
+
+body{overflow-x:clip}
+.progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);height:3px;z-index:50;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.top{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);z-index:45;pointer-events:none}
+.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:14px}
+.pill{pointer-events:auto;font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.06em;color:var(--ink);text-decoration:none;
+  background:rgba(255,255,255,.88);padding:7px 13px;border-radius:999px;border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.pill.logo{font-family:var(--f-latin);font-weight:700;letter-spacing:.04em;flex:none}
+
+/* dot nav */
+.dots{position:fixed;right:max(18px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:44;display:none;flex-direction:column;gap:12px}
+@media (min-width:1100px){.dots{display:flex}}
+.dots a{position:relative;display:block;width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);background:var(--bg);transition:transform .25s,background .25s}
+.dots a.on{background:var(--accent);border-color:var(--accent);transform:scale(1.3)}
+.dots a span{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:.75rem;white-space:nowrap;background:var(--ink);color:var(--bg);padding:3px 9px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}
+.dots a:hover span,.dots a:focus-visible span{opacity:1}
+
+/* pinned scenes */
+.pin{position:relative}
+.stage{position:sticky;top:0;height:var(--vh);overflow:hidden}
+
+/* hero */
+.hero{height:calc(var(--vh) * 1.5)}
+.hero .stage{display:grid;place-items:center}
+.names{position:relative;z-index:2;width:100%;font-family:var(--f-latin);font-weight:800;font-size:clamp(3rem,15.5vw,13rem);line-height:.88;letter-spacing:-.045em;display:grid;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.names span{display:block;will-change:transform}
+.names .a,.names .b{transition:transform 1.1s cubic-bezier(.7,0,.2,1)}
+.names .b{text-align:right;color:var(--accent)}
+.hero.open .names .a{transform:translateX(-62vw)}
+.hero.open .names .b{transform:translateX(62vw)}
+.frame{position:absolute;inset:0;z-index:1;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;text-align:center;
+  clip-path:inset(46% 47% round 999px);transition:clip-path 1.25s cubic-bezier(.7,0,.2,1) .12s;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hero.open .frame{clip-path:inset(0% 0% round 0px)}
+.frame .in{opacity:0;transform:translateY(24px);transition:opacity .7s ease .95s,transform .7s cubic-bezier(.2,.7,.2,1) .95s;display:grid;gap:18px;justify-items:center}
+.hero.open .frame .in{opacity:1;transform:none}
+.frame .k{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.16em}
+.frame h2{font-size:clamp(2rem,6.4vw,5rem);font-weight:900;line-height:1.15;letter-spacing:-.035em}
+.frame p{font-size:clamp(.9375rem,1.5vw,1.0625rem);max-width:36ch;opacity:.92}
+.hint{position:absolute;z-index:3;left:50%;bottom:calc(28px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.14em;color:var(--muted);transition:opacity .3s}
+.hint i{width:1px;height:40px;background:linear-gradient(var(--ink),transparent);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.tagline{position:absolute;z-index:3;left:0;right:0;top:calc(72px + env(safe-area-inset-top,0px));text-align:center;font-size:.8125rem;color:var(--muted);transition:opacity .3s}
+.hero.open .hint,.hero.open .tagline{opacity:0}
+
+/* statement */
+.statement .wrap{padding-block:clamp(80px,13vw,180px)}
+.statement p{font-size:clamp(1.5rem,4.2vw,3.25rem);font-weight:700;line-height:1.45;letter-spacing:-.025em;max-width:24ch}
+.statement .w{color:var(--dim);transition:color .3s}
+.statement .w.on{color:var(--ink)}
+.statement .w.hl.on{color:var(--accent)}
+
+/* band */
+.band{border-block:1px solid var(--line);overflow:hidden;padding-block:18px}
+.band .row{display:flex;width:max-content;white-space:nowrap;animation:marquee 38s linear infinite;font-family:var(--f-latin);font-weight:500;font-size:clamp(1.25rem,3vw,2rem);letter-spacing:-.01em;will-change:transform}
+.band .row span{padding-right:40px}
+.band .row span::after{content:"";display:inline-block;width:.35em;height:.35em;border-radius:50%;background:var(--accent);margin-left:40px;vertical-align:.18em}
+.band:hover .row{animation-play-state:paused}
+@keyframes marquee{to{transform:translateX(-33.3333%)}}
+.band.rev .row{color:var(--dim)}
+
+/* category headers */
+.cat{padding-block:clamp(88px,13vw,180px) clamp(24px,4vw,48px);overflow:hidden}
+.cat .big{font-size:clamp(2.75rem,10vw,8rem);font-weight:900;letter-spacing:-.05em;line-height:1;white-space:nowrap;
+  transform:translateX(calc((1 - var(--v,1)) * 22%));opacity:calc(.25 + var(--v,1) * .75)}
+.cat .bar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:2px solid var(--ink);margin-top:20px;padding-top:14px;font-size:.875rem;color:var(--soft)}
+.cat .bar .n{font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+
+/* 3D sequence */
+.seq{height:calc(var(--vh) * 4)}
+.seq .stage{display:grid;align-content:center}
+.seq .grid{display:grid;gap:24px;align-items:center}
+@media (min-width:900px){.seq .grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px}}
+.layers{position:relative;width:min(100%,calc(var(--vh) * .46));aspect-ratio:1;margin-inline:auto}
+@media (min-width:900px){.layers{width:min(100%,calc(var(--vh) * .66))}}
+.layers .ph{position:absolute;inset:0;aspect-ratio:auto;border-radius:24px;transition:opacity .45s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.layers .ph span{font-size:.8125rem}
+.layers .ph:not(.on){opacity:0;transform:scale(.94) rotate(-2deg);pointer-events:none}
+.layers .ph.done{opacity:0;transform:scale(1.04) rotate(1deg)}
+.layers .badge{position:absolute;z-index:2;top:16px;right:16px;font-family:var(--f-mono);font-size:.75rem;background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:999px}
+.ssteps{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.ssteps li{display:grid;grid-template-columns:3rem 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line);color:var(--dim);transition:color .35s}
+.ssteps li .no{font-family:var(--f-num);font-weight:700;font-size:1rem}
+.ssteps li b{display:block;font-size:clamp(1.125rem,2.2vw,1.5rem);font-weight:900;letter-spacing:-.02em;line-height:1.3}
+.ssteps li p{font-size:.875rem;margin-top:4px}
+.ssteps li.on{color:var(--ink)}
+.ssteps li.on .no{color:var(--accent)}
+.ssteps li.on p{color:var(--soft)}
+@media (max-width:899px){.ssteps li{padding:8px 0}.ssteps li:not(.on) p{display:none}}
+.seq-head{display:grid;gap:6px;margin-bottom:8px}
+.seq-head .meta{font-family:var(--f-mono);font-size:.75rem;color:var(--accent-ink)}
+.seq-head h3{font-size:clamp(1.375rem,3vw,2.25rem);font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.meter{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:12px}
+.meter i{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(var(--s,0))}
+
+/* chapters */
+.ch{padding-block:clamp(40px,6vw,80px)}
+.ch .wrap{display:grid;gap:28px}
+@media (min-width:900px){.ch .wrap{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px}
+  .ch .mcol{position:sticky;top:96px;align-self:start}}
+.ch + .ch .wrap{border-top:1px solid var(--line);padding-top:clamp(40px,6vw,80px)}
+.ch + .ch{padding-top:0}
+.ch.flip .wrap{direction:rtl}.ch.flip .wrap>*{direction:ltr}
+.reveal .ph:first-child{clip-path:inset(calc((1 - var(--v,1)) * 38%) 0 0 0 round 14px);transform:scale(calc(1.08 - var(--v,1) * .08))}
+.ch.solo .wrap{grid-template-columns:1fr}
+.ch.solo .tcol{max-width:none}
+@media (min-width:900px){.ch.solo .tcol{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;display:grid}}
+.dhead{display:grid;gap:8px;align-content:start}
+.dhead .meta{display:flex;gap:12px;flex-wrap:wrap;font-family:var(--f-mono);font-size:.75rem}
+.dhead .meta .c{color:var(--accent-ink)}
+.dhead .meta .y{color:var(--muted)}
+.dhead h3{font-size:clamp(1.5rem,3.4vw,2.375rem);font-weight:900;line-height:1.25;letter-spacing:-.03em}
+.dhead .lead{font-size:clamp(1rem,1.5vw,1.125rem);color:var(--soft);font-weight:500}
+.dhead .sub{color:var(--muted);font-size:.875rem}
+.dhead .role{justify-self:start;margin-top:6px;font-size:.8125rem;font-weight:500;padding:5px 12px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.tcol{display:grid;gap:26px;min-width:0;max-width:68ch}
+
+/* process line */
+.dbody .steps{list-style:none;padding:0;position:relative;gap:0;counter-reset:s}
+.dbody .steps::before{content:"";position:absolute;left:11px;top:12px;bottom:12px;width:2px;background:var(--line)}
+.dbody .steps::after{content:"";position:absolute;left:11px;top:12px;width:2px;height:calc((100% - 24px) * var(--v,1));background:var(--accent)}
+.dbody .steps li{position:relative;padding:10px 0 10px 40px;counter-increment:s;transition:color .3s}
+.dbody .steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;
+  font-family:var(--f-mono);font-size:.6875rem;background:var(--bg);border:2px solid var(--line);color:var(--muted);z-index:1;transition:all .3s}
+.dbody .steps li.on::before{border-color:var(--accent);background:var(--accent);color:var(--on-accent)}
+
+/* video gallery */
+.vsec{padding-block:8px clamp(48px,7vw,96px)}
+.vgrid{display:grid;gap:clamp(28px,3vw,44px) 24px;grid-template-columns:1fr}
+@media (min-width:640px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vcard{all:unset;box-sizing:border-box;display:grid;gap:12px;align-content:start;cursor:pointer;min-width:0;border-radius:var(--r);
+  transition:opacity .8s cubic-bezier(.2,.7,.2,1) var(--d,0s),transform .8s cubic-bezier(.2,.7,.2,1) var(--d,0s)}
+.vcard:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+.vcard .thumb{position:relative;border-radius:var(--r);overflow:hidden}
+.vcard .thumb .ph{border-radius:0;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.vcard .thumb .more{position:absolute;right:14px;bottom:14px;font-size:.8125rem;font-weight:500;padding:7px 14px;border-radius:999px;background:var(--ink);color:var(--bg);
+  opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}
+.vcard:hover .thumb .ph,.vcard:focus-visible .thumb .ph{transform:scale(1.045)}
+.vcard:hover .more,.vcard:focus-visible .more{opacity:1;transform:none}
+@media (hover:none){.vcard .thumb .more{opacity:1;transform:none}}
+.vcard .meta{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:.75rem;color:var(--muted)}
+.vcard .meta .r{color:var(--accent-ink)}
+.vcard .t{font-size:1.25rem;font-weight:900;letter-spacing:-.02em;line-height:1.35}
+.vcard .l{font-size:.875rem;color:var(--soft);line-height:1.6}
+.vgrid.pre .vcard{opacity:0;transform:translateY(48px) scale(.96)}
+
+/* about */
+.about{background:var(--tint)}
+.about .wrap{padding-block:clamp(72px,10vw,140px);display:grid;gap:40px}
+@media (min-width:960px){.about .wrap{grid-template-columns:minmax(220px,280px) minmax(0,1fr);gap:56px}}
+.sec-t{font-family:var(--f-latin);font-weight:800;font-size:clamp(2.25rem,6vw,4rem);letter-spacing:-.04em;line-height:1}
+.me{display:grid;gap:18px;align-content:start}
+@media (min-width:900px){.me{position:sticky;top:96px;align-self:start}}
+.me .ph{border-radius:50%;width:200px;aspect-ratio:1;background:var(--bg)}
+.me .ph span{margin:auto auto 20%}
+.me h3{font-size:1.5rem;font-weight:900}
+.me h3 small{display:block;font-family:var(--f-latin);font-weight:500;font-size:.75rem;letter-spacing:.06em;color:var(--muted);margin-top:4px}
+.facts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;margin:0;font-size:.875rem}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-width:0}
+.facts .v{font-family:var(--f-mono);font-size:.8125rem;overflow-wrap:anywhere}
+.pgrid{display:grid;gap:20px;min-width:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.pgrid .wide{grid-column:1/-1}
+.pblock{background:var(--bg);border-radius:var(--r);padding:clamp(18px,3vw,24px);min-width:0;container-type:inline-size}
+
+/* contact */
+.contact{overflow:hidden}
+.contact .wrap{padding-block:clamp(80px,12vw,170px);display:grid;gap:32px}
+.contact .big{font-family:var(--f-latin);font-weight:800;font-size:clamp(2.75rem,11vw,9rem);line-height:.92;letter-spacing:-.045em;
+  transform:scale(calc(.72 + var(--v,1) * .28));transform-origin:0 100%;opacity:calc(.2 + var(--v,1) * .8)}
+.contact .big span{color:var(--accent)}
+.cl{display:grid;gap:10px}
+@media (min-width:720px){.cl{grid-template-columns:1fr 1fr}}
+.cl div{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--line);border-radius:var(--r);padding:16px 20px}
+.cl .k{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cl .v{font-family:var(--f-mono);font-size:1rem;user-select:all;overflow-wrap:anywhere}
+.totop{justify-self:start;font-family:var(--f-mono);font-size:.75rem;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:2px}
+footer .wrap{padding-block:24px;font-size:.75rem;color:var(--muted);border-top:1px solid var(--line)}
+
+/* reveal: only for elements that start below the fold */
+.pre{opacity:0;transform:translateY(44px)}
+.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+
+/* dialog (video details) */
+dialog{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:transparent;color:var(--ink)}
+dialog::backdrop{background:rgba(17,22,21,.42);backdrop-filter:blur(3px)}
+.sheet{position:absolute;inset:0;margin:auto;background:var(--bg);display:flex;flex-direction:column;overflow:hidden;animation:up .38s cubic-bezier(.2,.8,.2,1)}
+@media (min-width:860px){.sheet{inset:min(5vh,48px) auto;left:50%;transform:translateX(-50%);width:min(1040px,calc(100% - 64px));border-radius:18px;animation:pop .3s cubic-bezier(.2,.8,.2,1)}}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+@keyframes pop{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translateX(-50%)}}
+.sheet-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px));padding-top:calc(12px + env(safe-area-inset-top,0px));border-bottom:1px solid var(--line)}
+@media (min-width:860px){.sheet-top{padding:14px 20px}}
+.sheet-top .c{font-family:var(--f-mono);font-size:.75rem;color:var(--accent-ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ctrls{display:flex;gap:6px;flex:none}
+.ib{font:inherit;font-size:.8125rem;height:36px;min-width:36px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.ib:hover{border-color:var(--ink)}
+.ib.x{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.sheet-scroll{overflow-y:auto;overscroll-behavior:contain;flex:1}
+.sheet-in{display:grid;gap:28px;padding:24px max(16px,env(safe-area-inset-right,0px)) calc(40px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+@media (min-width:860px){.sheet-in{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:40px;padding:32px 36px 48px}.sheet-in .mcol{position:sticky;top:32px;align-self:start}}
+.sheet-in .dhead h2{font-size:clamp(1.375rem,3vw,1.875rem);font-weight:900;line-height:1.3;letter-spacing:-.02em}
+
+@media (prefers-reduced-motion: reduce){
+  .hero{height:auto}.hero .stage{position:relative;height:auto;padding-block:120px 64px;gap:40px}
+  .frame{position:relative;clip-path:none;border-radius:24px;padding-block:48px;margin-inline:16px}
+  .frame .in{opacity:1;transform:none}
+  .names .a,.names .b{transform:none}
+  .pre{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+
+<div class="progress" id="prog" aria-hidden="true"></div>
+<header class="top"><div class="wrap">
+  <a class="pill logo" href="#top">MINCHAE JEONG</a>
+  <span class="pill" id="where">PORTFOLIO 2026</span>
+</div></header>
+<nav class="dots" id="dots" aria-label="섹션 이동"></nav>
+
+<main id="top">
+  <section class="pin hero" id="hero" data-pin data-where="PORTFOLIO 2026" data-dot="Intro">
+    <div class="stage">
+      <p class="tagline">Content Planning · Video · 3D Avatar Customizing</p>
+      <h1 class="names" aria-label="Jeong Minchae"><span class="a">JEONG</span><span class="b">MINCHAE</span></h1>
+      <div class="frame" aria-hidden="false">
+        <div class="in">
+          <span class="k">PORTFOLIO 2026</span>
+          <h2>기획하고, 만들고,<br>닿게 합니다.</h2>
+          <p>문화콘텐츠문화경영학 전공. 영상 연출·편집, 팬덤 프로젝트 운영, 3D 아바타 커스터마이징까지 직접 해 왔습니다.</p>
+        </div>
+      </div>
+      <div class="hint"><i></i>SCROLL</div>
+    </div>
+  </section>
+
+  <section class="statement" id="stmt"><div class="wrap"><p id="stmtp"></p></div></section>
+  <div class="band" aria-hidden="true"><div class="row" id="band"></div></div>
+
+  <div id="chapters"></div>
+
+  <section class="about" id="about" data-where="About" data-dot="About"><div class="wrap">
+    <div class="me rv">
+      <h2 class="sec-t">About</h2>
+      <div class="ph has-img"><img src="img/profile.jpg" alt="정민채 프로필 사진" style="object-position:50% 22%"></div>
+      <h3 id="pname"></h3>
+      <dl class="facts" id="facts"></dl>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </div></section>
+
+  <section class="contact" id="contact" data-where="Contact" data-dot="Contact" data-view><div class="wrap">
+    <p class="big">Let’s<br>work<br>together<span>.</span></p>
+    <div class="cl rv" id="cl"></div>
+    <a class="totop" href="#top">처음으로 ↑</a>
+  </div></section>
+</main>
+<footer><div class="wrap">© 2026 Jeong Minchae</div></footer>
+
+<dialog id="dlg" aria-labelledby="dtitle">
+  <div class="sheet">
+    <div class="sheet-top">
+      <span class="c" id="dcat"></span>
+      <div class="ctrls">
+        <button class="ib" type="button" id="prev" aria-label="이전 작업">←</button>
+        <button class="ib" type="button" id="next" aria-label="다음 작업">→</button>
+        <button class="ib x" type="button" id="close">닫기</button>
+      </div>
+    </div>
+    <div class="sheet-scroll" id="dscroll"><div class="sheet-in" id="din"></div></div>
+  </div>
+</dialog>
+
+<script>
+var PROFILE = {
+  name: "정민채", en: "Jeong Minchae", birth: "2001.07.02", phone: "010-9224-4526", email: "jeij27102@gmail.com",
+  intro: "콘텐츠를 기획하고, 직접 만들고, 사람들에게 닿게 하는 일을 해 왔습니다.",
+  education: [["2020 – 2025", "인하대학교 문화콘텐츠문화경영학과 졸업"], ["2024", "캐나다 Memorial Univ. 교환학생"]],
+  cert: [["GTQ", "1급"], ["IELTS", "Overall 6.0"], ["Google", "Google Analytics Certification"]],
+  experience: [
+    ["2020 – 2024", "인하대 영상학회 6CC", ["2020 <Ask In (h)a Box> 새내기 토크쇼 웹예능", "2024 자유기획 웹드라마 2부작", "2024 <Marigold> Live clip", "2024 <친구로 지내다 보면> MV"]],
+    ["2023 –", "3D 버추얼 스트리머 외주 작업"],
+    ["2021", "달리 서포터즈"],
+    ["2021", "가상 아이돌 앨범 제작"],
+    ["2026", "버추얼 아이돌 팬 숏폼 채널 운영 (PLAVE)"]
+  ],
+  work: [["2025.02 – 08", "에스엘프라임 영어 근무"], ["2026.09 – 현재", "조이풀조이영어학원 근무"]],
+  skills: [
+    ["Photoshop", "이미지 편집, 보정, 콘텐츠 제작"],
+    ["Premiere Pro", "컷 편집, 색 보정, 자막 및 트랜지션 등 기능 활용"],
+    ["CapCut", "숏폼·SNS용 영상의 빠른 편집 및 자막 작업"],
+    ["Claude", "기획, 자료 분석 및 정리, 필요한 기능 생성"],
+    ["Gemini", "NotebookLM 활용"],
+    ["Unity", "기본 작업 (아바타 임포트, 세팅, 본 작업 등)"],
+    ["Blender", "간단 모델링, 리깅, 블렌드 셰이프키 (ARKit52 등) 작업"]
+  ]
+};
+
+var CATS = { "content": "콘텐츠·마케팅", "video": "영상 제작", "3d": "3D·버추얼" };
+
+var WORKS = [
+  {
+    id: "shortform", cat: "content", label: "Short Form Video", when: "2026",
+    title: "공식 영상 활용 숏폼 제작", role: "기획 / 편집 (1인)",
+    lead: "플레이브 공식 영상으로 직접 기획·편집한 35초 팬 숏폼.",
+    intro: ["버추얼 아이돌 플레이브 공식 영상을 활용해 직접 기획·편집한 35초 분량의 팬 숏폼입니다. 최근 ‘연애의 법칙’이라는 노래가 트렌드였고, 타임라인에서 팬 에딧을 여러 번 보게 되어 선정했습니다."],
+    stats: [["35초", "러닝타임"], ["약 15컷", "2~3초 단위 전환"]],
+    kv: [
+      ["기획", "노래 가사의 키워드를 먼저 정리한 뒤, 각 키워드와 어울리는 장면을 라이브 콘텐츠, 쇼츠, 무대 영상에서 골라 연결했습니다."],
+      ["편집", "숏폼에 맞게 약 15컷을 2~3초 단위로 빠르게 전환해, 짧은 길이 안에서도 지루하지 않도록 리듬감을 살렸습니다."],
+      ["자막·연출", "가사에 맞춰 자막이 뜨는 키네틱 자막을 넣었습니다. 하이라이트는 도입부는 영상에 맞게 검은색, 중간 ‘다이아’ 가사 구간은 파란색, 그 외는 노래 분위기에 맞춘 핑크로 통일했고, 아이콘과 화살표를 더해 장면 속 포인트로 시선이 가도록 했습니다."]
+    ],
+    links: [["플레이브 연애의 법칙 숏폼", "https://www.youtube.com/shorts/DF7sY4Gxpls"]],
+    cover: "숏폼 대표 장면", coverShape: "tall", coverSrc: "img/short-cover.jpg", coverPos: "50% 35%",
+    media: [["숏폼 장면 1", "story", "img/short-1.jpg"], ["숏폼 장면 2", "story", "img/short-2.jpg"], ["숏폼 장면 3", "story", "img/short-3.jpg"]],
+    cap: "키네틱 자막과 아이콘·화살표로 포인트를 준 장면"
+  },
+  {
+    id: "album", cat: "content", label: "Fandom Project", when: "2021.06 – 11",
+    title: "가상 아이돌 앨범 제작 (비공식 프로젝트)", sub: "웹소설 팬 프로젝트: 팬 참여형 가상 앨범 기획부터 판매까지",
+    role: "기획·제작·판매·홍보·CS 1인 운영 (일러스트 제외)",
+    lead: "공식 굿즈가 없던 캐릭터의 가상 앨범을 기획부터 판매, CS까지 혼자 운영했습니다.",
+    intro: ["당시 완결 전이라 공식 앨범과 굿즈가 없던 웹소설 캐릭터를 팬으로서 직접 소장하고 싶어 시작한 프로젝트입니다. 소장에서 끝나지 않고, 하나의 큰 프로젝트를 직접 기획하고 운영하면서 콘텐츠 기획부터 판매와 응대까지 이어가는 과정을 경험했습니다."],
+    stats: [["188건", "주문 (총 283개)"], ["17명", "협업 일러스트레이터"], ["4.5%", "생일 배너 클릭률"], ["100건+", "팬 인증 게시글"]],
+    note: "MONO 175 · POLY 108 / 플랫폼: X(구 트위터), Creatorlink, 윗치폼 / 비영리 팬 커뮤니티 기반 프로젝트로, 잔여금은 캐릭터 응원 광고에 소진",
+    steps: [
+      ["기획", "실제 기획사들의 앨범 구성 분석 후 박스/쥬얼 2종과 특전(쇼케이스 티켓) 설계"],
+      ["협업", "일러스트레이터 17명 컨택·모집, 콘셉트와 일러 가이드 전달"],
+      ["디자인", "아웃박스와 구성품 디자인. 로고부터 CD, 가사지, 앨범 프리뷰까지 일러스트 외 전부"],
+      ["제작", "제작 업체 탐색·비교 후 발주, 검수, 포장"],
+      ["판매·홍보", "X 계정으로 예약 판매 모집 후 이미지 순차 공개, 상세 페이지(Creatorlink) 제작, 접수·배송·CS 진행"],
+      ["판매 종료 후", "캐릭터 생일 카카오톡 배너 광고 집행. 클릭률 4.5%로 설정 예산을 조기 소진"]
+    ],
+    cover: "앨범 상세 페이지", coverShape: "tall", coverSrc: "img/album-cover.jpg", coverPos: "50% 66%",
+    media: [["앨범 구성품", "sq", "img/album-parts.jpg", "50% 9%"], ["생일 배너 광고", "sq", "img/album-bday.jpg", "50% 55%"]],
+    cap: "일러스트: 참여 작가님들 / 생일 광고 안내 포스터, 광고판 (기본틀만 제작, 그 외 디벨롭은 외주)"
+  },
+  {
+    id: "dally", cat: "content", label: "Supporters · Dally", when: "2021 · 1학기",
+    title: "달리 서포터즈: 후문 상권 프로젝트 및 SNS 콘텐츠", role: "카드뉴스 2종 기획·제작 / 상권 분석 참여",
+    lead: "상권 분석과 매출 이벤트 제안, 바로 따라 해 볼 수 있는 추천형 카드뉴스 제작.",
+    intro: ["2021학년도 1학기, 중앙 동아리 ‘소네팅’에서 진행한 기업 <달리> 서포터즈 프로젝트에 참여했습니다."],
+    kv: [
+      ["후문 상권", "팀원들과 양식집 1곳을 선정해 강점과 약점을 분석하고, 매출 증대를 위한 이벤트를 제안했습니다. 달리 인스타그램에 게시할 가게 홍보 콘텐츠도 기획·제작했습니다."],
+      ["SNS 콘텐츠", "대학생 독자나 주변 시민이 바로 따라 해 볼 수 있는 체험·트렌드 주제를 골라 익스트림 스포츠, 공방 데이트, 이색 아이스크림, 올해의 팬톤 컬러 추천 등을 짧게 읽히는 추천형 카드뉴스로 풀어냈습니다."]
+    ],
+    links: [["인스타그램 게시물 (1)", "https://www.instagram.com/p/CQbD8oaHytn/"], ["인스타그램 게시물 (2)", "https://www.instagram.com/p/CQYlSgmhVWW/"]],
+    cover: "카드뉴스", coverShape: "sq", coverSrc: "img/dally-cover.jpg",
+    media: [["카드뉴스 1", "sq", "img/dally-1.jpg"], ["카드뉴스 2", "sq", "img/dally-2.jpg"], ["에브리타임 홍보 게시물", "sq", "img/dally-et.jpg", "50% 0%"]],
+    cap: "달리 인스타그램 카드뉴스와 실제 업로드된 에브리타임 홍보 게시물"
+  },
+  {
+    id: "kodak", cat: "content", label: "Brand Popup Project", when: "2023 · 1학기",
+    title: "코닥 X 므네모시네 팝업스토어 기획", role: "콘셉트 기획, 홍보 포스터 디자인",
+    lead: "‘기억은 우리의 뮤즈다’. 신화를 뼈대로 한 브랜드 팝업 기획과 포스터.",
+    intro: [
+      "코닥 브랜드의 팝업스토어를 기획하는 전공 수업 5인 팀 프로젝트입니다. 팀은 ‘기억은 우리의 뮤즈다’를 핵심 메시지로 정하고, 기억의 여신 므네모시네와 그 딸인 뮤즈 신화를 스토리텔링의 뼈대로 삼았습니다. 사진이 디지털로 흩어지는 시대에, 코닥 카메라로 기억을 다시 현상하는 경험을 전달하는 것이 목표였습니다.",
+      "신화 속 장면처럼 연출된 공간에서 코닥 제품으로 촬영한 사진을 마지막에 인화해 증정하는 구조를 제안했습니다. 입구는 카메라 액정 모양의 문으로 서사의 시작을 알리고, 인화를 기다리는 동안에는 같은 콘셉트의 카페·바에서 여운을 이어가도록 동선을 설계했습니다."
+    ],
+    extra: [
+      ["포스터 디자인", "므네모시네의 상상화에 코닥 카메라를 합성해, 자연 속의 여신이 카메라를 들고 있는 장면으로 구성했습니다. 고전 신화 속 인물이 현대의 카메라를 든 어긋난 조합에서 오는 유머를 포인트로 삼아, 진지한 신화 콘셉트가 무겁게만 느껴지지 않고 가볍게 눈길을 끌도록 했습니다. 동시에 ‘기억의 여신이 직접 기억을 기록한다’는 메시지가 한눈에 전달되도록 해, 포스터만 보고도 팝업스토어의 이야기와 브랜드가 함께 떠오르게 하는 데 집중했습니다."],
+      ["배운 점", "기획 의도를 시각물 한 장으로 압축하면서, 포스터가 팝업스토어의 첫인상이자 관람객이 기대하게 될 경험을 미리 보여주는 역할을 한다는 것을 배웠습니다. 팀의 기획 내용을 충분히 이해한 뒤 디자인에 들어가야 메시지가 흐려지지 않는다는 점도 체감했습니다."]
+    ],
+    cover: "팝업 포스터", coverShape: "tall", coverSrc: "img/kodak.jpg",
+    media: []
+  },
+  {
+    id: "webdrama", cat: "video", label: "영상학회 6CC", when: "2024",
+    title: "웹드라마 프로젝트 2부작", sub: "CAST 강지은, 강석환", role: "조연출",
+    lead: "배우 지원자 약 250명을 검토해 섭외하고, 현장 스크립트와 녹음까지 맡았습니다.",
+    intro: ["2024학년도 2학기, 인하대 문화콘텐츠문화경영학과 영상학회 6CC의 웹드라마 프로젝트에서 조연출을 맡았습니다."],
+    stats: [["2,317회", "1화 조회수"], ["5,376회", "2화 조회수"], ["약 250명", "배우 지원자 검토"]],
+    note: "조회수는 2026.10 기준",
+    kv: [
+      ["프리 프로덕션", "배우 모집을 담당해 약 250명의 프로필과 연기 영상을 검토하며 영상에 가장 잘 어울릴 배우를 섭외했습니다. 이후 미술 감독님과 협업해 배우 의상을 선정하고, 연출 감독님의 기획과 콘티에 맞춰 소품과 미술 연출을 함께 진행했습니다."],
+      ["촬영", "슬레이터 및 스크립트를 담당해 현장에서 각 분야 담당과의 소통을 도우며 촬영이 원활하게 진행되도록 했습니다. 음향 담당과 배우들의 내레이션 녹음 작업도 함께 했습니다."],
+      ["포스트 프로덕션", "편집자에게 촬영과 내레이션 녹음의 스크립트를 정리해 전달해 편집이 수월하도록 도왔습니다."]
+    ],
+    links: [["웹드라마 1화", "https://www.youtube.com/watch?v=QHlmC7J3rNA"], ["웹드라마 2화", "https://www.youtube.com/watch?v=2XSOkKmtrEc"]],
+    cover: "웹드라마 스틸", coverSrc: "img/wd-cover.jpg",
+    media: [["웹드라마 1화 스틸", "wide", "img/wd-1.jpg"], ["웹드라마 2화 스틸", "wide", "img/wd-2.jpg"]]
+  },
+  {
+    id: "marigold", cat: "video", label: "영상학회 6CC", when: "2024",
+    title: "<Marigold> Live Clip", sub: "CAST 인하대학교 밴드 동아리 INDKY", role: "아트팀",
+    lead: "밴드 세션 구도와 의상 콘셉트, 현장 조명까지 화면에 담기는 아트를 맡았습니다.",
+    intro: ["2024학년도 2학기, 영상학회 6CC의 라이브 클립 프로젝트에서 연출부 소속 아트팀을 맡았습니다."],
+    kv: [
+      ["프리 프로덕션", "연출부 전체 기획으로서 영상의 콘셉트와 밴드 세션의 구도를 함께 정했습니다. 아트팀으로서는 의상 콘셉트를 논의하고, 영상의 구도를 연출팀과 함께 작업했습니다."],
+      ["촬영", "현장에서 각 분야 담당과 소통하며 카메라에 아트적 요소가 잘 담기도록 팀원과 함께 수정해 나갔습니다. 조명팀과 함께 현장에서 조명 위치를 다시 잡아 카메라에 더 아름답게 잡히도록 연출했습니다."]
+    ],
+    links: [["<Marigold> 라이브 클립", "https://www.youtube.com/watch?v=3kiDytXKUSI"]],
+    cover: "라이브 클립 스틸", coverSrc: "img/mg-cover.jpg",
+    media: [["라이브 스틸 1", "wide", "img/mg-1.jpg"], ["라이브 스틸 2", "wide", "img/mg-2.jpg"]]
+  },
+  {
+    id: "mv", cat: "video", label: "영상학회 6CC", when: "2024",
+    title: "<친구로 지내다 보면> MV", sub: "CAST 유서영, 유재현", role: "편집",
+    lead: "콘티 단계부터 함께 다듬고, 컷 편집과 색보정, 썸네일·포스터까지 맡았습니다.",
+    intro: ["2024학년도 2학기, 영상학회 6CC의 뮤직비디오 제작 프로젝트에서 편집자를 맡았습니다."],
+    kv: [
+      ["프리 프로덕션", "연출을 처음 맡은 감독님의 콘티에서 컷 전환이 어색한 구간이나 음악 길이에 비해 컷 수가 적은 부분에 수정을 제안하며 함께 다듬었습니다. PD와 함께 촬영 로케이션(스튜디오) 섭외도 진행했습니다."],
+      ["촬영", "슬레이터를 맡아 촬영 소스 정리를 돕고, 각 분야 담당과의 소통을 도왔습니다."],
+      ["포스트 프로덕션", "연출자의 컨펌을 받아가며 컷 편집, 색보정, 합성 등 후반 작업을 진행했습니다. 가사와 연출 의도에 맞춰 스토리 흐름을 살리도록 컷을 구성했고, 차분한 느낌을 원한 연출 의도에 맞게 색보정을 해 연출자 확인을 약 5회 거쳐 최종본을 확정했습니다."],
+      ["썸네일·포스터", "썸네일은 친구 이상을 바라는 여주의 감정이 가장 잘 드러나는 우산 장면을 골랐고, 작은 화면에서도 읽히도록 타이틀 크기와 위치를 조정했습니다. 포스터는 별도 촬영 없이 급하게 요청받아, 촬영 소스의 정면샷으로 두 출연자가 모두 담기도록 배치하고 경계를 나눈 뒤 크레딧과 타이틀을 기재했습니다."]
+    ],
+    links: [["<친구로 지내다 보면> MV", "https://www.youtube.com/watch?v=T9Tq5qo6uT4"]],
+    cover: "MV 포스터", coverShape: "tall", coverSrc: "img/mv-cover.jpg", coverPos: "50% 35%",
+    media: [["MV 썸네일", "wide", "img/mv-1.jpg"]]
+  },
+  {
+    id: "askin", cat: "video", label: "영상학회 6CC", when: "2020",
+    title: "새내기 프로젝트 웹예능 <Ask In (h)a Box>", sub: "CAST 정민채, 김솔, 이혜인, 박유빈", role: "연출",
+    lead: "콘셉트와 대본, 콘티, 카메라 3대 촬영까지. 처음 맡은 연출.",
+    intro: ["2020학년도 1학기, 영상학회 6CC의 새내기 프로젝트에서 예능 분야 연출을 맡았습니다."],
+    kv: [
+      ["프리 프로덕션", "새내기끼리 서로를 알아본다는 주제에 맞춰 웹예능 ‘Ask in a box’를 모티브로 전체 콘셉트를 기획했습니다. 같은 조 친구들과 대화하며 성향을 파악한 뒤 출연진의 말투로 대본을 썼고, 스튜디오 섭외와 촬영 방식, 콘티 작업도 전부 담당했습니다."],
+      ["촬영", "팀원 모두가 출연해야 해서 과 선배들의 도움을 받아 촬영했습니다. 최대한 적은 테이크로 끝내기 위해 카메라 3대를 두고 촬영했고, 대본을 인쇄해 팀원들에게 나눠 예능 촬영의 피로도를 줄였습니다."],
+      ["포스트 프로덕션", "편집자에게 인트로 영상 등 편집 소스와 참고할 예능 영상을 전달해, 예능처럼 편집되도록 방향을 잡았습니다."]
+    ],
+    links: [["웹예능 <Ask In (h)a Box>", "https://youtu.be/tctvrMOi5rY"]],
+    cover: "웹예능 촬영 스틸", coverSrc: "img/askin-cover.jpg",
+    media: [["웹예능 스틸 1", "wide", "img/askin-1.jpg"], ["웹예능 스틸 2", "wide", "img/askin-2.jpg"]]
+  },
+  {
+    id: "avatar", cat: "3d", label: "3D Virtual Streamer Freelance", when: "2023 –",
+    title: "3D 버추얼 스트리머 컨설팅 및 외주 작업", role: "1인 제작",
+    lead: "일러스트 레퍼런스에 맞춰 공용 모델을 커스터마이징하고, 방송에 바로 쓸 수 있는 상태로 납품합니다.",
+    intro: [
+      "2023년부터 3D 버추얼 스트리머 의뢰를 받아, 일러스트 레퍼런스에 맞춰 공용 모델을 커스터마이징하고 방송에 바로 쓸 수 있는 상태로 납품하고 있습니다.",
+      "단계별로 고객에게 컨펌을 받으며 신청자의 니즈를 충족시키고 나서야 다음 단계로 넘어가는 시스템을 쌓아, 재의뢰로 이어졌습니다."
+    ],
+    stats: [["15회", "납품"], ["3회", "재의뢰"]],
+    kv: [
+      ["커스터마이징 성형", "의뢰자가 전달한 일러스트 레퍼런스에 맞춰 공용 모델을 블렌더에서 성형"],
+      ["페이셜 제작", "ARKit52 기반 표정을 직접 제작하고, 뾰잉눈(눈을 감았다 뜨면 동공이 움직이는 기능)과 웃는 눈(웃을 때 감은 눈이 웃는 모양으로 변하는 기능)을 추가"],
+      ["헤어·의상 수정", "비전용 헤어와 의상을 블렌더로 수정해 착용"],
+      ["오리지널 소품", "헤일로, 고양이 귀를 직접 제작 (눈을 감으면 귀도 함께 움직이도록 구현)"],
+      ["텍스처 수정", "색 변경부터 전체 교체까지"],
+      ["납품·세팅", "VRM, VSF 추출과 와루도(Warudo) 세팅"]
+    ],
+    links: [["하루아 님 의뢰 영상", "https://youtube.com/watch?v=TAxT91uM8xU"], ["코스미카 님 의뢰 영상", "https://www.youtube.com/watch?v=Ln9wmj9wlMI"], ["아즈가 야누 님 의뢰 영상", "https://www.youtube.com/watch?v=ia7siiqmskI"]],
+    cover: "완성본 (납품 결과)", coverSrc: "img/av-final.jpg", coverPos: "40% 35%",
+    media: [["공용 모델", "sq", "img/av-base.jpg"], ["의뢰자 제공 일러스트", "sq", "img/av-illust.jpg"], ["성형본", "sq", "img/av-result.jpg"]],
+    cap: "공용 모델 → 의뢰자 제공 일러스트 → 커스터마이징 결과"
+  }
+];
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function ph(label, shape, src, pos){
+  if (src) return '<div class="ph ph-' + (shape || "wide") + ' has-img" tabindex="0" role="button" aria-label="' + esc(label) + ' 원본 보기"><img src="' + esc(src) + '" alt="' + esc(label) + '" loading="lazy" decoding="async"' +
+    (pos ? ' style="object-position:' + esc(pos) + '"' : '') + '></div>';
+  return '<div class="ph ph-' + (shape || "wide") + '"><span>' + esc(label) + '</span></div>';
+}
+function cover(w, shape){ return ph(w.cover, shape || w.coverShape || "wide", w.coverSrc, w.coverPos); }
+function detailBody(w){
+  var h = "";
+  (w.intro || []).forEach(function(p){ h += "<p>" + esc(p) + "</p>"; });
+  if (w.stats) {
+    h += '<div class="stats">';
+    w.stats.forEach(function(s){ h += "<div><b>" + esc(s[0]) + "</b><span>" + esc(s[1]) + "</span></div>"; });
+    h += "</div>";
+  }
+  if (w.note) h += '<p class="note">' + esc(w.note) + "</p>";
+  if (w.kv) {
+    h += '<dl class="kv">';
+    w.kv.forEach(function(k){ h += "<dt>" + esc(k[0]) + "</dt><dd>" + esc(k[1]) + "</dd>"; });
+    h += "</dl>";
+  }
+  if (w.steps) {
+    h += '<h5>진행 과정</h5><ol class="steps">';
+    w.steps.forEach(function(s){ h += "<li><strong>" + esc(s[0]) + "</strong> " + esc(s[1]) + "</li>"; });
+    h += "</ol>";
+  }
+  (w.extra || []).forEach(function(x){ h += "<h5>" + esc(x[0]) + "</h5><p>" + esc(x[1]) + "</p>"; });
+  if (w.links) {
+    h += '<div class="links">';
+    w.links.forEach(function(l){ h += '<a href="' + esc(l[1]) + '" target="_blank" rel="noopener">' + esc(l[0]) + ' <span aria-hidden="true">↗</span></a>'; });
+    h += "</div>";
+  }
+  return h;
+}
+function mediaBlock(w){
+  var h = cover(w);
+  if (w.media && w.media.length) {
+    h += '<div class="thumbs n' + w.media.length + '">';
+    w.media.forEach(function(m){ h += ph(m[0], m[1], m[2], m[3]); });
+    h += "</div>";
+  }
+  if (w.cap) h += '<p class="cap">' + esc(w.cap) + "</p>";
+  return h;
+}
+function copyBtn(btn){
+  btn.addEventListener("click", function(){
+    var t = btn.getAttribute("data-copy");
+    function ok(){ btn.textContent = "복사됨"; setTimeout(function(){ btn.textContent = "복사"; }, 1400); }
+    function fb(){
+      var el = btn.parentElement.querySelector(".v");
+      if (el) { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      btn.textContent = "선택됨"; setTimeout(function(){ btn.textContent = "복사"; }, 1400);
+    }
+    try { navigator.clipboard.writeText(t).then(ok, fb); } catch(e){ fb(); }
+  });
+}
+function profileHTML(P){
+  function rows(list){ return '<ul class="rows">' + list.map(function(r){
+    var sub = r[2] ? '<ul>' + r[2].map(function(x){ return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : "";
+    return '<li><span class="when">' + esc(r[0]) + "</span><span>" + esc(r[1]) + sub + "</span></li>"; }).join("") + "</ul>"; }
+  return '' +
+    '<div class="pblock"><h4>Education</h4>' + rows(P.education) + '</div>' +
+    '<div class="pblock"><h4>Certification</h4>' + rows(P.cert) + '</div>' +
+    '<div class="pblock"><h4>Experience</h4>' + rows(P.experience) + '</div>' +
+    '<div class="pblock"><h4>Work</h4>' + rows(P.work) + '</div>' +
+    '<div class="pblock wide"><h4>Skills</h4><ul class="rows skills">' + P.skills.map(function(s){
+      return '<li><strong>' + esc(s[0]) + '</strong><span>' + esc(s[1]) + '</span></li>'; }).join("") + '</ul></div>';
+}
+
+function initLightbox(){
+  var lb = document.createElement("dialog");
+  lb.className = "lb"; lb.setAttribute("aria-label", "이미지 원본 보기");
+  lb.innerHTML = '<div class="lb-bar"><span class="lb-cap" id="lbcap"></span><div class="lb-ctrls">' +
+    '<button type="button" class="ib" id="lbprev" aria-label="이전 이미지">←</button>' +
+    '<button type="button" class="ib" id="lbnext" aria-label="다음 이미지">→</button>' +
+    '<button type="button" class="ib x" id="lbclose">닫기</button></div></div>' +
+    '<div class="lb-stage" id="lbstage"><img id="lbimg" alt=""></div>';
+  document.body.appendChild(lb);
+  var img = lb.querySelector("#lbimg"), cap = lb.querySelector("#lbcap"), stage = lb.querySelector("#lbstage");
+  var prev = lb.querySelector("#lbprev"), next = lb.querySelector("#lbnext"), list = [], i = 0, opener = null;
+  function fit(){ lb.classList.toggle("tall", img.naturalWidth > 0 && img.naturalHeight / img.naturalWidth > 1.9); }
+  img.addEventListener("load", fit);
+  function show(){
+    var src = list[i];
+    img.src = src.getAttribute("src"); img.alt = src.alt;
+    cap.textContent = src.alt + (list.length > 1 ? "  ·  " + (i + 1) + " / " + list.length : "");
+    prev.hidden = next.hidden = list.length < 2;
+    fit(); stage.scrollTop = 0;
+  }
+  function open(ph){
+    var grp = ph.closest(".mcol, .vcard") || ph.parentElement;
+    list = [].slice.call(grp.querySelectorAll(".ph.has-img img"));
+    i = Math.max(0, list.indexOf(ph.querySelector("img")));
+    opener = ph; show();
+    if (!lb.open) { try { lb.showModal(); } catch(e){ lb.setAttribute("open", ""); } }
+  }
+  document.addEventListener("click", function(e){
+    var ph = e.target.closest && e.target.closest(".ph.has-img");
+    if (!ph || ph.closest(".card") || lb.contains(ph)) return;
+    e.preventDefault(); open(ph);
+  });
+  document.addEventListener("keydown", function(e){
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".ph.has-img[tabindex]")) { e.preventDefault(); open(e.target); }
+  });
+  prev.addEventListener("click", function(){ i = (i - 1 + list.length) % list.length; show(); });
+  next.addEventListener("click", function(){ i = (i + 1) % list.length; show(); });
+  lb.querySelector("#lbclose").addEventListener("click", function(){ lb.close(); });
+  lb.addEventListener("click", function(e){
+    if (e.target === lb || e.target === stage) { lb.close(); return; }
+    if (e.target === img && img.naturalWidth) {
+      // the image box fills the stage; only the drawn picture counts as "inside"
+      var r = img.getBoundingClientRect(), k = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight);
+      var w = img.naturalWidth * k, hh = img.naturalHeight * k, x0 = r.left + (r.width - w) / 2, y0 = r.top + (r.height - hh) / 2;
+      if (e.clientX < x0 || e.clientX > x0 + w || e.clientY < y0 || e.clientY > y0 + hh) lb.close();
+    }
+  });
+  lb.addEventListener("keydown", function(e){
+    if (e.key === "ArrowRight" && list.length > 1) { e.stopPropagation(); next.click(); }
+    if (e.key === "ArrowLeft" && list.length > 1) { e.stopPropagation(); prev.click(); }
+  });
+  lb.addEventListener("close", function(){ if (opener && document.contains(opener)) opener.focus(); });
+}
+
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(id){ return document.getElementById(id); };
+  function clamp(x){ return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ease(x){ return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2; }
+  function head(w, tag){
+    return '<div class="dhead rv"><div class="meta"><span class="c">' + esc(w.label) + '</span><span class="y">' + esc(w.when) + '</span></div>' +
+      '<' + tag + '>' + esc(w.title) + '</' + tag + '>' + (w.sub ? '<p class="sub">' + esc(w.sub) + '</p>' : '') +
+      '<p class="lead">' + esc(w.lead) + '</p><span class="role">' + esc(w.role) + '</span></div>';
+  }
+
+  // statement + band
+  var sentence = "기획에서 끝나지 않고, 직접 만들어 반응까지 확인합니다.";
+  var hl = ["직접", "반응까지"];
+  $("stmtp").innerHTML = sentence.split(" ").map(function(w){ return '<span class="w' + (hl.indexOf(w) >= 0 ? " hl" : "") + '">' + esc(w) + "</span>"; }).join(" ");
+  var words = [].slice.call(document.querySelectorAll("#stmtp .w"));
+  var kw = ["Content Planning", "Short-form", "Video Editing", "Premiere Pro", "Photoshop", "CapCut", "Fandom Marketing", "Google Analytics", "3D Avatar Customizing", "Blender", "Unity"];
+  $("band").innerHTML = kw.concat(kw, kw).map(function(k){ return "<span>" + esc(k) + "</span>"; }).join("");
+
+  // chapters
+  var html = "", videoList = WORKS.filter(function(w){ return w.cat === "video"; });
+  function catHead(k, n, desc){
+    return '<section class="cat" data-view data-where="' + esc(CATS[k]) + '" data-dot="' + esc(CATS[k]) + '" id="cat-' + k + '"><div class="wrap">' +
+      '<h2 class="big">' + esc(CATS[k]) + '</h2><div class="bar"><span>' + esc(desc) + '</span></div></div></section>';
+  }
+
+  // content: reveal chapters, alternating sides
+  var cont = WORKS.filter(function(w){ return w.cat === "content"; });
+  html += catHead("content", cont.length, "팬덤과 브랜드, 숏폼까지. 직접 기획하고 만들어 반응을 확인한 작업들");
+  cont.forEach(function(w, i){
+    html += '<article class="ch' + (i % 2 ? " flip" : "") + '" id="' + w.id + '" data-where="' + esc(CATS.content) + ' · ' + esc(w.label) + '"><div class="wrap">' +
+      '<div class="mcol"><div class="reveal" data-view>' + mediaBlock(w) + '</div></div>' +
+      '<div class="tcol">' + head(w, "h3") + '<div class="dbody rv"' + (w.steps ? " data-view" : "") + '>' + detailBody(w) + '</div></div></div></article>';
+  });
+
+  // video: gallery grid that fades in when the section comes into view
+  html += catHead("video", videoList.length, "인하대 영상학회 6CC에서 연출, 조연출, 편집, 아트를 두루 맡았습니다");
+  html += '<section class="vsec" id="vsec" data-where="' + esc(CATS.video) + ' · 영상학회 6CC"><div class="wrap"><div class="vgrid" id="vgrid">' +
+    videoList.map(function(w, i){
+      return '<button type="button" class="vcard card" id="' + w.id + '" data-i="' + i + '" style="--d:' + (i * 0.12).toFixed(2) + 's" aria-label="' + esc(w.title) + ' 자세히 보기">' +
+        '<span class="thumb">' + cover(w, "wide").replace(/ tabindex="0" role="button" aria-label="[^"]*"/, "") + '<span class="more">자세히 보기</span></span>' +
+        '<span class="meta"><span>' + esc(w.when) + '</span><span class="r">' + esc(w.role) + '</span></span>' +
+        '<span class="t">' + esc(w.title) + '</span><span class="l">' + esc(w.lead) + '</span></button>';
+    }).join("") + '</div></div></section>';
+  // 3D: pinned transformation sequence, then details
+  var av = WORKS.filter(function(w){ return w.cat === "3d"; })[0];
+  html += catHead("3d", 1, "공용 모델을 의뢰자의 캐릭터로 바꿔 방송에 바로 쓸 수 있게 납품합니다");
+  html += '<section class="pin seq" id="seq" data-pin data-where="3D · 아바타 커스터마이징 과정"><div class="stage"><div class="wrap grid">' +
+    '<div class="layers" id="layers">' +
+      '<span class="badge" id="badge">완성본</span>' +
+      ph("완성본 (납품 결과)", "sq", "img/av-final.jpg", "40% 35%").replace('class="ph', 'class="ph on') + ph("공용 모델", "sq", "img/av-base.jpg") + ph("의뢰자 제공 일러스트", "sq", "img/av-illust.jpg") + ph("성형본", "sq", "img/av-result.jpg") +
+    '</div>' +
+    '<div><div class="seq-head"><span class="meta">' + esc(av.label) + ' · ' + esc(av.when) + '</span><h3>' + esc(av.title) + '</h3></div>' +
+    '<ol class="ssteps" id="ssteps">' +
+      '<li><span class="no">01</span><div><b>공용 모델</b><p>모든 의뢰의 출발점이 되는 기본 3D 모델</p></div></li>' +
+      '<li><span class="no">02</span><div><b>의뢰자 일러스트</b><p>의뢰자가 전달한 캐릭터 일러스트 레퍼런스</p></div></li>' +
+      '<li><span class="no">03</span><div><b>성형본</b><p>블렌더 성형, ARKit52 페이셜, 헤어·의상·텍스처 수정 후 VRM·VSF로 납품</p></div></li>' +
+    '</ol><div class="meter"><i id="smeter"></i></div></div>' +
+  '</div></div></section>';
+  html += '<article class="ch solo" id="' + av.id + '" data-where="3D · ' + esc(av.label) + '"><div class="wrap"><div class="tcol">' +
+    '<div class="dhead rv"><span class="role" style="margin-top:0">' + esc(av.role) + '</span><p class="lead">' + esc(av.lead) + '</p></div>' +
+    '<div class="dbody rv">' + detailBody(av) + '</div></div></div></article>';
+
+  $("chapters").innerHTML = html;
+
+  // about + contact
+  var P = PROFILE;
+  $("pname").innerHTML = esc(P.name) + "<small>" + esc(P.en.toUpperCase()) + "</small>";
+  $("facts").innerHTML =
+    '<dt>생년월일</dt><dd><span class="v">' + esc(P.birth) + '</span></dd>' +
+    '<dt>전화번호</dt><dd><span class="v">' + esc(P.phone) + '</span><button class="copy" type="button" data-copy="' + esc(P.phone) + '">복사</button></dd>' +
+    '<dt>이메일</dt><dd><span class="v">' + esc(P.email) + '</span><button class="copy" type="button" data-copy="' + esc(P.email) + '">복사</button></dd>';
+  $("pgrid").innerHTML = profileHTML(P).replace(/class="pblock/g, 'class="rv pblock');
+  $("cl").innerHTML =
+    '<div><span><span class="k">Email</span><br><span class="v">' + esc(P.email) + '</span></span><button class="copy" type="button" data-copy="' + esc(P.email) + '">복사</button></div>' +
+    '<div><span><span class="k">Phone</span><br><span class="v">' + esc(P.phone) + '</span></span><button class="copy" type="button" data-copy="' + esc(P.phone) + '">복사</button></div>';
+  document.querySelectorAll("[data-copy]").forEach(copyBtn);
+
+  // dialog for video cards
+  var dlg = $("dlg"), din = $("din"), cur = 0, opener = null;
+  function fill(i){
+    cur = i; var w = videoList[i];
+    din.dataset.cat = w.cat;
+    $("dcat").textContent = w.label + " · " + (i + 1) + " / " + videoList.length;
+    din.innerHTML = '<div class="mcol">' + mediaBlock(w) + '</div><div class="tcol"><div class="dhead"><span class="meta"><span class="y">' + esc(w.when) + '</span></span><h2 id="dtitle">' + esc(w.title) + '</h2>' +
+      (w.sub ? '<p class="sub">' + esc(w.sub) + '</p>' : '') + '<span class="role">' + esc(w.role) + '</span></div><div class="dbody">' + detailBody(w) + '</div></div>';
+    $("dscroll").scrollTop = 0;
+  }
+  document.querySelectorAll(".vcard").forEach(function(b){
+    b.addEventListener("click", function(){ opener = b; fill(+b.dataset.i); try { dlg.showModal(); } catch(e){ dlg.setAttribute("open",""); } document.documentElement.style.overflow = "hidden"; });
+  });
+  dlg.addEventListener("close", function(){ document.documentElement.style.overflow = ""; if (opener) opener.focus(); });
+  $("close").addEventListener("click", function(){ dlg.close(); });
+  $("prev").addEventListener("click", function(){ fill((cur - 1 + videoList.length) % videoList.length); });
+  $("next").addEventListener("click", function(){ fill((cur + 1) % videoList.length); });
+  dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("keydown", function(e){ if (e.key === "ArrowRight") $("next").click(); if (e.key === "ArrowLeft") $("prev").click(); });
+
+  // dot nav
+  var dotSecs = [].slice.call(document.querySelectorAll("[data-dot]"));
+  $("dots").innerHTML = dotSecs.map(function(s){ return '<a href="#' + s.id + '"><span>' + esc(s.dataset.dot) + '</span></a>'; }).join("");
+  var dots = [].slice.call(document.querySelectorAll("#dots a"));
+
+  // reveal: hide only what starts below the fold
+  var rvs = [].slice.call(document.querySelectorAll(".rv"));
+  if (!reduce && "IntersectionObserver" in window) {
+    var vh0 = innerHeight;
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"});
+    rvs.forEach(function(el){ if (el.getBoundingClientRect().top > vh0) { el.classList.add("pre"); io.observe(el); } });
+  }
+
+  // video gallery fade-in
+  var vgrid = $("vgrid");
+  if (!reduce && "IntersectionObserver" in window && vgrid.getBoundingClientRect().top > innerHeight) {
+    vgrid.classList.add("pre");
+    var vio = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { vgrid.classList.remove("pre"); vio.disconnect(); } }, {rootMargin:"0px 0px -18% 0px"});
+    vio.observe(vgrid);
+  }
+
+  // count-up for stats
+  if (!reduce && "IntersectionObserver" in window) {
+    var cio = new IntersectionObserver(function(es){ es.forEach(function(e){
+      if (!e.isIntersecting) return; cio.unobserve(e.target);
+      var el = e.target, txt = el.textContent, m = txt.match(/[\d,.]+/); if (!m) return;
+      var raw = m[0], target = parseFloat(raw.replace(/,/g, "")), dec = (raw.split(".")[1] || "").length, comma = raw.indexOf(",") >= 0;
+      var pre = txt.slice(0, m.index), post = txt.slice(m.index + raw.length), t0 = performance.now();
+      (function step(now){
+        var k = ease(clamp((now - t0) / 1100)), v = (target * k).toFixed(dec);
+        if (comma) v = Number(v).toLocaleString("en-US");
+        el.textContent = pre + v + post;
+        if (k < 1) requestAnimationFrame(step); else el.textContent = txt;
+      })(t0);
+    }); }, {threshold:.6});
+    document.querySelectorAll(".stats b").forEach(function(b){ if (b.getBoundingClientRect().top > innerHeight) cio.observe(b); });
+  }
+
+  // scroll engine
+  var prog = $("prog"), where = $("where"), band = $("band"), stmt = $("stmt");
+  var hero = $("hero"), seq = $("seq");
+  var layers = [].slice.call(document.querySelectorAll("#layers .ph")), ssteps = [].slice.call(document.querySelectorAll("#ssteps li"));
+  var pins = [].slice.call(document.querySelectorAll("[data-pin]")), views = [].slice.call(document.querySelectorAll("[data-view]"));
+  var marks = [].slice.call(document.querySelectorAll("[data-where]"));
+  var stepLis = [].slice.call(document.querySelectorAll(".dbody .steps li"));
+  var wide = matchMedia("(min-width:900px)");
+  function pinP(el){ var r = el.getBoundingClientRect(), span = r.height - innerHeight; return span > 0 ? clamp(-r.top / span) : 0; }
+  var ticking = false;
+  function update(){
+    ticking = false;
+    var y = scrollY, vh = innerHeight, max = document.documentElement.scrollHeight - vh;
+    prog.style.setProperty("--p", max > 0 ? clamp(y / max) : 0);
+
+    if (!reduce) {
+      // hero: any scroll plays the whole opening; back at the top it closes again
+      hero.classList.toggle("open", y > 6);
+    }
+
+    // statement words
+    var r = stmt.getBoundingClientRect(), t = (vh * .78 - r.top) / (r.height * .75);
+    var n = reduce ? words.length : Math.floor(clamp(t) * words.length + .001);
+    for (var i = 0; i < words.length; i++) words[i].classList.toggle("on", i < n);
+
+    // 3D sequence
+    // frame 0 shows the finished avatar first, then 01–03 walk through how it was made
+    var sp = pinP(seq), si = Math.min(3, Math.floor(sp * 4));
+    layers.forEach(function(l, k){ l.classList.toggle("on", k === si); l.classList.toggle("done", k < si); });
+    ssteps.forEach(function(l, k){ l.classList.toggle("on", k === si - 1); });
+    $("badge").textContent = si === 0 ? "완성본" : "0" + si + " / 03";
+    $("smeter").style.setProperty("--s", sp.toFixed(4));
+
+    // view progress (enter → 60% up the screen)
+    views.forEach(function(el){
+      var rr = el.getBoundingClientRect();
+      el.style.setProperty("--v", reduce ? 1 : clamp((vh - rr.top) / (vh * .6)).toFixed(4));
+    });
+    stepLis.forEach(function(li){ li.classList.toggle("on", reduce || li.getBoundingClientRect().top < vh * .62); });
+
+    // header label + dots
+    var label = "PORTFOLIO 2026";
+    marks.forEach(function(m){ if (m.getBoundingClientRect().top < vh * .4) label = m.dataset.where; });
+    if (where.textContent !== label) where.textContent = label;
+    var act = 0;
+    dotSecs.forEach(function(s, k){ if (s.getBoundingClientRect().top < vh * .5) act = k; });
+    dots.forEach(function(d, k){ d.classList.toggle("on", k === act); });
+  }
+  function req(){ if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  addEventListener("scroll", req, {passive:true});
+  addEventListener("resize", req);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(req);
+  update();
+  initLightbox();
+})();
+</script>
+
+</body>
+</html>
