@@ -395,6 +395,28 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
 @media (max-width:560px){.sh-kv>div{grid-template-columns:1fr;gap:4px}}
 .sh-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px}
 .sh-stats div{background:var(--lav);border-radius:12px;padding:12px 14px}.sh-stats b{display:block;font-family:var(--f-latin);font-size:1.35rem}.sh-stats span{font-size:.78rem;color:var(--muted)}
+
+/* brand popup extras */
+.myth{display:grid;gap:14px;align-items:stretch}
+@media (min-width:900px){.myth{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.myth .mt{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin-bottom:6px}
+.myth .mt i{font-style:normal;font-family:var(--f-latin);font-weight:800;font-size:.8rem;width:32px;height:32px;border-radius:9px;background:var(--surface);display:grid;place-items:center;color:var(--accent-ink)}
+.concl{border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:var(--r);padding:clamp(20px,3vw,32px);background:var(--surface);display:grid;gap:14px;align-content:center}
+.concl h4{font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,2vw,1.4rem);margin:0}
+.concl .q{background:var(--lav);border-radius:12px;padding:16px 18px;text-align:center;font-weight:700;color:var(--accent-ink)}
+.concl p{color:var(--soft)}
+.rooms{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rooms li{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;align-items:center;background:var(--surface);border-radius:14px;padding:10px 14px}
+.rooms i{grid-row:1/3;font-style:normal;font-family:var(--f-latin);font-weight:800;font-size:.85rem;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--accent-ink)}
+.rooms i.c-lav{background:var(--lav)}.rooms i.c-sky{background:var(--sky)}.rooms i.c-pink{background:var(--pink)}.rooms i.c-mint{background:var(--mint)}
+.rooms b{font-size:.95rem}.rooms span{font-size:.82rem;color:var(--muted)}
+.plan-card{background:var(--surface);border-radius:var(--r);padding:clamp(16px,2.6vw,28px);display:grid;gap:12px;align-content:start}
+.plan{width:100%;height:auto;display:block}
+.plan-card .flow{font-size:.8rem;font-weight:700;color:var(--accent-ink);text-align:center}
+.plan-card .cap{text-align:center}
+.bda h4{font-family:var(--f-display);font-weight:700;font-size:1.1rem;margin:8px 0 10px}
+.bda ul{margin:0;padding-left:1.1em;display:grid;gap:6px;font-size:.9rem;color:var(--soft)}
+@media (max-width:760px){.bda{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -444,9 +466,9 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
       <p class="ab-why rv">사람들이 보고 즐거워하고, 조금이라도 마음이 움직이는 무언가를 만들고 싶습니다. 머릿속에 그린 장면이 결과물로 나와 누군가에게 닿을 때 가장 즐거웠고, 마케팅은 그 결과물이 더 많은 사람에게 닿게 하는 일이라고 생각합니다.</p>
       <dl class="ab-list rv">
         <div><dt>Education</dt><dd>인하대학교 문화콘텐츠문화경영학과 <small>2020 – 2025</small><br>Memorial University 캐나다 교환학생 <small>2024</small></dd></div>
-        <div><dt>Certificate</dt><dd>GTQ 1급 · IELTS Overall 6.0 · Google Analytics</dd></div>
-        <div><dt>Skills</dt><dd>Photoshop · Premiere Pro · CapCut · Blender · Unity<br><small>Claude · Gemini · NotebookLM으로 기획·자료 분석</small></dd></div>
-        <div><dt>Experience</dt><dd>가상 앨범 기획·판매 · 버추얼 스트리머 3D 외주 · 숏폼 채널 · 달리 서포터즈 · 코닥 팝업스토어 기획 · 영상학회 6CC</dd></div>
+        <div><dt>자격 · 어학</dt><dd>GTQ 1급 · IELTS Overall 6.0 · Google Analytics</dd></div>
+        <div><dt>Skills</dt><dd>Photoshop · Premiere Pro · CapCut <small>편집, 보정, 숏폼 자막</small><br>Blender · Unity <small>모델링, 리깅, ARKit52</small><br>Claude · Gemini · NotebookLM <small>툴 제작, 기획, 자료 분석</small></dd></div>
+        <div><dt>Experience</dt><dd><small>상품 기획·판매</small> 가상 앨범 제작 (2021)<br><small>3D 제작</small> 버추얼 스트리머 외주 (2023~)<br><small>콘텐츠·SNS</small> 숏폼 채널, 달리 서포터즈<br><small>영상 제작</small> 영상학회 6CC 4작품<br><small>브랜드 기획</small> 코닥 팝업스토어 (전공 기획 수업)</dd></div>
       </dl>
     </div>
   </div>
@@ -461,7 +483,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
     <a class="c-lav rv" href="#p1"><span class="no">01</span><h3>가상 아이돌 앨범 제작</h3><span class="kind">상품 기획 · 판매</span><span class="metric">주문 188건 · 굿즈 283개</span></a>
     <a class="c-sky rv" href="#p2"><span class="no">02</span><h3>3D 버추얼 스트리머 외주</h3><span class="kind">외주 제작 · 고객 대응</span><span class="metric">납품 15회 · 재의뢰 3회</span></a>
     <a class="c-pink rv" href="#p3"><span class="no">03</span><h3>숏폼 영상 기획·편집</h3><span class="kind">숏폼 콘텐츠 제작</span><span class="metric">35초 · 15컷 · 1인 제작</span></a>
-    <a class="c-mint rv" href="#p4"><span class="no">04</span><h3>달리 서포터즈</h3><span class="kind">SNS 콘텐츠 · 상권 마케팅</span><span class="metric">리뷰 이벤트 실행 · 카드뉴스 재구성</span></a>
+    <a class="c-mint rv" href="#p4"><span class="no">04</span><h3>달리 서포터즈</h3><span class="kind">SNS 콘텐츠 · 상권 마케팅</span><span class="metric">카드뉴스 2종</span></a>
     <a class="c-lav rv" href="#p5"><span class="no">05</span><h3>코닥 팝업스토어 기획</h3><span class="kind">브랜드 · 공간 기획</span><span class="metric">5인 팀 · 콘셉트·포스터</span></a>
     <a class="c-sky rv" href="#p6"><span class="no">06</span><h3>영상학회 6CC</h3><span class="kind">영상 연출 · 편집</span><span class="metric">4작품 · 프리~포스트</span></a>
   </div>
@@ -472,9 +494,9 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
   <div class="split">
     <div class="stack">
       <div class="eyebrow" style="margin:0"><span class="pill">01 · Fandom Project</span></div>
-      <h2 class="h2">없던 굿즈를,<br>팬이 직접 만들었다.</h2>
+      <h2 class="h2">없던 굿즈를,<br>직접 만들어 보았다.</h2>
       <p class="lead" style="margin-top:0">완결 전이라 공식 앨범도 굿즈도 없던 웹소설 캐릭터.<br>소장하고 싶은 팬의 마음에서 출발해 작가 17명과 앨범을 만들고, 판매까지 혼자 운영했습니다.</p>
-      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>팬들의 소장 수요는 분명했지만 채워 줄 공급이 없었습니다.<br>그 빈자리를 직접 만들어 채워 보기로 했습니다.</p></div>
+      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>팬들의 소장 수요는 분명했지만 채워줄 공급이 없었다.<br>그 빈자리를 직접 만들어 채워보기로 했다.</p></div>
       <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><ul><li>기획사 앨범 구성 분석 → 2종 + 특전 설계</li><li>일러스트레이터 17명 모집 · 콘셉트 가이드</li><li>로고 · 패키지 직접 디자인, 업체 비교 후 제작</li><li>예약 판매 · 순차 공개 · 배송 · CS</li><li>잔여금으로 캐릭터 생일 배너 광고 집행</li></ul></div>
       <div class="stats rv" style="margin-top:12px"><span class="tag">RESULT 결과</span>
         <div class="stat"><b data-count>188건</b><span>주문</span></div>
@@ -504,7 +526,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
   <div class="sub split rev">
     <div class="stack">
       <div class="sub-head" style="margin:0"><h3>실제 기획사처럼, 프로모션까지.</h3></div>
-      <p class="lead" style="margin:0">공식 X 계정에서 컨셉 포토를 넘버링해 순차 공개하며,<br>실제 아이돌 앨범의 티저 프로모션 방식을 그대로 따라갔습니다.</p>
+      <p class="lead" style="margin:0">공식 X 계정에 컨셉 포토를 번호 붙여 하나씩 업로드하면서<br>실제 아이돌 앨범의 티저 공개 방식처럼 프로모션을 진행했습니다.</p>
       <div class="process">
         <div class="tint c-lav rv"><b><i>01</i>컨셉 포토</b><p>Concept Photo #1처럼 번호를 붙여 이미지를 순차 공개</p></div>
         <div class="tint c-sky rv"><b><i>02</i>발매 고지</b><p>앨범명·발매일(2021.09.10)을 티저 형식으로 고지</p></div>
@@ -517,13 +539,13 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
   <div class="sub split">
     <div class="stack">
       <div class="sub-head" style="margin:0"><h3 style="white-space:nowrap;font-size:clamp(1.15rem,2.6vw,2.2rem)">판매에서 끝나지 않고, 광고까지.</h3></div>
-      <p class="lead" style="margin:0">잔여금으로 캐릭터 생일 배너 광고를 집행하며<br>팬 프로젝트를 끝까지 책임졌습니다.</p>
+      <p class="lead" style="margin:0">판매 후 남은 수익으로<br>캐릭터 생일 배너 광고까지 집행했습니다.</p>
       <div class="stats rv" style="margin-top:14px"><span class="tag">RESULT 결과</span>
         <div class="stat"><b data-count>4.5%</b><span>광고 클릭률</span></div>
         <div class="stat"><b>조기 소진</b><span>설정 예산</span></div>
         <div class="stat"><b data-count>100건+</b><span>팬 인증 게시글</span></div>
       </div>
-      <div class="tint c-lav rv"><div class="label">Learned <span>배운 점</span></div><p>팬이 '소장하고 싶어 하는 것'을 구성으로 설계하고, 예약 판매·순차 공개로 기대감을 쌓는 흐름을 직접 운영했습니다.</p>
+      <div class="tint c-lav rv"><div class="label">Learned <span>배운 점</span></div><p>팬이 '소장하고 싶어 하는 것'을 보고 구성을 짰고, 예약 판매와 순차 공개로 기대감을 쌓아 가는 흐름을 직접 운영해 봤습니다.</p>
         <div class="can" style="margin-top:12px"><span class="note">이 경험으로 할 수 있는 것</span><span class="chip">굿즈·MD 기획</span><span class="chip">팬 마케팅</span></div></div>
     </div>
     <div class="media rv">
@@ -536,7 +558,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
     </div>
   </div>
   <div class="sub">
-    <div class="sub-head"><h3>6단계로, 끝까지 직접.</h3><p class="meta-line" style="margin:0">기간 6개월 동안 기획부터 사후 광고까지</p></div>
+    <div class="sub-head"><h3>6단계로, 끝까지 직접.</h3><p class="meta-line" style="margin:0">6개월 동안 기획부터 판매 후 광고까지</p></div>
     <div class="steps6">
       <div class="tint c-lav rv"><div class="t"><span class="n">01</span>기획</div><p>실제 기획사 앨범 구성 분석 → 박스/쥬얼 2종 + 특전(쇼케이스 티켓) 설계</p></div>
       <div class="tint c-sky rv"><div class="t"><span class="n">02</span>협업</div><p>일러스트레이터 17명 공개 모집 + 컨택, 콘셉트·일러 가이드 전달</p></div>
@@ -545,7 +567,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
       <div class="tint c-lav rv"><div class="t"><span class="n">05</span>판매·홍보</div><p>X 예약 판매, 이미지 순차 공개, 상세페이지 제작, 접수·배송·CS</p></div>
       <div class="tint c-sky rv"><div class="t"><span class="n">06</span>사후</div><p>잔여금으로 캐릭터 생일 카카오톡 배너 광고 집행</p></div>
     </div>
-    <p class="callout rv" style="margin-top:14px">아마추어 굿즈가 아니라, 실제 기획사 앨범 구조를 벤치마킹해 실제 앨범 판매처럼 설계했습니다.</p>
+    <p class="callout rv" style="margin-top:14px">기획사 앨범 구성을 참고해, 굿즈가 아닌 진짜 앨범처럼 판매 과정까지 설계했습니다.</p>
   </div>
 
 </div></section>
@@ -561,7 +583,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
       <div class="process">
         <div class="tint c-sky rv"><b><i>01</i>레퍼런스 분석</b><p>일러스트 해석, 범위·일정 합의</p></div>
         <div class="tint c-pink rv"><b><i>02</i>단계별 컨펌</b><p>성형 → 표정 → 헤어·의상</p></div>
-        <div class="tint c-mint rv"><b><i>03</i>제작</b><p>일러스트 기반 모델링 성형, 키워드 기반 성형, ARKit52 표정, 소품 직접 제작</p></div>
+        <div class="tint c-mint rv"><b><i>03</i>제작</b><p>일러스트·키워드 기반 성형, ARKit52 표정, 소품 직접 제작</p></div>
         <div class="tint c-lav rv"><b><i>04</i>납품·세팅</b><p>VRM/VSF 추출, 와루도 세팅</p></div>
       </div>
     </div>
@@ -611,7 +633,7 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
       <div class="eyebrow" style="margin:0"><span class="pill">03 · Short Form</span></div>
       <h2 class="h2">지금 반응 오는 포맷을,<br>바로 만들어 봤다.</h2>
       <p class="meta-line" style="margin:0">2026 · 트렌드 곡으로 만든 35초 팬 숏폼 · 기획·편집 1인</p>
-      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>'연애의 법칙' 팬 에딧이 피드에 반복 노출되는 상황.<br>반응이 식기 전에 같은 흐름의 콘텐츠를 내야 했습니다.</p></div>
+      <div class="tint c-lav rv"><div class="label">Situation <span>상황</span></div><p>'연애의 법칙' 팬 에딧이 피드에 계속 보였다.<br>반응이 식기 전에 만들어 올려 보고 싶었다.</p></div>
       <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><ol><li>가사 키워드 정리</li><li>라이브·쇼츠·무대에서 장면 매칭</li><li>15컷, 2~3초 단위 전환</li><li>키네틱 자막 + 컬러 규칙 (검정 / 파랑 / 핑크)</li></ol></div>
     </div>
     <div class="media rv">
@@ -701,11 +723,81 @@ dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
       <div class="eyebrow" style="margin:0"><span class="pill">05 · Brand Popup</span></div>
       <h2 class="h2">기억을 다시<br>현상하는 경험.</h2>
       <p class="meta-line" style="margin:0">2023 · 코닥 × 므네모시네 팝업스토어 기획 · 전공 수업: 콘셉트 기획, 홍보 포스터 담당 (5인 팀)</p>
-      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>사진이 디지털로 흩어지며 '인화' 경험이 사라진 시대. 코닥을 다시 경험하게 할 계기가 필요했습니다.<br>→ 핵심 메시지: <b style="color:var(--ink)">기억은 우리의 뮤즈다</b></p></div>
+      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>사진이 디지털로 흩어지면서 '인화'하는 경험이 거의 사라졌다. 코닥을 다시 경험하게 할 계기가 필요했다.<br>→ 핵심 메시지: <b style="color:var(--ink)">기억은 우리의 뮤즈다</b></p></div>
       <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><ol><li>핵심 메시지 정의</li><li>므네모시네 신화로 스토리텔링</li><li>공간·동선 – 액정 모양 입구 → 촬영 → 인화 대기 카페</li><li>홍보 포스터 – 여신 + 코닥 카메라의 유머러스한 조합</li></ol></div>
-      <div class="tint c-pink rv"><div class="label">Learned <span>배운 점</span></div><p>포스터는 팝업의 첫인상. 기획을 충분히 이해한 뒤 디자인해야 메시지가 흐려지지 않는다는 것을 체감했습니다.</p></div>
+      <div class="tint c-pink rv"><div class="label">Learned <span>배운 점</span></div><p>포스터가 팝업의 첫인상이라, 기획을 충분히 이해하고 디자인해야 메시지가 흐려지지 않는다는 걸 알게 됐다.</p></div>
     </div>
     <figure class="frame lav media rv" style="margin:0;max-width:460px;justify-self:center"><img class="zoom" src="img/kodak.jpg" alt="Mnemosyne X KODAK 홍보 포스터" style="aspect-ratio:3/4"><figcaption class="cap" style="padding:6px 4px 0">홍보 포스터</figcaption></figure>
+  </div>
+  <div class="sub">
+    <div class="sub-head"><h3>신화를 입힌 제품은 많았지만,<br>이야기는 없었다.</h3><p class="lead" style="margin:4px 0 0">향 제품이나 주얼리는 이미 신화·별자리와 자주 엮여 왔습니다.<br>하지만 대부분 분위기나 별자리 이미지로만 쓰였고, 제품 뒤에 이야기는 없었습니다.</p></div>
+    <div class="myth">
+      <div class="stack">
+        <div class="tint c-lav rv"><b class="mt"><i>01</i>향 × 신화</b><p>신의 이름과 이미지로 분위기는 냈지만, 그 향에 얽힌 이야기는 들려주지 않았다.</p></div>
+        <div class="tint c-sky rv"><b class="mt"><i>02</i>주얼리 × 별자리</b><p>별자리 모양과 탄생석은 강조했지만, 왜 이 별자리인지에 대한 이야기는 없었다.</p></div>
+        <div class="tint c-pink rv"><b class="mt"><i>03</i>그래서, 이야기부터</b><p>분위기만 빌려 오는 대신, 신화 속 이야기를 브랜드의 메시지로 쓰기로 했다.</p></div>
+      </div>
+      <div class="concl rv">
+        <span class="label">Conclusion</span>
+        <h4>므네모시네와 뮤즈, 그리고 코닥</h4>
+        <p class="q">“우리의 뮤즈는 곧 당신의 지난 기억(MEMO)입니다”</p>
+        <p>코닥을 필름 카메라의 선두주자로 만든 건 소비자였다고 보고, 소비자를 브랜드의 뮤즈로 두었습니다. 추억과 기억이 가진 신성함을 보여주려고 기억의 여신 므네모시네 신화를 가져왔습니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <div class="split">
+      <div class="stack">
+        <div class="sub-head" style="margin:0"><h3>기억은 우리의 뮤즈다,<br>여섯 개의 공간.</h3><p class="lead" style="margin:4px 0 0">140여 년간 소중한 기억(MEMO)을 필름에 담아 온 코닥의 뮤즈를, 오프닝부터 엔딩과 카페까지 여섯 공간으로 나눠 소개하는 동선입니다.</p></div>
+        <ol class="rooms rv">
+          <li><i class="c-lav">◎</i><b>오프닝</b><span>'코닥(Kodak)'의 기억</span></li>
+          <li><i class="c-sky">1</i><b>제1막</b><span>'뮤즈(Muses)'의 기억</span></li>
+          <li><i class="c-pink">2</i><b>거쳐가는 길</b><span>'뮤즈(Muses)'로 승화하는 통로</span></li>
+          <li><i class="c-mint">3</i><b>제2막</b><span>'뮤즈(Muses)'가 탄생하는 공간</span></li>
+          <li><i class="c-lav">4</i><b>엔딩</b><span>오늘의 기억도 당신의 뮤즈가 되길</span></li>
+          <li><i class="c-pink">5</i><b>팝업스토어 &amp; 카페</b><span>므네모시네(Mnemosyne), 기억의 샘물</span></li>
+        </ol>
+      </div>
+      <figure class="plan-card rv" style="margin:0">
+        <svg class="plan" viewBox="0 -12 300 182" role="img" aria-label="팝업스토어 평면도: 입구에서 오프닝, 제1막, 통로, 제2막, 엔딩, 팝업스토어와 카페를 지나 출구로 이어지는 한 방향 동선">
+  <g stroke="#4B4470" stroke-width="1.6" stroke-linejoin="round">
+    <rect x="30" y="16" width="34" height="74" fill="#E9E4FB"/>
+    <rect x="8" y="90" width="56" height="64" fill="#DCEBFB"/>
+    <rect x="64" y="16" width="50" height="112" fill="#FBE3EC"/>
+    <rect x="114" y="16" width="96" height="112" fill="#DFF3E9"/>
+    <rect x="210" y="16" width="84" height="100" fill="#FBE3EC"/>
+    <path d="M64 128 H210 V116 H294 V154 H64 Z" fill="#E9E4FB"/>
+  </g>
+  <g font-family="Noto Sans KR, sans-serif" font-size="8.5" font-weight="700" fill="#352F4D" text-anchor="middle">
+    <text x="47" y="50">◎</text><text x="47" y="62">오프닝</text>
+    <text x="36" y="126">① 제1막</text>
+    <text x="89" y="68">②</text><text x="89" y="80">통로</text>
+    <text x="162" y="68">③</text><text x="162" y="80">제2막</text>
+    <text x="252" y="58">⑤</text><text x="252" y="70">팝업스토어</text><text x="252" y="82">&amp; 카페</text>
+    <text x="250" y="139">④ 엔딩</text>
+  </g>
+  <g fill="#7A68D8">
+    <path d="M44 4 l4 7 l4 -7z"/><path d="M248 11 l4 -7 l4 7z"/>
+    <path d="M24 92 l-4 6 h8z" transform="rotate(180 24 95)"/>
+    <path d="M60 112 l6 -4 v8z" transform="rotate(180 63 112)"/>
+    <path d="M108 40 l6 4 l-6 4z"/><path d="M204 40 l6 4 l-6 4z"/>
+    <path d="M150 124 l4 6 l4 -6z"/><path d="M256 120 l4 -6 l4 6z"/>
+  </g>
+  <g font-family="Inter Tight, sans-serif" font-size="8" font-weight="800" fill="#5B49B8" text-anchor="middle"><text x="48" y="-3">IN</text><text x="252" y="-3">OUT</text></g>
+</svg>
+        <p class="flow">◎ 오프닝 → ① 제1막 → ② 거쳐가는 길 → ③ 제2막 → ④ 엔딩 → ⑤ 팝업스토어 &amp; 카페</p>
+        <figcaption class="cap">▶ 표시는 공간과 공간을 잇는 연결 통로입니다. 입구(IN)에서 출구(OUT)까지 한 방향으로 이어지는 동선입니다.<br>팸플릿 평면도 기준으로 다시 그림</figcaption>
+      </figure>
+    </div>
+  </div>
+  <div class="sub">
+    <div class="sub-head"><h3>오기 전부터 다녀간 뒤까지,<br>콘텐츠로 잇는다.</h3><p class="lead" style="margin:4px 0 0">팝업은 공간만으로 끝나지 않는다고 생각했습니다. 앨범 프로젝트에서 직접 해본 순차 공개 방식을 가져와, 방문 전·현장·방문 후가 한 흐름으로 이어지도록 짰습니다.</p></div>
+    <div class="grid3 bda">
+      <div class="tint c-lav rv"><span class="label">Before</span><h4>오기 전, 궁금하게</h4><ul><li>여신 × 코닥 카메라 포스터 순차 공개</li><li>'당신의 뮤즈는 어떤 기억인가요?' 질문형 티저로 댓글 참여 유도</li><li>사전 예약제로 웨이팅 분산</li></ul></div>
+      <div class="tint c-sky rv"><span class="label">During</span><h4>현장에서, 찍고 기다리게</h4><ul><li>액정 모양 입구 = 첫 인증샷 포인트</li><li>직접 찍은 필름을 현장에서 인화</li><li>기다리는 시간을 카페와 현상 과정 구경으로 콘텐츠화</li></ul></div>
+      <div class="tint c-pink rv"><span class="label">After</span><h4>다녀간 뒤, 한 번 더 보이게</h4><ul><li>#기억은우리의뮤즈 인화 사진 업로드 이벤트</li><li>고른 사진은 팝업 벽면·공식 계정에 전시</li><li>마지막 주에 다음 시즌 예고로 재방문·팔로우 유도</li></ul></div>
+    </div>
+    <p class="callout rv" style="margin-top:14px">찍고, 기다리고, 가져간 기억이 SNS에서 한 번 더 퍼지도록 짰습니다.</p>
   </div>
 </div></section>
 
