@@ -1,0 +1,1273 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>정민채 포트폴리오 (차분한 버전)</title>
+<meta name="description" content="정민채 포트폴리오: 콘텐츠 마케팅 · 기획">
+<meta property="og:type" content="website">
+<meta property="og:title" content="정민채 포트폴리오">
+<meta property="og:description" content="팬의 마음으로 기획하고, 끝까지 직접 만들어 파는 콘텐츠 기획자">
+<meta property="og:image" content="https://jeij27102.github.io/img/og-cover.jpg">
+<meta property="og:url" content="https://jeij27102.github.io/portfolio/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: 캔바 「정민채 포트폴리오 (수정 중)」의 파스텔 카드 시스템을 웹으로.
+   히어로(이름+사진 카드) → About → 6 Projects 목차 → 프로젝트 6개(문제·실행·결과 카드) → Key Results → Thank you.
+   데스크톱 2열, 태블릿/폰 1열. 라벤더·하늘·핑크·민트 4색 카드가 프로젝트 번호를 따라 돌아간다. */
+:root{
+  --bg:#F7F5FC; --surface:#FFFFFF; --ink:#352F4D; --soft:#5B5573; --muted:#8A84A3; --line:#E7E3F3;
+  --accent:#7A68D8; --accent-ink:#5B49B8; --pink-accent:#E98CB0;
+  --lav:#ECE8FB; --sky:#E3EEFB; --pink:#FCE8EF; --mint:#E3F5EC;
+  --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-latin:"Inter Tight","Noto Sans KR",system-ui,sans-serif;
+  --f-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --r:20px; --wrap:1160px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(72px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1rem;line-height:1.75;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent-ink)}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:760px){.wrap{padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:max(40px,env(safe-area-inset-right,0px))}}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(247,245,252,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{font-family:var(--f-latin);font-weight:800;font-size:.95rem;letter-spacing:.02em;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo svg{width:14px;height:14px;fill:var(--accent)}
+.nav nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.nav nav::-webkit-scrollbar{display:none}
+.nav nav a{font-size:.8125rem;color:var(--soft);text-decoration:none;padding:6px 12px;border-radius:999px;white-space:nowrap;transition:background .2s,color .2s}
+.nav nav a:hover,.nav nav a.on{background:var(--lav);color:var(--accent-ink)}
+@media (max-width:640px){.nav nav a.opt{display:none}}
+
+/* shared bits */
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-latin);font-weight:800;font-size:.75rem;letter-spacing:.06em;color:var(--accent-ink);background:var(--surface);border:1.5px solid #CFC6F3;padding:5px 14px;border-radius:999px;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:.8125rem;font-weight:500;padding:5px 14px;border-radius:999px;color:var(--ink)}
+.c-lav{background:var(--lav)}.c-sky{background:var(--sky)}.c-pink{background:var(--pink)}.c-mint{background:var(--mint)}
+.spark{position:absolute;pointer-events:none;fill:var(--accent);opacity:.85}
+.spark.p{fill:var(--pink-accent)}.spark.b{fill:#8FB8EA}
+@media (prefers-reduced-motion:no-preference){.spark{animation:twinkle 3.6s ease-in-out infinite}.spark:nth-of-type(2n){animation-delay:-1.4s}}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(.72) rotate(18deg);opacity:.5}}
+section{position:relative}
+.sec{padding-block:clamp(64px,9vw,120px)}
+.eyebrow{margin-bottom:18px}
+.h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.8rem,4.2vw,2.8rem);line-height:1.35;letter-spacing:-.015em;color:var(--ink)}
+.lead{color:var(--soft);font-size:clamp(.95rem,1.4vw,1.0625rem);margin-top:14px;max-width:56ch}
+.meta-line{color:var(--muted);font-size:.875rem;margin-top:10px}
+.card{background:var(--surface);border-radius:var(--r);padding:clamp(18px,2.4vw,26px);min-width:0}
+.tint{border-radius:var(--r);padding:clamp(18px,2.4vw,24px);min-width:0}
+.label{white-space:nowrap;font-family:var(--f-latin);font-weight:800;font-size:.72rem;letter-spacing:.1em;color:var(--accent-ink);text-transform:uppercase;display:flex;gap:8px;align-items:baseline;margin-bottom:8px}
+.label span{font-family:var(--f-body);font-weight:700;letter-spacing:0;text-transform:none}
+.tint p,.tint li{color:var(--soft);font-size:.9375rem}
+.tint ol,.tint ul{margin:0;padding-left:1.2em;display:grid;gap:2px}
+.split{display:grid;gap:clamp(24px,4vw,56px);align-items:start}
+@media (min-width:920px){.split{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}.split.rev{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}.split.rev>.media{order:-1}}
+.stack{display:grid;gap:14px;min-width:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;position:relative}
+.stat{background:var(--surface);border-radius:16px;padding:16px 18px;min-width:0}
+.stat b{display:block;white-space:nowrap;font-family:var(--f-latin);font-weight:800;font-size:clamp(1.35rem,2.4vw,2rem);line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat span{font-size:.8125rem;color:var(--muted)}
+.stats .tag{position:absolute;top:-11px;left:12px;font-family:var(--f-latin);font-weight:800;font-size:.66rem;letter-spacing:.08em;background:var(--accent);color:#fff;padding:3px 10px;border-radius:999px;z-index:1}
+.media{display:grid;gap:12px;min-width:0}
+.frame{position:relative;background:var(--surface);border-radius:var(--r);padding:10px;box-shadow:12px 12px 0 var(--pink)}
+.frame.lav{box-shadow:12px 12px 0 var(--lav)}.frame.sky{box-shadow:12px 12px 0 var(--sky)}.frame.mint{box-shadow:12px 12px 0 var(--mint)}
+.frame img,.shot img{border-radius:12px;width:100%;height:100%;object-fit:cover}
+.cap{font-size:.78rem;color:var(--muted)}
+.zoom{cursor:zoom-in}
+.grid2{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid3{display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid4{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr))}
+.shot{background:var(--surface);border-radius:16px;padding:8px;min-width:0;display:grid;gap:6px;align-content:start}
+.shot .cap{padding:0 4px 2px}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{display:inline-flex;align-items:center;gap:8px;font-size:.8125rem;font-weight:500;text-decoration:none;color:var(--ink);background:var(--surface);padding:8px 16px;border-radius:999px;border:1px solid var(--line);transition:border-color .2s,transform .2s}
+.links a::before{content:"";border-left:7px solid var(--accent);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.links a:hover{border-color:var(--accent);transform:translateY(-1px)}
+.note{font-size:.75rem;color:var(--muted)}
+.callout{background:var(--surface);border-radius:999px;padding:12px 24px;text-align:center;font-size:.9rem;color:var(--soft)}
+.sub{padding-top:clamp(56px,7vw,96px)}
+.sub-head{display:grid;gap:4px;margin-bottom:22px}
+.sub-head h3{font-family:var(--f-display);font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.35}
+
+/* hero */
+.hero{padding-block:clamp(40px,7vw,96px) clamp(56px,8vw,110px)}
+.hero,.thanks{overflow:clip}
+.nav nav{min-width:0}
+.hero .wrap{display:grid;gap:clamp(36px,5vw,64px);align-items:center}
+@media (min-width:900px){.hero .wrap{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
+.hero h1{font-family:var(--f-display);font-size:clamp(3.6rem,10vw,6.5rem);line-height:1.05;color:var(--ink);margin-top:20px;letter-spacing:-.02em}
+.hero .en{font-family:var(--f-latin);font-weight:600;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+.hero .tagline{font-size:clamp(1.15rem,2.3vw,1.5rem);font-weight:500;line-height:1.6;margin-top:26px}
+.hero .chips{margin-top:24px}
+.hero .contact{margin-top:36px;font-family:var(--f-latin);font-weight:600;font-size:.875rem;color:var(--muted)}
+.photo-card{position:relative;justify-self:center;width:min(100%,380px)}
+.photo-card .inner{background:var(--surface);border-radius:26px;padding:clamp(22px,3vw,34px);box-shadow:16px 16px 0 var(--pink);position:relative;z-index:1}
+.photo-card .oval{aspect-ratio:4/5;border-radius:50%;overflow:hidden;background:#F3E6DE}
+.photo-card .oval img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+
+/* cover (shared) */
+.cv{position:relative;min-height:calc(min(100svh,940px) - 60px);display:flex;overflow:clip}
+.cv-in{display:flex;flex-direction:column;justify-content:space-between;gap:48px;width:100%;padding-block:clamp(28px,5vw,56px) clamp(28px,4vw,48px)}
+.cv-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--f-latin);font-weight:800;font-size:.75rem;letter-spacing:.16em;padding-bottom:14px;border-bottom:1.5px solid var(--ink)}
+@media (prefers-reduced-motion:no-preference){.cv-in>*{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}.cv-in>*:nth-child(2){animation-delay:.1s}.cv-in>*:nth-child(3){animation-delay:.2s}}
+@keyframes rise{from{opacity:0;translate:0 24px}to{opacity:1;translate:0 0}}
+/* A: editorial */
+.cv-role{font-family:var(--f-latin);font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.cv-h{font-family:var(--f-display);font-weight:400;font-size:clamp(1.6rem,6vw,5.4rem);line-height:1.18;letter-spacing:-.02em;margin-top:18px;color:var(--ink)}
+.cv-h em{font-style:normal;color:var(--accent)}
+.cv-name{margin-top:26px;font-size:1.05rem;font-weight:700;color:var(--soft)}
+.cv-name span{font-family:var(--f-latin);font-weight:600;font-size:.85rem;color:var(--muted);margin-left:8px}
+.cv-idx{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--line)}
+.cv-idx a{display:block;padding:14px 12px 4px 0;text-decoration:none;color:var(--soft);font-size:.85rem;line-height:1.4;transition:color .2s}
+.cv-idx a b{display:block;font-family:var(--f-latin);font-weight:800;font-size:.72rem;color:var(--accent);letter-spacing:.08em;margin-bottom:4px}
+.cv-idx a:hover{color:var(--ink)}
+@media (max-width:760px){.cv-idx{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* B: dark */
+.cv.dark{background:linear-gradient(160deg,#2B2450 0%,#3A2F6B 55%,#4A3A86 100%);color:#F3F0FF}
+.cv.dark .cv-top{border-bottom-color:rgba(255,255,255,.4);color:#E7E1FF}
+.cv-big{font-family:var(--f-latin);font-weight:800;font-size:clamp(3.4rem,15vw,13.5rem);line-height:.88;letter-spacing:-.04em;color:#fff;display:flex;flex-direction:column}
+.cv-big span{color:#BFB2FF}
+.cv-foot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:end;padding-top:18px;border-top:1px solid rgba(255,255,255,.22)}
+.cv-foot .nm{font-size:1.15rem;font-weight:800}.cv-foot .nm span{display:block;font-family:var(--f-latin);font-weight:600;font-size:.8rem;color:#B9B0E0}
+.cv-foot .tag{color:#D9D3F5;font-size:.95rem}
+.cv-scroll{font-family:var(--f-latin);font-weight:800;font-size:.75rem;letter-spacing:.16em;color:#fff;text-decoration:none}
+@media (max-width:640px){.cv-foot{grid-template-columns:1fr;gap:10px}}
+
+/* about (simplified) */
+.ab{display:grid;gap:clamp(28px,5vw,72px);align-items:start;margin-top:8px}
+@media (min-width:900px){.ab{grid-template-columns:260px minmax(0,1fr)}}
+.ab-photo{width:min(100%,260px)}
+@media (max-width:899px){.ab-photo{width:min(62%,220px)}}
+.ab-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;border-radius:18px;display:block}
+.ab-name{margin-top:16px;font-weight:800;font-size:1.05rem}
+.ab-name span{font-family:var(--f-latin);font-weight:600;font-size:.8rem;color:var(--muted);margin-left:6px}
+.ab-contact{font-family:var(--f-latin);font-weight:600;font-size:.8rem;color:var(--muted);line-height:1.6;margin-top:4px}
+.ab-why{margin-top:20px;color:var(--soft);font-size:1rem;line-height:1.8;max-width:60ch}
+.ab-list{margin:36px 0 0;border-top:1.5px solid var(--ink)}
+.ab-list>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.ab-list dt{font-family:var(--f-latin);font-weight:800;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);padding-top:3px}
+.ab-list dd{margin:0;color:var(--ink);font-size:.95rem;line-height:1.7}
+.ab-list dd small{color:var(--muted);font-size:.85rem}
+@media (max-width:560px){.ab-list>div{grid-template-columns:1fr;gap:4px}}
+.info dl{margin:0;display:grid;gap:12px}
+.info dt{font-weight:700;color:var(--ink);font-size:.95rem}
+.info dd{margin:0;color:var(--soft);font-size:.875rem}
+.why{background:var(--surface);border-radius:var(--r);padding:clamp(18px,2.4vw,24px)}
+.why p{font-size:.9rem;color:var(--soft)}
+.why p b{color:var(--ink);font-weight:700}
+
+/* contents */
+.toc{display:grid;gap:14px;margin-top:32px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.toc a{display:grid;gap:4px;text-decoration:none;color:var(--ink);border-radius:var(--r);padding:22px 24px;transition:transform .25s,box-shadow .25s;position:relative}
+.toc a:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgba(90,70,180,.45)}
+.toc .no{font-family:var(--f-latin);font-weight:800;font-size:2.1rem;line-height:1}
+.toc .pg{position:absolute;top:20px;right:20px;font-size:.72rem;background:var(--surface);padding:3px 10px;border-radius:999px;color:var(--muted)}
+.toc h3{font-family:var(--f-display);font-size:1.25rem;margin-top:10px}
+.toc .kind{font-size:.8125rem;color:var(--accent-ink)}
+.toc .metric{margin-top:12px;background:var(--surface);border-radius:999px;padding:7px 14px;font-size:.8125rem;justify-self:stretch}
+
+/* project heads */
+.proj{border-top:1px solid var(--line)}
+.proj-head{display:grid;gap:4px;margin-bottom:28px}
+
+.parts{display:grid;gap:12px;grid-template-columns:362fr 282fr 380fr 388fr;align-items:start}
+@media (max-width:700px){.parts{grid-template-columns:362fr 282fr}}
+.parts img{width:100%;height:auto;border-radius:10px}
+
+.reviews{display:grid;gap:10px;background:#111;border-radius:var(--r);padding:10px;box-shadow:12px 12px 0 var(--sky)}
+.reviews img{width:100%;height:auto;border-radius:10px}
+
+@media (min-width:920px){.sticky-col{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));align-self:start}}
+
+.dally-grid{display:grid;gap:8px;grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:stretch}
+
+/* steps */
+.steps6{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+@media (min-width:860px){.steps6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.steps6 .tint{display:grid;gap:8px;align-content:start}
+.steps6 .t{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem}
+.steps6 .n{font-family:var(--f-latin);font-weight:800;font-size:.85rem;width:36px;height:36px;border-radius:10px;background:var(--surface);display:grid;place-items:center;color:var(--accent-ink);flex:none}
+.process{display:grid;gap:10px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.process .tint b{display:block;font-size:.98rem;color:var(--ink);margin-bottom:2px}
+.process .tint b i{font-style:normal;font-family:var(--f-latin);font-weight:800;color:var(--accent);margin-right:8px}
+.can{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.can .chip{background:var(--surface)}
+
+/* card news carousel */
+.carousel{position:relative}
+.track{display:grid;grid-auto-flow:column;grid-auto-columns:min(70%,250px);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 16px;scrollbar-width:thin}
+@media (min-width:900px){.track{grid-auto-columns:calc((100% - 70px)/6)}}
+.track .shot{scroll-snap-align:start}
+.track .shot img{aspect-ratio:1080/1833;object-fit:cover}
+.cbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
+.cbtns button{font:inherit;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.cbtns button:hover{border-color:var(--accent)}
+.cn-hero{display:grid;gap:clamp(24px,4vw,56px);align-items:start}
+@media (min-width:920px){.cn-hero{grid-template-columns:minmax(0,1fr) minmax(0,360px)}}
+
+/* instagram-style card news: only the photo strip moves */
+.ig{width:min(100%,420px);justify-self:center;background:#fff;border-radius:22px;box-shadow:14px 14px 0 var(--pink);overflow:hidden;color:#111}
+.ig-head{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.ig-av{width:34px;height:34px;border-radius:50%;background:#C8312B;color:#fff;font-weight:800;font-size:.9rem;display:grid;place-items:center;box-shadow:0 0 0 2px #fff,0 0 0 4px #E7A0B6}
+.ig-id{display:grid;line-height:1.25;min-width:0}
+.ig-id b{font-size:.85rem}.ig-id small{font-size:.72rem;color:#737373}
+.ig-more{width:20px;height:20px;margin-left:auto;fill:#111}
+.ig-view{position:relative;background:#f3f3f3}
+.ig-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab}
+.ig-track::-webkit-scrollbar{display:none}
+.ig-track.drag{cursor:grabbing;scroll-snap-type:none}
+.ig-slide{flex:0 0 100%;margin:0;scroll-snap-align:center;scroll-snap-stop:always}
+.ig-slide img{width:100%;aspect-ratio:4/5;object-fit:cover;user-select:none;-webkit-user-drag:none}
+.ig-btn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;border:0;background:rgba(255,255,255,.88);cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgba(0,0,0,.18);transition:opacity .2s,transform .2s}
+.ig-btn svg{width:16px;height:16px;fill:none;stroke:#222;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ig-btn:hover{transform:translateY(-50%) scale(1.1)}
+.ig-btn.prev{left:10px}.ig-btn.next{right:10px}
+.ig-btn[disabled]{opacity:0;pointer-events:none}
+.ig-count{position:absolute;top:12px;right:12px;font-size:.72rem;font-weight:600;background:rgba(18,18,18,.7);color:#fff;padding:3px 9px;border-radius:999px;letter-spacing:.02em}
+.ig-actions{display:grid;grid-template-columns:auto auto auto 1fr auto;align-items:center;gap:12px;padding:10px 14px 4px}
+.ig-ic{display:grid;place-items:center;background:none;border:0;padding:0;color:#111}
+button.ig-ic{cursor:pointer}
+.ig-ic svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round;transition:transform .2s}
+#ig-like[aria-pressed="true"]{color:#ED4956}#ig-like[aria-pressed="true"] svg{fill:#ED4956;transform:scale(1.12)}
+#ig-save[aria-pressed="true"] svg{fill:#111}
+.ig-dots{display:flex;justify-content:center;gap:4px;margin-left:-74px}
+.ig-dots button{width:6px;height:6px;border-radius:50%;border:0;padding:0;background:#C7C7C7;cursor:pointer;transition:background .2s,transform .2s}
+.ig-dots button.on{background:#0095F6}
+.ig-cap{font-size:.8125rem;line-height:1.55;padding:4px 14px 0;color:#262626}
+.ig-time{font-size:.62rem;letter-spacing:.06em;color:#8e8e8e;padding:6px 14px 14px}
+@media (min-width:920px){.cn-hero{grid-template-columns:minmax(0,1fr) minmax(0,420px)}}
+
+/* 6cc table */
+.tbl-wrap{overflow-x:auto;background:var(--surface);border-radius:var(--r);padding:6px}
+table{border-collapse:separate;border-spacing:0 6px;width:100%;min-width:640px;font-size:.9rem;table-layout:fixed}
+th{font-weight:700;font-size:.8rem;color:var(--accent-ink);background:var(--lav);padding:10px 14px;text-align:left}
+th:first-child{border-radius:12px 0 0 12px}th:last-child{border-radius:0 12px 12px 0}
+td{padding:12px 14px;border-bottom:1px solid var(--line)}
+td.c,th.c{text-align:center}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.dot.sup{background:transparent;box-shadow:inset 0 0 0 1.5px var(--accent)}
+@media (max-width:640px){.tbl6{min-width:0;font-size:.74rem;line-height:1.45}.tbl6 th,.tbl6 td{padding:9px 5px}.tbl6 th{font-size:.64rem;white-space:nowrap;padding-inline:2px}.tbl6 td:first-child,.tbl6 th:first-child{padding-left:8px}.tbl6 col:nth-child(1){width:29%!important}.tbl6 col:nth-child(2){width:13%!important}.tbl6 col:nth-child(3),.tbl6 col:nth-child(4),.tbl6 col:nth-child(5){width:10%!important}.tbl6 col:nth-child(6){width:28%!important}.tbl6 .dot{width:7px;height:7px}}
+.tbl-legend{display:flex;flex-wrap:wrap;gap:4px 14px;justify-content:flex-end;margin-top:8px;font-size:.75rem;color:var(--muted,#888)}
+.tbl-legend .dot{margin-right:5px;vertical-align:-1px}
+.hl{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.hl .tint{display:grid;gap:10px;align-content:start}
+.hl .thumb{border-radius:12px;overflow:hidden;aspect-ratio:16/9;background:var(--surface)}
+.hl .thumb img{width:100%;height:100%;object-fit:cover}
+.hl .role{justify-self:start;font-size:.72rem;background:var(--surface);padding:3px 10px;border-radius:999px;color:var(--accent-ink);font-weight:700}
+.hl h4{font-family:var(--f-display);font-size:1.15rem;line-height:1.4}
+.hl p{font-size:.85rem}
+
+/* key results */
+.kr{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));margin-top:30px}
+.kr .stat{display:grid;gap:6px}
+.kr .stat em{justify-self:start;font-style:normal;font-size:.7rem;padding:2px 10px;border-radius:999px;color:var(--accent-ink)}
+.tools{margin-top:14px}
+.tools .chip{background:var(--lav)}
+
+/* thanks */
+.thanks{text-align:center;padding-block:clamp(90px,13vw,170px)}
+.thanks h2{font-family:var(--f-latin);font-weight:800;font-size:clamp(3rem,11vw,7rem);letter-spacing:.02em;line-height:1;margin-top:22px}
+.thanks .chips{justify-content:center;margin-top:28px}
+.thanks .wrap{isolation:isolate}.thanks .spark{z-index:-1}
+.contact-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:34px}
+.contact-row div{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:999px;padding:8px 10px 8px 20px;font-family:var(--f-latin);font-weight:700;font-size:.95rem}
+.contact-row .v{user-select:all}
+.copy{font:inherit;font-family:var(--f-body);font-size:.75rem;font-weight:500;padding:5px 12px;border-radius:999px;border:0;background:var(--lav);color:var(--accent-ink);cursor:pointer}
+footer{padding-block:24px;border-top:1px solid var(--line);font-family:var(--f-latin);font-weight:700;font-size:.75rem;letter-spacing:.06em;color:var(--muted)}
+
+/* reveal */
+.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.pre{opacity:0;transform:translateY(36px)}
+
+/* lightbox */
+dialog.lb{border:0;padding:0;margin:0;width:100%;height:100%;max-width:none;max-height:none;background:rgba(30,26,48,.94);color:#fff}
+dialog.lb[open]{display:flex;flex-direction:column}
+dialog.lb::backdrop{background:transparent}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:calc(12px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+.lb-cap{font-size:.85rem;opacity:.85;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lb-ctrls{display:flex;gap:6px;flex:none}
+.lb button{font:inherit;font-size:.8125rem;height:36px;min-width:36px;padding:0 12px;border-radius:999px;cursor:pointer;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+.lb button.x{background:#fff;color:var(--ink);border-color:#fff}
+.lb-stage{flex:1;min-height:0;display:flex;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb-stage img{width:100%;height:100%;object-fit:contain}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rv,.rv.pre{transition:none;opacity:1;transform:none}}
+
+/* ===== motion layer ===== */
+body{background:var(--bgc,var(--bg));transition:background-color .9s ease}
+.nav{background:color-mix(in srgb,var(--bgc,var(--bg)) 86%,transparent);transition:border-color .3s,background-color .9s}
+.nav::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(var(--sp,0))}
+/* intro: pinned, plays to the end on the first scroll (never stops halfway) */
+.intro{position:relative;height:200vh}
+.intro-pin{position:sticky;top:0;height:100svh;overflow:clip}
+.intro-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.intro-bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.95;transition:transform 1.3s cubic-bezier(.65,0,.2,1),opacity 1s}
+.intro-bg .g1{width:62vmax;height:62vmax;background:#DCD3FA;left:-14vmax;top:-20vmax}
+.intro-bg .g2{width:52vmax;height:52vmax;background:#FBD9E6;right:-16vmax;top:6vmax}
+.intro-bg .g3{width:46vmax;height:46vmax;background:#D6E8FB;left:18vmax;bottom:-26vmax}
+.intro-bg .g4{width:34vmax;height:34vmax;background:#D6F1E3;right:8vmax;bottom:-18vmax}
+.intro-bg .spark{position:absolute;transition:transform 1.2s cubic-bezier(.65,0,.2,1),opacity .8s}
+@media (prefers-reduced-motion:no-preference){.intro-bg i{animation:drift 14s ease-in-out infinite alternate}.intro-bg .g2{animation-delay:-4s}.intro-bg .g3{animation-delay:-8s}.intro-bg .g4{animation-delay:-11s}}
+@keyframes drift{to{translate:4vmax 3vmax}}
+.cv-done .intro-bg .g1{transform:translate(-18vmax,-14vmax) scale(.7)}
+.cv-done .intro-bg .g2{transform:translate(18vmax,-10vmax) scale(.6)}
+.cv-done .intro-bg .g3{transform:translate(-10vmax,16vmax) scale(.6);opacity:.6}
+.cv-done .intro-bg .g4{transform:translate(14vmax,12vmax) scale(.7);opacity:.6}
+.cv-done .intro-bg .spark{opacity:0;transform:scale(.4) rotate(40deg)}
+.intro-in{position:relative;height:100%;display:flex;flex-direction:column;padding-top:84px;padding-bottom:28px}
+.intro .cv-top{color:var(--ink);border-bottom-color:currentColor}
+.intro-stack{margin-block:auto}
+.intro-big{margin:0;font-family:var(--f-latin);font-weight:800;font-size:clamp(2.6rem,7.6vw,6.6rem);line-height:.95;letter-spacing:-.01em;display:flex;flex-direction:column;align-items:flex-start;
+  transform-origin:left top;transform:translateY(var(--ty0,0px)) scale(var(--s0,1));color:var(--ink);
+  transition:transform 1.1s cubic-bezier(.65,0,.2,1)}
+.intro-big span:nth-child(2){color:var(--accent)}
+.intro-lines{margin-top:clamp(28px,4vw,44px)}
+.intro-lines .cv-role{opacity:0;transition:opacity .6s}
+.il{overflow:hidden;font-family:var(--f-display);font-weight:700;font-size:clamp(1.5rem,3.8vw,3.2rem);line-height:1.38;letter-spacing:-.015em}
+.il span{display:block;transform:translateY(110%);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.il.em{color:var(--accent)}
+.intro-hint{position:absolute;left:50%;bottom:22px;translate:-50% 0;font-family:var(--f-latin);font-weight:800;font-size:.7rem;letter-spacing:.2em;color:var(--accent-ink);display:flex;flex-direction:column;align-items:center;gap:8px;transition:opacity .3s}
+.intro-hint i{width:1.5px;height:34px;background:linear-gradient(var(--accent),transparent);animation:drip 1.8s ease-in-out infinite;transform-origin:top}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+.cv-done .intro-big{transform:none}
+.cv-done .intro-lines .cv-role{opacity:1;transition-delay:.6s}
+.cv-done .il span{transform:none}
+.cv-done .il:nth-of-type(2) span{transition-delay:.7s}.cv-done .il:nth-of-type(3) span{transition-delay:.82s}.cv-done .il:nth-of-type(4) span{transition-delay:.94s}
+.cv-done .intro-hint{opacity:0}
+/* static fallback */
+html:not(.mo) .intro{height:auto}
+html:not(.mo) .intro-pin{position:relative;height:auto;min-height:100svh;display:grid}
+html:not(.mo) .intro-hint{display:none}
+html:not(.mo) .intro-big{transform:none;color:var(--ink)}
+html:not(.mo) .intro-big span:nth-child(2){color:var(--accent)}
+html:not(.mo) .intro .cv-top{color:var(--ink)}
+html:not(.mo) .intro-lines .cv-role{opacity:1}html:not(.mo) .il span{transform:none}
+
+/* flowing keywords (constant speed) */
+.marq{overflow:clip;padding-block:clamp(22px,3.4vw,38px);border-block:1px solid var(--line);user-select:none}
+.marq-row{display:flex;width:max-content;white-space:nowrap}
+.marq-row span{font-family:var(--f-latin);font-weight:800;font-size:clamp(1.6rem,4.4vw,3.2rem);line-height:1.15;letter-spacing:.01em;padding-right:.55em;color:var(--ink)}
+.marq-row span:nth-child(even){color:var(--accent)}
+.marq-row span i{font-style:normal;color:var(--pink-accent);-webkit-text-stroke:0;font-size:.55em;vertical-align:middle;margin-left:.55em}
+@media (prefers-reduced-motion:no-preference){.marq-row{animation:marq 38s linear infinite}}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+main{isolation:isolate}
+
+/* heading line reveal */
+.mo .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.mo .ln>span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.mo .h2.in .ln>span{transform:none}
+.mo .h2.in .ln:nth-child(2)>span{transition-delay:.09s}.mo .h2.in .ln:nth-child(3)>span{transition-delay:.18s}
+
+/* image wipe reveal */
+.mo .wipe{opacity:0;transform:translateY(56px);transition:opacity .7s ease var(--dl,0s),transform 1s cubic-bezier(.2,.7,.2,1) var(--dl,0s)}
+.mo .wipe.in{opacity:1;transform:none}
+
+/* view cursor */
+.vc{position:fixed;left:0;top:0;z-index:70;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;
+  font-family:var(--f-latin);font-weight:800;font-size:7px;letter-spacing:.06em;pointer-events:none;transform:translate(var(--x,-200px),var(--y,-200px)) translate(-50%,-50%) scale(0);transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.vc.on{transform:translate(var(--x),var(--y)) translate(-50%,-50%) scale(1);transition:transform 0s}
+@media (hover:hover) and (pointer:fine){.mo img.zoom{cursor:none}}
+@media (hover:none),(prefers-reduced-motion:reduce){.vc{display:none}}
+
+/* 6CC detail sheet */
+.hl [data-sheet]{cursor:pointer;transition:transform .25s,box-shadow .25s}
+@media (hover:hover){.hl [data-sheet]:hover{transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(60,45,130,.45)}}
+.links .more{font:inherit;font-size:.8125rem;font-weight:700;padding:8px 14px;border-radius:999px;border:0;background:var(--ink);color:#fff;cursor:pointer}
+dialog.sheet{border:0;padding:0;width:min(760px,calc(100% - 24px));max-height:calc(100svh - 48px);border-radius:22px;background:var(--surface,#fff);color:var(--ink);box-shadow:0 40px 90px -30px rgba(30,20,80,.55)}
+dialog.sheet::backdrop{background:rgba(30,26,48,.55);backdrop-filter:blur(3px)}
+dialog.sheet[open]{animation:sheetIn .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes sheetIn{from{opacity:0;transform:translateY(30px)}}
+.sh-in{padding:clamp(22px,4vw,40px);padding-right:clamp(56px,7vw,64px);display:grid;gap:18px}
+.sh-bar{position:sticky;top:0;height:0;display:flex;justify-content:flex-end;z-index:2}
+.sh-x{margin:12px 12px 0 0;width:38px;height:38px;border-radius:50%;border:0;background:var(--ink);color:#fff;font-size:18px;cursor:pointer;z-index:2}
+.sh-m{font-family:var(--f-latin);font-weight:700;font-size:.78rem;letter-spacing:.06em;color:var(--accent-ink)}
+.sh-t{font-family:var(--f-display);font-weight:700;font-size:clamp(1.4rem,3vw,2rem);line-height:1.35;letter-spacing:-.015em;margin:4px 0 0}
+.sh-lead{font-size:1rem;color:var(--soft)}
+.sh-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px 16px;flex-wrap:wrap}
+.sh-head .links{margin:0;flex-shrink:0}
+.sh-imgs{display:grid;gap:10px}
+.sh-imgs img{width:100%;border-radius:14px;display:block}
+.sh-kv{margin:0;border-top:1.5px solid var(--ink)}
+.sh-kv>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.sh-kv dt{font-weight:800;font-size:.85rem;color:var(--accent-ink)}
+.sh-kv dd{margin:0;font-size:.93rem;line-height:1.75;color:var(--soft)}
+@media (max-width:560px){.sh-kv>div{grid-template-columns:1fr;gap:4px}}
+.sh-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:8px}
+.sh-stats div{background:var(--lav);border-radius:12px;padding:12px 14px}.sh-stats b{display:block;font-family:var(--f-latin);font-size:1.35rem}.sh-stats span{font-size:.78rem;color:var(--muted)}
+
+/* brand popup extras */
+.myth{display:grid;gap:14px;align-items:stretch}
+@media (min-width:900px){.myth{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.myth .mt{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin-bottom:6px}
+.myth .mt i{font-style:normal;font-family:var(--f-latin);font-weight:800;font-size:.8rem;width:32px;height:32px;border-radius:9px;background:var(--surface);display:grid;place-items:center;color:var(--accent-ink)}
+.concl{border:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:var(--r);padding:clamp(20px,3vw,32px);background:var(--surface);display:grid;gap:14px;align-content:center}
+.concl h4{font-family:var(--f-display);font-weight:700;font-size:clamp(1.15rem,2vw,1.4rem);margin:0}
+.concl .q{background:var(--lav);border-radius:12px;padding:16px 18px;text-align:center;font-weight:700;color:var(--accent-ink)}
+.concl p{color:var(--soft)}
+.rooms{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rooms li{display:grid;grid-template-columns:34px minmax(0,1fr);column-gap:12px;align-items:center;background:var(--surface);border-radius:14px;padding:10px 14px}
+.rooms i{grid-row:1/3;font-style:normal;font-family:var(--f-latin);font-weight:800;font-size:.85rem;width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--accent-ink)}
+.rooms i.c-lav{background:var(--lav)}.rooms i.c-sky{background:var(--sky)}.rooms i.c-pink{background:var(--pink)}.rooms i.c-mint{background:var(--mint)}
+.rooms b{font-size:.95rem}.rooms span{font-size:.82rem;color:var(--muted)}
+.room-head{display:grid;gap:clamp(16px,3vw,40px);align-items:center;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.room-head{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}}
+.plan-mini{max-width:420px;justify-self:end;width:100%}
+.room-grid{display:grid;gap:14px;margin-top:clamp(18px,3vw,28px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:600px){.room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:980px){.room-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.room{margin:0;background:var(--surface);border-radius:16px;padding:8px;display:grid;gap:8px;align-content:start}
+.room img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block;cursor:zoom-in}
+.room figcaption{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:10px;align-items:center;padding:2px 6px 6px}
+.room figcaption i{grid-row:1/3;font-style:normal;font-family:var(--f-latin);font-weight:800;font-size:.8rem;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--accent-ink)}
+.room figcaption i.c-lav{background:var(--lav)}.room figcaption i.c-sky{background:var(--sky)}.room figcaption i.c-pink{background:var(--pink)}.room figcaption i.c-mint{background:var(--mint)}
+.room figcaption b{font-size:.95rem}.room figcaption span{font-size:.82rem;color:var(--muted)}
+.room-q{aspect-ratio:16/9;border-radius:10px;background:var(--lav);display:grid;place-items:center;text-align:center;padding:16px;font-weight:700;font-size:.92rem;line-height:1.7;color:var(--accent-ink)}
+.cg-grid{display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.cg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cg-pair{background:var(--surface);border-radius:16px;padding:8px;display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:860px){.cg-pair{grid-template-columns:minmax(0,1fr)}}
+.cg-pair figure{margin:0;position:relative}
+.cg-pair img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;display:block;cursor:zoom-in}
+.cg-pair figcaption{position:absolute;left:8px;top:8px;font-family:var(--f-latin);font-weight:800;font-size:.68rem;letter-spacing:.06em;padding:3px 9px;border-radius:999px;background:rgba(20,16,40,.62);color:#fff}
+.cg-pair figcaption.af{background:var(--accent)}
+.plan-card{background:var(--surface);border-radius:var(--r);padding:clamp(16px,2.6vw,28px);display:grid;gap:12px;align-content:start}
+.plan{width:100%;height:auto;display:block}
+.plan-card .flow{font-size:.8rem;font-weight:700;color:var(--accent-ink);text-align:center}
+.plan-card .cap{text-align:center}
+.bda h4{font-family:var(--f-display);font-weight:700;font-size:1.1rem;margin:8px 0 10px}
+.bda ul{margin:0;padding-left:1.1em;display:grid;gap:6px;font-size:.9rem;color:var(--soft)}
+@media (max-width:760px){.bda{grid-template-columns:1fr}}
+</style>
+<style id="calm">
+/* ===== Calm edition: 차분한 에디토리얼 톤 =====
+   파스텔·반짝이·오프셋 그림자를 걷어내고, 따뜻한 오프화이트 + 먹색 + 단일 슬레이트 블루 포인트.
+   제목은 명조(Noto Serif KR), 본문은 고딕. 카드 대신 얇은 선으로 구획. */
+:root{
+  --bg:#F5F4F0; --surface:#FFFFFF; --ink:#1F1F1D; --soft:#4B4A46; --muted:#8C8A84; --line:#E1DFD8;
+  --accent:#34475E; --accent-ink:#34475E; --pink-accent:#34475E;
+  --lav:#ECEAE4; --sky:#ECEAE4; --pink:#ECEAE4; --mint:#ECEAE4;
+  --f-display:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-latin:"Inter Tight","Noto Sans KR",system-ui,sans-serif;
+  --r:6px;
+}
+body{letter-spacing:-.003em}
+::selection{background:#D9DEE5}
+/* 장식 제거 */
+.spark,.intro-bg{display:none!important}
+.frame,.frame.lav,.frame.sky,.frame.mint,.photo-card .inner,.reviews,.ig{box-shadow:none!important}
+.frame,.ig{border:1px solid var(--line)}
+.reviews{background:#1F1F1D}
+/* 라벨: 알약 → 작은 대문자 텍스트 + 짧은 선 */
+.pill{background:none;border:0;padding:0;border-radius:0;font-weight:600;font-size:.72rem;letter-spacing:.18em;color:var(--muted);gap:10px}
+.pill::before{content:"";width:22px;height:1px;background:var(--muted)}
+.label{font-weight:700;letter-spacing:.16em;color:var(--accent)}
+.label span{color:var(--accent);font-weight:700}
+/* 제목: 명조, 굵기 낮춤 */
+.h2,.sub-head h3,.toc h3,.hl h4,.concl h4,.bda h4,.sh-t,.ab-body .h2{font-family:var(--f-display);font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.h2{line-height:1.4;font-weight:700}
+.lead{color:var(--soft)}
+/* 색 카드 → 흰 바탕 + 얇은 테두리 */
+.tint,.c-lav,.c-sky,.c-pink,.c-mint{background:var(--surface)!important;border:1px solid var(--line)}
+.tint{border-radius:var(--r)}
+.chip.c-lav,.chip.c-sky,.chip.c-pink,.chip.c-mint,.tools .chip,.can .chip{background:transparent!important;border:1px solid var(--line)}
+.card,.why,.stat,.shot,.room,.cg-pair,.plan-card,.tbl-wrap,.concl{border:1px solid var(--line);border-radius:var(--r);box-shadow:none}
+.shot img,.frame img,.room img,.cg-pair img,.hl .thumb,.sh-imgs img,.ab-photo img{border-radius:3px}
+.stat b{color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.stats .tag{background:var(--accent);color:#fff;font-weight:700;letter-spacing:.14em;border:0;border-radius:3px}
+.kr .stat em{background:none!important;padding:0;color:var(--muted);letter-spacing:.02em}
+/* 목차: 숫자 중심의 리스트 */
+.toc{gap:0;border-top:1px solid var(--ink);grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.toc a{border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0;background:transparent!important;padding:22px 4px}
+.toc a:hover{transform:none;box-shadow:none;background:#EFEDE8!important}
+.toc .no{font-weight:500;font-size:1rem;color:var(--muted);letter-spacing:.06em}
+.toc .kind{color:var(--muted)}
+.toc .metric{background:none;padding:0;border-radius:0;color:var(--soft)}
+/* 단계 번호, 방 번호 */
+.steps6 .n,.myth .mt i,.rooms i,.room figcaption i{background:transparent!important;border:1px solid var(--line);border-radius:3px;color:var(--ink);font-weight:600}
+.process .tint b i{color:var(--muted);font-weight:600}
+.concl{border-color:var(--line)}
+.concl .q{background:var(--bg);color:var(--ink);border-radius:3px;font-family:var(--f-display);font-weight:600}
+.callout{border-radius:0;background:transparent;border-block:1px solid var(--line);font-family:var(--f-display)}
+/* 링크·버튼 */
+.links a{border-radius:3px}
+.links a::before{border-left-color:var(--ink)}
+.links a:hover{border-color:var(--ink);transform:none}
+.links .more{border-radius:3px}
+.copy{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:3px}
+.contact-row div{border:1px solid var(--line);border-radius:4px}
+.nav nav a{border-radius:3px}
+.nav nav a:hover,.nav nav a.on{background:transparent;color:var(--ink);box-shadow:inset 0 -1px 0 var(--ink);border-radius:0}
+.logo{font-weight:600;letter-spacing:.14em}
+.logo svg{display:none}
+.nav::after{height:1px;background:var(--ink)}
+/* 표 */
+th{background:var(--bg);color:var(--muted);font-weight:600}
+.dot{background:var(--ink)}.dot.sup{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.sh-stats div{background:var(--bg)}
+.sh-kv dt{color:var(--muted)}
+.hl .role{background:transparent;border:1px solid var(--line);border-radius:3px;color:var(--soft);font-weight:500}
+.cg-pair figcaption.af{background:var(--ink)}
+/* 표지: 블롭 없이 타이포만 */
+.intro-big{font-weight:600;letter-spacing:-.025em}
+.intro-big span:nth-child(2),html:not(.mo) .intro-big span:nth-child(2){color:var(--ink)}
+.il{font-family:var(--f-display);font-weight:500}
+.il.em{color:var(--accent)}
+.cv-role{color:var(--muted);font-weight:600;letter-spacing:.2em}
+.cv-top{font-weight:600;letter-spacing:.22em;border-bottom-width:1px}
+.intro-hint{color:var(--muted)}
+.intro-hint i{background:linear-gradient(var(--muted),transparent)}
+.ab-list{border-top-width:1px}
+.ab-list dt{color:var(--muted);font-weight:600}
+/* Thank you */
+.thanks h2{font-family:var(--f-display);font-weight:500;letter-spacing:-.01em;font-size:clamp(2.6rem,8vw,5rem)}
+/* 모션은 절제 */
+.toc a,.hl [data-sheet]{transition:background .2s}
+@media (hover:hover){.hl [data-sheet]:hover{transform:none;box-shadow:none;border-color:var(--ink)}}
+.vc{background:var(--ink);width:56px;height:56px;font-size:9px;font-weight:600;letter-spacing:.16em}
+dialog.lb{background:rgba(24,24,22,.95)}
+dialog.sheet{border-radius:8px;box-shadow:0 30px 80px -30px rgba(0,0,0,.4)}
+dialog.sheet::backdrop{background:rgba(24,24,22,.5)}
+.sh-x{border-radius:4px}
+.ig-av{box-shadow:none}
+.h2[style*="f-latin"]{font-weight:600!important;letter-spacing:-.02em}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="sp" viewBox="0 0 24 24"><path d="M12 0c.9 6.6 5.4 11.1 12 12-6.6.9-11.1 5.4-12 12-.9-6.6-5.4-11.1-12-12C6.6 11.1 11.1 6.6 12 0z"/></symbol></defs></svg>
+
+<header class="nav" id="nav"><div class="wrap">
+  <a class="logo" href="#top"><svg><use href="#sp"/></svg>JEONG MINCHAE</a>
+  <nav aria-label="섹션">
+    <a href="#about">About</a><a href="#projects">Projects</a><a class="opt" href="#results">Results</a><a href="#contact">Contact</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<!-- HERO -->
+<section class="intro" id="intro" aria-label="표지"><div class="intro-pin">
+  <div class="intro-bg" aria-hidden="true"><i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i>
+    
+    
+    
+    </div>
+  <div class="wrap intro-in">
+    <div class="cv-top"><span>JEONG MINCHAE</span><span>PORTFOLIO</span></div>
+    <div class="intro-stack">
+      <h1 class="intro-big" id="ibig"><span>PORTFOLIO</span></h1>
+      <div class="intro-lines">
+        <p class="cv-role">Content Marketing · Planning</p>
+        <p class="il"><span>팬의 마음으로 기획하고,</span></p>
+        <p class="il em"><span>끝까지 직접 만들어 파는</span></p>
+        <p class="il"><span>콘텐츠 기획자, 정민채.</span></p>
+      </div>
+    </div>
+    <div class="intro-hint" aria-hidden="true">SCROLL<i></i></div>
+  </div>
+</div></section>
+
+
+<!-- ABOUT -->
+<section class="sec" id="about"><div class="wrap">
+  <div class="eyebrow"><span class="pill">About me</span></div>
+  <div class="ab">
+    <div class="ab-photo rv"><img src="../img/profile.jpg" alt="정민채 프로필 사진">
+      <p class="ab-name">정민채 <span>Jeong Minchae</span></p>
+      <p class="ab-contact">jeij27102@gmail.com<br>010-9224-4526</p></div>
+    <div class="ab-body">
+      <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">보는 팬에서 만드는 사람으로.</span><br><span style="white-space:nowrap">만들어 봤고, 팔아 봤습니다.</span></h2>
+      <p class="ab-why rv">사람들이 보고 즐거워하고, 조금이라도 마음이 움직이는 무언가를 만들고 싶습니다. 머릿속에 그린 장면이 결과물로 나와 누군가에게 닿을 때 가장 즐거웠고, 마케팅은 그 결과물이 더 많은 사람에게 닿게 하는 일이라고 생각합니다.</p>
+      <dl class="ab-list rv">
+        <div><dt>Education</dt><dd>인하대학교 문화콘텐츠문화경영학과 <small>2020 – 2025</small><br>Memorial University 캐나다 교환학생 <small>2024</small></dd></div>
+        <div><dt>자격 · 어학</dt><dd>GTQ 1급 · IELTS Overall 6.0 · Google Analytics</dd></div>
+        <div><dt>Skills</dt><dd>Photoshop · Premiere Pro · CapCut <small>편집, 보정, 숏폼 자막</small><br>Blender · Unity <small>모델링, ARKit52</small><br>AI Tool <small>Claude · Gemini · NotebookLM · 콘텐츠 제작, 툴 제작, 기획, 자료 분석</small></dd></div>
+        <div><dt>Experience</dt><dd><small>상품 기획·판매</small> 웹소설 캐릭터 팬 앨범 제작 (2021)<br><small>3D 제작</small> 버추얼 스트리머 외주 (2023~)<br><small>영상 제작</small> 영상학회 6CC 대표작 4편<br><small>콘텐츠·SNS</small> 아이돌 숏폼, 달리 서포터즈<br><small>브랜드 기획</small> 코닥 팝업스토어 (전공 기획 수업)</dd></div>
+      </dl>
+    </div>
+  </div>
+</div></section>
+
+<!-- CONTENTS -->
+<section class="sec" id="projects" style="padding-top:0"><div class="wrap">
+  <div class="eyebrow"><span class="pill">Contents</span></div>
+  <h2 class="h2" style="font-family:var(--f-latin);font-weight:800">6 Projects</h2>
+  <p class="lead">상품 기획부터 영상 제작까지, 경험 종류별로 정리했습니다.</p>
+  <div class="toc">
+    <a class="c-lav rv" href="#p1"><span class="no">01</span><h3>웹소설 캐릭터 팬 앨범 제작</h3><span class="kind">기획 · 디자인 · 판매</span><span class="metric">주문 188건 · 굿즈 283개</span></a>
+    <a class="c-sky rv" href="#p5"><span class="no">02</span><h3>코닥 팝업스토어 기획</h3><span class="kind">브랜드 · 공간 기획</span><span class="metric">5인 팀 · 홍보 포스터 담당</span></a>
+    <a class="c-pink rv" href="#p4"><span class="no">03</span><h3>달리 서포터즈</h3><span class="kind">SNS 콘텐츠 · 상권 마케팅</span><span class="metric">카드뉴스 2종</span></a>
+    <a class="c-mint rv" href="#p6"><span class="no">04</span><h3>영상학회 6CC</h3><span class="kind">영상 연출 · 편집</span><span class="metric">대표작 4편 · 프리~포스트</span></a>
+    <a class="c-lav rv" href="#p3"><span class="no">05</span><h3>아이돌 숏폼 영상 기획·편집</h3><span class="kind">숏폼 콘텐츠 제작</span><span class="metric">35초 · 15컷 · 1인 제작</span></a>
+    <a class="c-sky rv" href="#p2"><span class="no">06</span><h3>3D 버추얼 스트리머 외주</h3><span class="kind">외주 제작 · 고객 대응</span><span class="metric">납품 15회 · 재의뢰 3회</span></a>
+  </div>
+</div></section>
+
+<!-- 01 앨범 -->
+<section class="sec proj" id="p1"><div class="wrap">
+  <div class="split">
+    <div class="stack">
+      <div class="eyebrow" style="margin:0"><span class="pill">01 · Fandom Project</span></div>
+      <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">A to Z,</span><br><span style="white-space:nowrap">기획부터 CS까지.</span><br><span style="white-space:nowrap">앨범을 직접 만들었다.</span></h2>
+      <p class="meta-line" style="margin:0">2021.06 – 2021.11 · 비공식 웹소설 캐릭터 팬 앨범 프로젝트 · 기획·디자인·제작·판매 운영 1인 (일러스트: 참여 작가 17명)</p>
+      <p class="lead" style="margin-top:0">완결 전이라 공식 앨범도 굿즈도 없던 웹소설 캐릭터.<br>소장하고 싶은 팬의 마음에서 출발해 작가 17명과 앨범을 만들고, 판매까지 혼자 운영했습니다.</p>
+      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>팬들의 소장 수요는 분명했지만 채워줄 공급이 없었습니다.<br>그 빈자리를 직접 만들어 채워 보기로 했습니다.</p></div>
+      <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><p><span style="white-space:nowrap">기획 → 작가 17명 협업 →</span> <span style="white-space:nowrap">디자인 → 제작 →</span> <span style="white-space:nowrap">판매·홍보 → 생일 광고</span></p></div>
+      <div class="stats rv" style="margin-top:12px;grid-template-columns:repeat(2,minmax(0,1fr))"><span class="tag">RESULT 결과</span>
+        <div class="stat"><b data-count>188건</b><span>주문</span></div>
+        <div class="stat"><b data-count>283개</b><span>판매 수량</span></div>
+        <div class="stat"><b data-count>17명</b><span>협업 작가</span></div>
+        <div class="stat"><b data-count>약 1,400명</b><span>계정 팔로워 (프로젝트 당시 기준)</span></div>
+      </div>
+    </div>
+    <div class="media rv">
+      <div class="grid2" style="align-items:start">
+        <figure class="shot" style="margin:0"><img class="zoom" src="../img/album-cover.jpg" alt="앨범 프리뷰 — 로고·패키지 직접 디자인" style="aspect-ratio:555/1200"><figcaption class="cap">앨범 프리뷰 — 로고·패키지 직접 디자인</figcaption></figure>
+        <figure class="shot" style="margin:0;margin-top:40px"><img class="zoom" src="../img/album-bday.jpg" alt="이벤트 종료 전 집행한 생일 배너 광고" style="aspect-ratio:3/4"><figcaption class="cap">이벤트 종료 전 집행한 생일 배너 광고</figcaption></figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <div class="sub-head"><h3>구성품까지, 전부 직접.</h3><p class="lead" style="margin:4px 0 0">로고 · 아웃박스 · CD · 가사지까지 일러스트를 제외한 구성품 디자인을 모두 직접 맡았습니다. (Illustrator · Photoshop 작업)</p></div>
+    <div class="parts rv">
+      <figure class="shot" style="margin:0"><img class="zoom" src="../img/parts-1.jpg" alt="MONO ver. 구성 — 패키지 박스 · CD · 부클릿"><figcaption class="cap">MONO ver.</figcaption></figure>
+      <figure class="shot" style="margin:0"><img class="zoom" src="../img/parts-2.jpg" alt="MONO ver. 구성 — 포토카드 · 엽서 · 접지 포스터 · 특전"></figure>
+      <figure class="shot" style="margin:0"><img class="zoom" src="../img/parts-3.jpg" alt="POLY ver. 구성 — 아웃케이스 · CD · 부클릿"><figcaption class="cap">POLY ver.</figcaption></figure>
+      <figure class="shot" style="margin:0"><img class="zoom" src="../img/parts-4.jpg" alt="POLY ver. 구성 — 포토카드 · 가사지 · 특전"></figure>
+    </div>
+    <p class="note" style="margin-top:10px">디자인 상세 컷 4장 (일러스트: 참여 작가) · 눌러서 크게 보기</p>
+  </div>
+
+  <div class="sub split rev">
+    <div class="stack">
+      <div class="sub-head" style="margin:0"><h3>실제 아이돌의 컴백 일정처럼, 프로모션까지.</h3></div>
+      <p class="lead" style="margin:0">이벤트용 X 계정에 컨셉 포토를 번호 붙여 하나씩 업로드하면서<br>실제 앨범 티저 공개 방식처럼 프로모션을 진행했습니다.</p>
+      <div class="process">
+        <div class="tint c-lav rv"><b><i>01</i>컨셉 포토</b><p>Concept Photo #1처럼 번호를 붙여 이미지를 순차 공개</p></div>
+        <div class="tint c-sky rv"><b><i>02</i>발매 고지</b><p>앨범명·발매일(2021.09.10)을 티저 형식으로 고지</p></div>
+        <div class="tint c-pink rv" style="grid-column:1/-1"><b><i>03</i>작가 크레딧</b><p>참여 일러스트레이터를 게시물마다 크레딧으로 표기</p></div>
+      </div>
+    </div>
+    <figure class="frame sky media rv" style="margin:0;max-width:440px;justify-self:center"><img class="zoom" src="../img/x-post.jpg" alt="실제 X 게시물 · Concept Photo #1 (2021.09.05)" style="aspect-ratio:592/742;background:#000"><figcaption class="cap" style="padding:6px 4px 0">실제 X 게시물 · Concept Photo #1 (2021.09.05)</figcaption></figure>
+  </div>
+
+  <div class="sub split">
+    <div class="stack">
+      <div class="sub-head" style="margin:0"><h3 style="white-space:nowrap;font-size:clamp(1.15rem,2.6vw,2.2rem)">판매에서 끝나지 않고, 광고까지.</h3></div>
+      <p class="lead" style="margin:0">판매 일정이 끝났을 때 캐릭터의 생일이 코앞이었습니다. 팬들과 함께 축하하고 싶어, 프로젝트를 마무리하기 전 생일 당일에 배너 광고를 집행했습니다.<br>팬 투표로 정한 해시태그로 광고 인증 이벤트도 함께 열었습니다.</p>
+      <div class="stats rv" style="margin-top:14px"><span class="tag">RESULT 결과</span>
+        <div class="stat"><b data-count>4.5%</b><span>광고 클릭률</span></div>
+        <div class="stat"><b style="font-size:clamp(1.1rem,1.95vw,1.62rem);line-height:1.36">조기 소진</b><span>광고 예산</span></div>
+        <div class="stat"><b data-count>100건+</b><span>해시태그 인증글</span></div>
+      </div>
+      <div class="tint c-lav rv"><div class="label">Learned <span>배운 점</span></div><p>팬이 '소장하고 싶어 하는 것'을 보고 구성을 짰고, 예약 판매와 순차 공개로 기대감을 쌓아 가는 흐름을 직접 운영해 봤습니다.</p></div>
+    </div>
+    <div class="media rv">
+      <figure class="shot" style="margin:0"><img class="zoom" src="../img/kk-banner.jpg" alt="① 카카오톡 배너 광고" style="aspect-ratio:1080/258"><figcaption class="cap">① 카카오톡 배너 광고</figcaption></figure>
+      <div class="grid3" style="align-items:start">
+        <figure class="shot" style="margin:0"><img class="zoom" src="../img/kk-page.jpg" alt="② 카카오톡 공유 시" style="aspect-ratio:3/4;object-position:50% 30%"><figcaption class="cap">② 카카오톡 공유 시</figcaption></figure>
+        <figure class="shot" style="margin:0"><img class="zoom" src="../img/kk-msg.jpg" alt="③ 클릭 시 나타나는 화면" style="aspect-ratio:3/4;object-position:50% 25%"><figcaption class="cap">③ 클릭 시 나타나는 화면</figcaption></figure>
+        <figure class="shot" style="margin:0"><img class="zoom" src="../img/album-bday.jpg" alt="④ 생일 광고 이미지" style="aspect-ratio:3/4"><figcaption class="cap">④ 생일 광고 이미지</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <div class="sub-head"><h3>흠집 하나도, 그냥 보내지 않았다.</h3></div>
+    <div class="process">
+      <div class="tint c-lav rv"><b><i>01</i>품질 검수</b><p>주얼 케이스에 흠집 난 것이 많아 전부 분류하고, 불량은 버리고 새로 구매</p></div>
+      <div class="tint c-sky rv"><b><i>02</i>구성품 재주문</b><p>포토북과 포스터 재질이 예상과 달라, 그대로 보내지 않고 다른 재질로 재주문</p></div>
+      <div class="tint c-pink rv"><b><i>03</i>배송 후 대응</b><p>누락은 확인 후 재발송, 제 기준엔 괜찮아도 구매자가 하자로 느낀 것은 교환</p></div>
+      <div class="tint c-mint rv"><b><i>04</i>일정</b><p>시작 전에 예약 판매와 일러스트 완성 일정을 먼저 정하고 그대로 진행</p></div>
+    </div>
+  </div>
+
+  <div class="sub">
+    <div class="sub-head"><h3>6단계로 본 과정</h3><p class="meta-line" style="margin:0">6개월 동안 기획부터 판매 후 광고까지</p></div>
+    <div class="steps6">
+      <div class="tint c-lav rv"><div class="t"><span class="n">01</span>기획</div><p>실제 기획사 앨범 구성 분석 → 앨범 2종 + 특전(쇼케이스 티켓) 설계</p></div>
+      <div class="tint c-sky rv"><div class="t"><span class="n">02</span>협업</div><p>일러스트레이터 17명 공개 모집 + 컨택, 콘셉트·일러 가이드 전달</p></div>
+      <div class="tint c-pink rv"><div class="t"><span class="n">03</span>디자인</div><p>로고, 아웃박스, CD, 가사지, 앨범 프리뷰까지 일러스트 외 전부 직접 디자인</p></div>
+      <div class="tint c-mint rv"><div class="t"><span class="n">04</span>제작</div><p>제작 업체 탐색·비교 후 발주, 샘플 검수, 포장</p></div>
+      <div class="tint c-lav rv"><div class="t"><span class="n">05</span>판매·홍보</div><p>X 예약 판매, 이미지 순차 공개, 상세페이지 제작, 접수·배송·CS</p></div>
+      <div class="tint c-sky rv"><div class="t"><span class="n">06</span>사후</div><p>잔여금으로 캐릭터 생일 카카오톡 배너 광고 집행</p></div>
+    </div>
+    <p class="callout rv" style="margin-top:14px">여러 기획사들의 앨범 구성과 컴백 과정을 참고해, 실제로 컴백이 진행되는 것 같은 즐거움을 주는 판매 과정을 설계했습니다.</p>
+  </div>
+
+</div></section>
+
+<!-- 02 코닥 -->
+<section class="sec proj" id="p5"><div class="wrap">
+  <div class="split">
+    <div class="stack">
+      <div class="eyebrow" style="margin:0"><span class="pill">02 · Brand Popup</span></div>
+      <h2 class="h2">기억을 다시<br>현상하는 경험.</h2>
+      <p class="meta-line" style="margin:0">2023 · 코닥 × 므네모시네 팝업스토어 기획 · 전공 수업: 콘셉트 공동 기획, 홍보 포스터 담당 (5인 팀)</p>
+      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>사진이 디지털로 흩어지면서 '인화'하는 경험이 거의 사라졌습니다. 코닥을 다시 경험하게 할 계기가 필요했습니다.<br>→ 핵심 메시지: <b style="color:var(--ink)">기억은 우리의 뮤즈다</b></p></div>
+      <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><ol><li>핵심 메시지 정의</li><li>므네모시네 신화로 스토리텔링</li><li>공간·동선 – 여섯 공간을 한 방향으로 잇는 관람 동선</li><li>홍보 포스터 – 여신 + 코닥 카메라의 유머러스한 조합</li></ol></div>
+      <div class="tint c-pink rv"><div class="label">Learned <span>배운 점</span></div><p>포스터가 팝업의 첫인상이라, 기획을 충분히 이해하고 디자인해야 메시지가 흐려지지 않는다는 것을 알게 됐습니다.</p></div>
+    </div>
+    <figure class="frame lav media rv" style="margin:0;max-width:460px;justify-self:center"><img class="zoom" src="../img/kodak.jpg" alt="Mnemosyne X KODAK 홍보 포스터" style="aspect-ratio:3/4"><figcaption class="cap" style="padding:6px 4px 0">홍보 포스터 · Photoshop 합성 (배경 숲: Midjourney 생성)</figcaption></figure>
+  </div>
+  <div class="sub">
+    <div class="sub-head"><h3>신화를 입힌 제품은 많았지만,<br>이야기는 없었다.</h3><p class="lead" style="margin:4px 0 0;max-width:none">향 제품이나 주얼리는 이미 신화·별자리와 자주 엮여 왔습니다.<br>하지만 대부분 분위기나 별자리 이미지로만 쓰였고, 제품 뒤의 이야기는 쉽게 찾아볼 수 없었습니다.</p></div>
+    <div class="myth">
+      <div class="stack">
+        <div class="tint c-lav rv"><b class="mt"><i>01</i>향 × 신화</b><p>신의 이름과 이미지로 분위기는 냈지만, 그 향에 얽힌 이야기는 들려주지 않았습니다.</p></div>
+        <div class="tint c-sky rv"><b class="mt"><i>02</i>주얼리 × 별자리</b><p>별자리 모양과 탄생석은 강조했지만, 왜 이 별자리인지에 대한 이야기는 없었습니다.</p></div>
+        <div class="tint c-pink rv"><b class="mt"><i>03</i>그래서, 이야기부터</b><p>분위기만 빌려 오는 대신, 신화 속 이야기를 브랜드의 메시지로 쓰기로 했습니다.</p></div>
+      </div>
+      <div class="concl rv">
+        <span class="label">Conclusion</span>
+        <h4>므네모시네와 뮤즈, 그리고 코닥</h4>
+        <p class="q">“우리의 뮤즈는 곧 당신의 지난 기억(MEMO)입니다”</p>
+        <p>코닥을 필름 카메라의 선두주자로 만든 건 소비자였다고 보고, 소비자를 브랜드의 뮤즈로 두었습니다. 추억과 기억이 가진 신성함을 보여주기 위해 기억의 여신 므네모시네 신화를 가져왔습니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sub">
+    <div class="room-head">
+      <div class="sub-head" style="margin:0"><h3>기억은 우리의 뮤즈다,<br>여섯 개의 공간.</h3><p class="lead" style="margin:4px 0 0">140여 년간 소중한 기억(MEMO)을 필름에 담아 온 코닥의 뮤즈를, 오프닝부터 엔딩과 카페까지 여섯 공간으로 나눠 소개하는 동선입니다.</p></div>
+      <figure class="plan-card plan-mini rv" style="margin:0">
+        <svg class="plan" viewBox="0 -12 300 182" role="img" aria-label="팝업스토어 평면도: 입구에서 오프닝, 제1막, 통로, 제2막, 엔딩, 팝업스토어와 카페를 지나 출구로 이어지는 한 방향 동선">
+  <g stroke="#5A5953" stroke-width="1.6" stroke-linejoin="round">
+    <rect x="30" y="16" width="34" height="74" fill="#EEECE6"/>
+    <rect x="8" y="90" width="56" height="64" fill="#E6E4DD"/>
+    <rect x="64" y="16" width="50" height="112" fill="#F2F0EB"/>
+    <rect x="114" y="16" width="96" height="112" fill="#E9E7E1"/>
+    <rect x="210" y="16" width="84" height="100" fill="#F2F0EB"/>
+    <path d="M64 128 H210 V116 H294 V154 H64 Z" fill="#EEECE6"/>
+  </g>
+  <g font-family="Noto Sans KR, sans-serif" font-size="8.5" font-weight="700" fill="#352F4D" text-anchor="middle">
+    <text x="47" y="50">◎</text><text x="47" y="62">오프닝</text>
+    <text x="36" y="126">① 제1막</text>
+    <text x="89" y="68">②</text><text x="89" y="80">통로</text>
+    <text x="162" y="68">③</text><text x="162" y="80">제2막</text>
+    <text x="252" y="58">⑤</text><text x="252" y="70">팝업스토어</text><text x="252" y="82">&amp; 카페</text>
+    <text x="250" y="139">④ 엔딩</text>
+  </g>
+  <g class="doors"><rect x="39" y="15" width="16" height="1" fill="#FFFFFF"/><rect x="39" y="16" width="16" height="1" fill="#EEECE6"/><rect x="39" y="89" width="16" height="1" fill="#EEECE6"/><rect x="39" y="90" width="16" height="1" fill="#E6E4DD"/><rect x="63" y="104" width="1" height="16" fill="#E6E4DD"/><rect x="64" y="104" width="1" height="16" fill="#F2F0EB"/><rect x="113" y="52" width="1" height="16" fill="#F2F0EB"/><rect x="114" y="52" width="1" height="16" fill="#E9E7E1"/><rect x="154" y="127" width="16" height="1" fill="#E9E7E1"/><rect x="154" y="128" width="16" height="1" fill="#EEECE6"/><rect x="244" y="115" width="16" height="1" fill="#F2F0EB"/><rect x="244" y="116" width="16" height="1" fill="#EEECE6"/><rect x="244" y="15" width="16" height="1" fill="#FFFFFF"/><rect x="244" y="16" width="16" height="1" fill="#F2F0EB"/></g>
+  <g fill="#34475E">
+    <path d="M43 4 L51 4 L47 11 Z"/><path d="M43 86 L51 86 L47 93 Z"/>
+    <path d="M61 108 L61 116 L68 112 Z"/><path d="M111 56 L111 64 L118 60 Z"/>
+    <path d="M158 125 L166 125 L162 132 Z"/><path d="M248 120 L256 120 L252 113 Z"/>
+    <path d="M248 11 L256 11 L252 4 Z"/>
+  </g>
+  <g font-family="Inter Tight, sans-serif" font-size="8" font-weight="800" fill="#34475E" text-anchor="middle"><text x="48" y="-3">IN</text><text x="252" y="-3">OUT</text></g>
+</svg>
+        <p class="flow">◎ 오프닝 → ① 제1막 → ② 거쳐가는 길 → ③ 제2막 → ④ 엔딩 → ⑤ 팝업스토어 &amp; 카페</p>
+      </figure>
+    </div>
+    <div class="room-grid">
+      <figure class="room rv"><img class="zoom" src="../img/popup-opening.jpg" alt="오프닝 — 역대 코닥 카메라를 쌓은 원형 조형물과 코닥 역사 벽" loading="lazy"><figcaption><i class="c-lav">◎</i><b>오프닝</b><span>'코닥(Kodak)'의 기억</span></figcaption></figure>
+      <figure class="room rv"><img class="zoom" src="../img/popup-1stroom.jpg" alt="제1막 — 유년기 방, 1990년대 거실, 교실로 이어지는 기억의 방" loading="lazy"><figcaption><i class="c-sky">1</i><b>제1막</b><span>'뮤즈(Muses)'의 기억</span></figcaption></figure>
+      <figure class="room rv"><img class="zoom" src="../img/popup-hallway.jpg" alt="거쳐가는 길 — 나무와 풀이 늘어선 아치형 통로" loading="lazy"><figcaption><i class="c-pink">2</i><b>거쳐가는 길</b><span>'뮤즈(Muses)'로 승화하는 통로</span></figcaption></figure>
+      <figure class="room rv"><img class="zoom" src="../img/popup-2ndroom.jpg" alt="제2막 — 빛나는 원형 문양 둘레의 카메라와 모니터" loading="lazy"><figcaption><i class="c-mint">3</i><b>제2막</b><span>'뮤즈(Muses)'가 탄생하는 공간</span></figcaption></figure>
+      <figure class="room rv"><img class="zoom" src="../img/popup-ending.jpg" alt="엔딩 — 필름 스트립 벽에 최종 메시지를 담은 공간" loading="lazy"><figcaption><i class="c-lav">4</i><b>엔딩</b><span>오늘의 기억도 당신의 뮤즈가 되길</span></figcaption></figure>
+      <figure class="room rv"><img class="zoom" src="../img/popup-storecafe.jpg" alt="팝업스토어와 카페 — 수로가 흐르는 카페와 코닥 스토어" loading="lazy"><figcaption><i class="c-pink">5</i><b>팝업스토어 &amp; 카페</b><span>므네모시네(Mnemosyne), 기억의 샘물</span></figcaption></figure>
+    </div>
+    <p class="note" style="margin-top:10px">* 공간 이미지는 2026년 포트폴리오용 AI 시각화입니다. 2023년 발표 자료의 공간 기획을 바탕으로 만들었습니다.</p>
+  </div>
+  <div class="sub">
+    <div class="sub-head"><h3>오기 전부터 다녀간 뒤까지,<br>콘텐츠로 잇는다.</h3><p class="lead" style="margin:4px 0 0">팝업은 공간만으로 끝나지 않는다고 생각했습니다. 방문 전·현장·방문 후가 한 흐름으로 이어지도록 짰습니다.</p></div>
+    <div class="grid3 bda">
+      <div class="tint c-lav rv"><span class="label">Before</span><h4>오기 전, 궁금하게</h4><ul><li>여신 × 코닥 카메라 포스터 순차 공개</li><li>'당신의 뮤즈는 어떤 기억인가요?' 질문형 티저로 댓글 참여 유도</li><li>사전 예약제로 웨이팅 분산</li></ul></div>
+      <div class="tint c-sky rv"><span class="label">During</span><h4>현장에서, 찍고 기다리게</h4><ul><li>직접 찍은 필름을 현장에서 인화</li><li>기다리는 시간을 카페와 현상 과정 구경으로 콘텐츠화</li></ul></div>
+      <div class="tint c-pink rv"><span class="label">After</span><h4>다녀간 뒤, 한 번 더 보이게</h4><ul><li>#기억은우리의뮤즈 인화 사진 업로드 이벤트</li><li>고른 사진은 팝업 벽면·공식 계정에 전시</li><li>마지막 주에 다음 시즌 예고로 재방문·팔로우 유도</li></ul></div>
+    </div>
+    <p class="callout rv" style="margin-top:14px">찍고, 기다리고, 가져간 기억이 SNS에서 한 번 더 퍼지도록 짰습니다.</p>
+  </div>
+
+</div></section>
+
+
+<!-- 03 달리 -->
+<section class="sec proj" id="p4"><div class="wrap">
+  <div class="stack" style="margin-bottom:clamp(20px,3vw,32px)">
+      <div class="eyebrow" style="margin:0"><span class="pill">03 · Supporters – Dally</span></div>
+      <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">후문 골목에서 피드까지,</span><br><span style="white-space:nowrap">일상을 달리 보이게.</span></h2>
+      <p class="meta-line" style="margin:0">2021 · 라이프스타일 앱 '달리(Dally)' 대학생 서포터즈 · 조별 상권 프로젝트 · 카드뉴스 2종 직접 기획·제작</p>
+  </div>
+  <div class="split">
+    <div class="media rv">
+      <div class="dally-grid">
+        <div class="grid2" style="gap:8px">
+          <img class="zoom shot" src="../img/dally-cover.jpg" alt="카드뉴스 — 이색 아이스크림 (직접 제작)" style="aspect-ratio:1;object-fit:cover;padding:5px;background:var(--accent)">
+          <img class="zoom shot" src="../img/dally-1.jpg" alt="카드뉴스 — 익스트림 스포츠 (직접 제작)" style="aspect-ratio:1;object-fit:cover;padding:5px;background:var(--accent)">
+          <img class="zoom shot" src="../img/dally-2.jpg" alt="카드뉴스 — 방탈출 카페" style="aspect-ratio:1;object-fit:cover;padding:5px">
+          <img class="zoom shot" src="../img/dally-3.jpg" alt="카드뉴스 — 공방 데이트" style="aspect-ratio:1;object-fit:cover;padding:5px">
+        </div>
+        <img class="zoom shot" src="../img/dally-et.jpg" alt="실제 업로드된 홍보 게시물" style="width:100%;height:100%;object-fit:cover;object-position:50% 0;padding:5px">
+      </div>
+      <p class="cap"><span style="display:inline-block;width:9px;height:9px;border-radius:3px;background:var(--accent);margin-right:5px;vertical-align:-1px"></span>보라 테두리: 직접 제작한 카드뉴스 · 오른쪽: 실제 업로드된 홍보 게시물</p>
+      <div class="links"><a href="https://www.instagram.com/p/CQbD8oaHytn/" target="_blank" rel="noopener">익스트림 스포츠 카드뉴스 (직접 제작)</a></div>
+    </div>
+    <div class="stack">
+      <div class="tint c-lav rv"><div class="label">A. 상권 프로젝트</div>
+        <p><b style="color:var(--ink)">문제</b> 후문 상권 가게들의 매출 부진. 회사 요청으로 가게 한 곳을 정해 홍보 방법을 찾는 과제<br><b style="color:var(--ink)">실행</b> 조별로 양식 분야를 맡아 양식집 여러 곳 조사 → 1곳 선정 후 직접 방문해 먹어 보고 위치·주변 상권 확인 → 사장님이 꼽은 경쟁 가게 조사 → 리뷰 이벤트 기획 (조원과 공동)<br><b style="color:var(--ink)">결과</b> 제안한 리뷰 이벤트가 실제 매장에서 실행되어 에브리타임에 홍보 게시물 업로드</p></div>
+      <div class="tint c-sky rv"><div class="label">B. SNS 카드뉴스</div>
+        <p><b style="color:var(--ink)">문제</b> 라이프스타일 앱 '달리'를 알리기 위해, 대학생이 계정을 찾아오게 할 생활 콘텐츠가 꾸준히 필요<br><b style="color:var(--ink)">실행</b> 데이트·액티비티·추천 가게 등 생활 전반에서 주제 선정 → 이색 아이스크림·익스트림 스포츠 편 기획 → 짧게 읽히는 카드 구성</p></div>
+    </div>
+  </div>
+
+  <div class="sub cn-hero">
+    <div class="stack">
+      <div class="sub-head" style="margin:0"><h3>같은 주제, 지금 다시 만든다면.</h3></div>
+      <p class="lead" style="margin:0">2021년 '이색 아이스크림' 카드뉴스를 2026년에 다시 기획·제작한 포트폴리오용 재구성 작업입니다. 옆으로 넘겨 7장 전체를 볼 수 있습니다.</p>
+      <div class="process" style="grid-template-columns:1fr">
+        <div class="tint c-lav rv"><b><i>01</i>후킹</b><p>"아이스크림에 불닭을 넣었다고?" 질문형 첫 장</p></div>
+        <div class="tint c-sky rv"><b><i>02</i>흐름</b><p>배경 → 제품 2종 → 비교 → 인사이트 → 참여, 7장 구성</p></div>
+        <div class="tint c-pink rv"><b><i>03</i>참여</b><p>마지막 장에서 "너라면 뭐 먹어볼래?" 번호 댓글 참여 유도</p></div>
+      </div>
+      <p class="note">* 2026년 포트폴리오용 재구성 · Claude · 미리캔버스 · 사진 출처: 빙그레·롯데</p>
+    </div>
+    <article class="ig rv" id="ig" aria-label="재구성 카드뉴스 인스타그램 게시물">
+      <header class="ig-head">
+        <span class="ig-av" aria-hidden="true">달</span>
+        <span class="ig-id"><b>달리_정민채</b><small>편의점 디저트 노트</small></span>
+        <svg class="ig-more" viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>
+      </header>
+      <div class="ig-view" role="region" aria-roledescription="carousel" aria-label="카드뉴스 7장">
+        <div class="ig-track" id="ig-track" tabindex="0"><figure class="ig-slide"><img src="../img/cn-1.jpg" alt="재구성 카드뉴스 1/7 · 표지" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-2.jpg" alt="재구성 카드뉴스 2/7 · 배경" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-3.jpg" alt="재구성 카드뉴스 3/7 · 멘붕어싸만코" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-4.jpg" alt="재구성 카드뉴스 4/7 · 찰떡아이스 매운 치즈떡볶이맛" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-5.jpg" alt="재구성 카드뉴스 5/7 · 비교" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-6.jpg" alt="재구성 카드뉴스 6/7 · 인사이트" draggable="false"></figure><figure class="ig-slide"><img src="../img/cn-7.jpg" alt="재구성 카드뉴스 7/7 · 참여" draggable="false"></figure></div>
+        <button type="button" class="ig-btn prev" id="ig-prev" aria-label="이전 장"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button type="button" class="ig-btn next" id="ig-next" aria-label="다음 장"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        <span class="ig-count" id="ig-count" aria-live="polite">1/7</span>
+      </div>
+      <div class="ig-actions">
+        <button type="button" class="ig-ic" id="ig-like" aria-label="좋아요" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg></button>
+        <span class="ig-ic"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.4 8.4 0 0 1-12.3 7.5L3.5 20.5l1.4-4.5A8.4 8.4 0 1 1 20.5 11.6z"/></svg></span>
+        <span class="ig-ic"><svg viewBox="0 0 24 24"><path d="M21.5 3.5L10.2 13.8M21.5 3.5l-7 17-4.3-6.7-6.7-4.3z"/></svg></span>
+        <div class="ig-dots" id="ig-dots"></div>
+        <button type="button" class="ig-ic ig-save" id="ig-save" aria-label="저장" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M6 3.5h12v17l-6-4.3-6 4.3z"/></svg></button>
+      </div>
+      <p class="ig-cap"><b>달리_정민채</b> 아이스크림에 불닭 소스? 매운맛에 도전한 이색 아이스크림 두 가지를 정리했어요. 끝까지 넘겨 보고 댓글에 1 아니면 2 남겨 주세요.</p>
+    </article>
+  </div>
+</div></section>
+
+<!-- 04 영상학회 -->
+<section class="sec proj" id="p6"><div class="wrap">
+  <div class="eyebrow"><span class="pill">04 · 영상학회 6CC</span></div>
+  <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">콘티 위에 그리고,</span><br><span style="white-space:nowrap">렌즈 앞에 세우고,</span><br><span style="white-space:nowrap">타임라인 위에서 살렸다.</span></h2>
+  <p class="meta-line">2020–2024 · 대표작 4편 · 연출 · 조연출 · 아트 · 편집</p>
+  <p class="meta-line" style="margin-top:4px">Adobe Premiere Pro · Adobe Photoshop</p>
+  <div class="tbl-wrap rv" style="margin-top:26px"><table class="tbl6"><colgroup><col style="width:31%"><col style="width:13%"><col style="width:12%"><col style="width:12%"><col style="width:12%"><col style="width:20%"></colgroup>
+    <thead><tr><th>작품</th><th class="c">역할</th><th class="c">프리</th><th class="c">촬영</th><th class="c">포스트</th><th>성과</th></tr></thead>
+    <tbody>
+      <tr><td>웹예능 &lt;Ask In (h)a Box&gt; (2020)</td><td class="c">연출</td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot sup" title="지원"></i></td><td class="c"><i class="dot sup" title="지원"></i></td><td>기획·대본·콘티 전담</td></tr>
+      <tr><td>웹드라마 2부작 (2024)</td><td class="c">조연출</td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot sup" title="지원"></i></td><td>배우 섭외·슬레이터 · 2화 조회수 5,376회</td></tr>
+      <tr><td>&lt;Marigold&gt; Live Clip (2024)</td><td class="c">아트</td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"></td><td>의상·조명 연출</td></tr>
+      <tr><td>&lt;친구로 지내다 보면&gt; MV (2024)</td><td class="c">편집</td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td class="c"><i class="dot"></i></td><td>MV 편집 (컷·색보정·합성) · 썸네일·포스터 제작</td></tr>
+    </tbody></table></div>
+  <p class="tbl-legend"><span><i class="dot"></i>직접 담당</span><span><i class="dot sup"></i>지원 (촬영 보조, 소스·스크립트 정리 후 전달)</span></p>
+  <div class="stats rv" style="margin-top:26px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"><span class="tag">RESULT 결과</span>
+    <div class="stat"><b data-count>250명</b><span>배우 지원자 검토</span></div>
+    <div class="stat"><b data-count>5,376회</b><span>웹드라마 2화 조회수</span></div>
+    <div class="stat"><b data-count>5회</b><span>MV 연출 컨펌</span></div>
+    <div class="stat"><b data-count>3대</b><span>멀티캠 웹예능 촬영</span></div>
+  </div>
+
+  <div class="sub">
+    <div class="sub-head"><h3>MV 색보정, 전과 후.</h3><p class="lead" style="margin:4px 0 0">로그 촬영본에서 연출자의 의도에 맞춰 색을 잡았습니다.</p><p class="meta-line" style="margin:6px 0 0">MV &lt;친구로 지내다 보면&gt; · Premiere Pro</p></div>
+    <div class="cg-grid">
+      <div class="cg-pair rv">
+        <figure><img class="zoom" src="../img/mv-colorfixbefore3.jpg" alt="MV 색보정 전 — 야경 장면" loading="lazy"><figcaption>Before</figcaption></figure>
+        <figure><img class="zoom" src="../img/mv-colorfix3.jpg" alt="MV 색보정 후 — 야경 장면" loading="lazy"><figcaption class="af">After</figcaption></figure>
+      </div>
+      <div class="cg-pair rv">
+        <figure><img class="zoom" src="../img/mv-colorfixbefore.jpg" alt="MV 색보정 전 — 돌담 길 장면" loading="lazy"><figcaption>Before</figcaption></figure>
+        <figure><img class="zoom" src="../img/mv-colorfix.jpg" alt="MV 색보정 후 — 돌담 길 장면" loading="lazy"><figcaption class="af">After</figcaption></figure>
+      </div>
+      <div class="cg-pair rv">
+        <figure><img class="zoom" src="../img/mv-colorfixbefore2.jpg" alt="MV 색보정 전 — 가로수 길 장면" loading="lazy"><figcaption>Before</figcaption></figure>
+        <figure><img class="zoom" src="../img/mv-colorfix2.jpg" alt="MV 색보정 후 — 가로수 길 장면" loading="lazy"><figcaption class="af">After</figcaption></figure>
+      </div>
+    </div>
+    <p class="cap" style="margin-top:8px">Before: 로그 촬영본 · After: 색보정 후 · 눌러서 크게 보기</p>
+  </div>
+
+  <div class="sub">
+    <div class="sub-head"><h3>작품별 하이라이트</h3></div>
+    <div class="hl">
+      <div data-sheet="mv" class="tint c-mint rv"><div class="thumb"><img class="zoom" src="../img/mv-1.jpg" alt="친구로 지내다 보면 MV"></div><div style="display:flex;gap:6px;flex-wrap:wrap"><span class="role">편집</span><span class="role">썸네일·포스터 제작</span></div><h4>MV &lt;친구로 지내다 보면&gt;</h4><p>콘티 수정 제안, 컷·색보정·합성, 컨펌 5회, 썸네일·포스터 제작</p><div class="links"><button type="button" class="more" data-sheet-open="mv">자세히 보기 →</button><a href="https://www.youtube.com/watch?v=T9Tq5qo6uT4" target="_blank" rel="noopener">영상 링크</a></div></div>
+      <div data-sheet="webdrama" class="tint c-sky rv"><div class="thumb"><img class="zoom" src="../img/wd-1.jpg" alt="웹드라마 2부작"></div><span class="role">조연출</span><h4>웹드라마 2부작</h4><p>지원자 250명 검토해 캐스팅, 의상·소품, 현장 스크립트·슬레이터</p><div class="links"><button type="button" class="more" data-sheet-open="webdrama">자세히 보기 →</button><a href="https://www.youtube.com/watch?v=QHlmC7J3rNA" target="_blank" rel="noopener">1화</a><a href="https://www.youtube.com/watch?v=2XSOkKmtrEc" target="_blank" rel="noopener">2화</a></div></div>
+      <div data-sheet="askin" class="tint c-lav rv"><div class="thumb"><img class="zoom" src="../img/askin-cover.jpg" alt="웹예능 Ask In (h)a Box"></div><span class="role">연출</span><h4>웹예능<br>&lt;Ask In (h)a Box&gt;</h4><p>Ask in a box 포맷 차용, 출연진 말투로 대본 작성, 카메라 3대로 테이크 최소화</p><div class="links"><button type="button" class="more" data-sheet-open="askin">자세히 보기 →</button><a href="https://youtu.be/tctvrMOi5rY" target="_blank" rel="noopener">영상 링크</a></div></div>
+      <div data-sheet="marigold" class="tint c-pink rv"><div class="thumb"><img class="zoom" src="../img/mg-1.jpg" alt="Marigold Live Clip"></div><span class="role">아트</span><h4>Live Clip &lt;Marigold&gt;</h4><p>밴드 구도·의상 콘셉트, 현장에서 조명 위치 재조정</p><div class="links"><button type="button" class="more" data-sheet-open="marigold">자세히 보기 →</button><a href="https://www.youtube.com/watch?v=3kiDytXKUSI" target="_blank" rel="noopener">영상 링크</a></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 숏폼 -->
+<section class="sec proj" id="p3"><div class="wrap">
+  <div class="split">
+    <div class="stack">
+      <div class="eyebrow" style="margin:0"><span class="pill">05 · Short Form</span></div>
+      <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">보기만 하던 트렌드에,</span><br><span style="white-space:nowrap">직접 올라탔다.</span></h2>
+      <p class="meta-line" style="margin:0">2026.10 · PLAVE '연애의 법칙' 비공식 팬 숏폼 · 35초 · 기획·편집 1인</p>
+      <p class="meta-line" style="margin:0">CapCut</p>
+      <div class="tint c-lav rv"><div class="label">Situation <span>상황</span></div><p>'연애의 법칙' 팬 에딧이 피드에 계속 보였습니다. 반응이 식기 전에 직접 만들어 올려 보고 싶었습니다.</p></div>
+      <div class="tint c-sky rv"><div class="label">Action <span>실행</span></div><ol><li>가사 키워드 정리</li><li>라이브·쇼츠·무대에서 장면 매칭</li><li>15컷, 2~3초 단위 전환<br><span style="font-size:.85em;color:var(--soft)">같은 장면이 조금만 길어져도 지루하게 느낄 수 있어, 빠른 컷 템포 유지</span></li><li>키네틱 자막 + 핑크 강조<br><span style="font-size:.85em;color:var(--soft)">사랑을 노래하는 곡이라, 강조 색은 사랑을 표현하는 핑크로</span></li></ol></div>
+    </div>
+    <div class="media rv">
+      <div class="grid3" style="align-items:start">
+        <img class="zoom shot" src="../img/short-3.jpg" alt="숏폼 장면 — 키 조금 크고" style="aspect-ratio:9/16;object-fit:cover;padding:6px">
+        <img class="zoom shot" src="../img/short-1.jpg" alt="숏폼 장면 — 살짝 닮고" style="aspect-ratio:9/16;object-fit:cover;padding:6px;margin-top:36px">
+        <img class="zoom shot" src="../img/short-2.jpg" alt="숏폼 장면 — 장미 X 100" style="aspect-ratio:9/16;object-fit:cover;padding:6px">
+      </div>
+      <p class="cap">숏폼 장면 캡처 3컷</p>
+      <div class="stats rv" style="margin-top:22px"><span class="tag">OVERVIEW 작업 개요</span>
+        <div class="stat"><b data-count>35초</b><span>영상 길이</span></div>
+        <div class="stat"><b data-count>15컷</b><span>2~3초 단위 전환</span></div>
+        <div class="stat"><b data-count>1인</b><span>기획·편집 단독</span></div>
+      </div>
+      <div class="links rv"><a href="https://www.youtube.com/shorts/DF7sY4Gxpls" target="_blank" rel="noopener">숏폼 영상 보기</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 06 3D -->
+<section class="sec proj" id="p2"><div class="wrap">
+  <div class="split">
+    <div class="stack">
+      <div class="eyebrow" style="margin:0"><span class="pill">06 · 3D Virtual Streamer</span></div>
+      <h2 class="h2" style="font-size:clamp(1.45rem,3.3vw,2.25rem)"><span style="white-space:nowrap">일러스트 한 장, 키워드 몇 개</span><br><span style="white-space:nowrap">움직이는 3D 아바타로.</span></h2>
+      <p class="meta-line" style="margin:0">2023 ~ 현재 · 버추얼 스트리머 모델 커스터마이징 외주 · 상담부터 납품까지 1인 운영</p>
+      <p class="meta-line" style="margin:0">Blender · Unity · Warudo · VSeeFace · ARKit52</p>
+      <div class="tint c-lav rv"><div class="label">Problem <span>문제</span></div><p>의뢰자가 콘셉트 일러스트까지 준비해도, 3D 공용 베이스로 잘못 만들면 '어디서 본 듯한' 모델이 되기 쉬웠습니다.</p></div>
+      <div class="process">
+        <div class="tint c-sky rv"><b><i>01</i>레퍼런스 분석</b><p>일러스트 해석, 범위·일정 합의</p></div>
+        <div class="tint c-pink rv"><b><i>02</i>단계별 컨펌</b><p>성형 → 표정 → 헤어·의상</p></div>
+        <div class="tint c-mint rv"><b><i>03</i>제작</b><p>일러스트·키워드 기반 커스터마이징, ARKit52 표정, 소품 직접 제작</p></div>
+        <div class="tint c-lav rv"><b><i>04</i>납품·세팅</b><p>VRM · VSF 파일 납품, 와루도 씬 세팅</p></div>
+      </div>
+    </div>
+    <div class="media rv">
+      <div class="tint c-pink" style="margin-bottom:14px"><div class="label">Tracking <span>트래킹 경험</span></div><p>바이브 트래커와 슬라임 트래커로 8점 트래킹을 직접 해 봤습니다. 아바타 파일이 트래킹 장비와 만나 움직이기까지의 구조를 알고 있습니다.</p></div>
+      <figure class="frame sky" style="margin:0"><img class="zoom" src="../img/av-final.jpg" alt="완성 모델 (방송 화면)" style="aspect-ratio:16/10"><figcaption class="cap" style="padding:6px 4px 0">완성 모델 (방송 화면)</figcaption></figure>
+      <div class="grid3" style="margin-top:12px">
+        <img class="zoom shot" src="../img/av-base.jpg" alt="공용 모델" style="aspect-ratio:1;object-fit:cover;padding:6px">
+        <img class="zoom shot" src="../img/av-illust.jpg" alt="의뢰자 일러스트" style="aspect-ratio:1;object-fit:cover;padding:6px">
+        <img class="zoom shot" src="../img/av-result.jpg" alt="커스터마이징 결과" style="aspect-ratio:1;object-fit:cover;padding:6px">
+      </div>
+      <p class="cap">공용 모델 → 의뢰자 일러스트 → 커스터마이징 결과</p>
+    </div>
+  </div>
+
+  <div class="sub split">
+    <div class="stack sticky-col">
+      <div class="sub-head" style="margin:0"><h3>단계별 컨펌이, 재의뢰로 돌아왔다.</h3><p class="lead" style="margin:4px 0 0">아바타 제작 한 건에서 끝나지 않고, 이후 의상 교체 등 추가 의뢰로 이어졌습니다.</p></div>
+      <div class="links rv">
+        <a href="https://youtube.com/watch?v=TAxT91uM8xU" target="_blank" rel="noopener">하루아 님 페이셜 테스트 영상</a>
+        <a href="https://www.youtube.com/watch?v=Ln9wmj9wlMI" target="_blank" rel="noopener">코스미카 님 페이셜 테스트 영상</a>
+        <a href="https://www.youtube.com/watch?v=ia7siiqmskI" target="_blank" rel="noopener">아즈가야누 님 페이셜 테스트 영상</a>
+      </div>
+      <div class="stats rv" style="margin-top:14px"><span class="tag">RESULT 결과</span>
+        <div class="stat"><b data-count>15회</b><span>납품</span></div>
+        <div class="stat"><b data-count>3회</b><span>재의뢰</span></div>
+        <div class="stat"><b data-count>14일</b><span>평균 제작 기간</span></div>
+      </div>
+      <div class="tint c-lav rv"><div class="label">Scope <span>작업 범위</span></div><ul>
+        <li>커스터마이징 성형 (일러스트 레퍼런스 기반)</li><li>페이셜 – ARKit52, 동공 애니메이션·웃는 눈</li><li>헤어·의상 수정</li><li>오리지널 소품 – 헤일로, 움직이는 고양이 귀</li><li>텍스처 수정</li><li>납품·세팅 – VRM, VSF 파일, 와루도 씬 세팅</li></ul></div>
+    </div>
+    <div class="media rv">
+      <div class="label" style="margin:0">Review <span>의뢰자 후기</span></div>
+      <div class="reviews">
+        <img class="zoom" src="../img/rv-1.jpg" alt="의뢰자 후기 1 · 원화와 모델링을 구분하기 어렵다는 반응">
+        <img class="zoom" src="../img/rv-2.jpg" alt="의뢰자 후기 2 · 예쁜 작업물 감사하다는 반응">
+      </div>
+      <p class="cap">실제 디스코드 대화 캡처 · 의뢰자 이름과 프로필은 가렸습니다</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- KEY RESULTS -->
+<section class="sec proj" id="results"><div class="wrap">
+  <div class="eyebrow"><span class="pill">Key Results</span></div>
+  <h2 class="h2">숫자로 보는<br>그동안의 경험</h2>
+  <p class="lead">프로젝트별 핵심 성과와 실제로 다뤄 본 툴</p>
+  <div class="kr">
+    <div class="stat rv"><em class="c-lav">01 팬덤 앨범</em><b data-count>188건</b><span>앨범 주문</span></div>
+    <div class="stat rv"><em class="c-lav">01 팬덤 앨범</em><b data-count>약 1,400명</b><span>프로젝트 X 계정 팔로워 (당시 기준)</span></div>
+    <div class="stat rv"><em class="c-lav">01 팬덤 앨범</em><b data-count>4.5%</b><span>생일 광고 클릭률</span></div>
+    <div class="stat rv"><em class="c-lav">01 팬덤 앨범</em><b data-count>100건+</b><span>해시태그 인증글</span></div>
+    <div class="stat rv"><em class="c-mint">04 영상학회 6CC</em><b data-count>4개 역할</b><span>연출 · 조연출 · 아트 · 편집</span></div>
+    <div class="stat rv"><em class="c-mint">04 영상학회 6CC</em><b data-count>250명</b><span>배우 지원자 검토</span></div>
+    <div class="stat rv"><em class="c-sky">06 3D 외주</em><b data-count>15회</b><span>3D 아바타 납품</span></div>
+    <div class="stat rv"><em class="c-sky">06 3D 외주</em><b data-count>14일</b><span>평균 제작 기간</span></div>
+  </div>
+  <div class="card tools rv"><div class="label">Tools</div><div class="chips">
+    <span class="chip">Photoshop</span><span class="chip">Premiere Pro</span><span class="chip">CapCut</span><span class="chip">Blender</span><span class="chip">Unity</span><span class="chip">Canva</span><span class="chip">Google Analytics (GAC)</span><span class="chip">AI Tool (Claude · Gemini · NotebookLM)</span>
+  </div></div>
+</div></section>
+
+<!-- THANKS -->
+<section class="thanks" id="contact"><div class="wrap" style="position:relative">
+  
+  
+  
+  
+  <span class="pill">Portfolio 2026</span>
+  <h2>THANK YOU</h2>
+  <p class="lead" style="margin-inline:auto">끝까지 읽어 주셔서 감사합니다.</p>
+  <div class="contact-row">
+    <div><span class="v">jeij27102@gmail.com</span><button class="copy" type="button" data-copy="jeij27102@gmail.com">복사</button></div>
+    <div><span class="v">010-9224-4526</span><button class="copy" type="button" data-copy="010-9224-4526">복사</button></div>
+  </div>
+</div></section>
+</main>
+<footer><div class="wrap">JEONG MINCHAE · PORTFOLIO 2026</div></footer>
+
+<dialog class="lb" id="lb" aria-label="이미지 원본 보기">
+  <div class="lb-bar"><span class="lb-cap" id="lbcap"></span><div class="lb-ctrls"><button type="button" id="lbprev" aria-label="이전 이미지">←</button><button type="button" id="lbnext" aria-label="다음 이미지">→</button><button type="button" class="x" id="lbclose">닫기</button></div></div>
+  <div class="lb-stage" id="lbstage"><img id="lbimg" alt=""></div>
+</dialog>
+<div class="vc" id="vc" aria-hidden="true">VIEW</div>
+<dialog class="sheet" id="sheet" aria-label="작품 상세"><div class="sh-bar"><button class="sh-x" type="button" aria-label="닫기">✕</button></div><div class="sh-in" id="sheet-in"></div></dialog>
+
+<script>
+(function(){
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var $ = function(id){ return document.getElementById(id); };
+
+  // nav state
+  var nav = $("nav"), links = [].slice.call(nav.querySelectorAll("nav a"));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function onScroll(){
+    nav.classList.toggle("scrolled", scrollY > 8);
+    var cur = -1;
+    secs.forEach(function(s, i){ if (s && s.getBoundingClientRect().top < innerHeight * .35) cur = i; });
+    if (document.getElementById("p1").getBoundingClientRect().top < innerHeight * .35 && document.getElementById("results").getBoundingClientRect().top > innerHeight * .35) cur = 1;
+    links.forEach(function(a, i){ a.classList.toggle("on", i === cur); });
+  }
+  addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  // reveal (only things that start below the fold)
+  if (!reduce && "IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } }); }, {rootMargin:"0px 0px -8% 0px"});
+    document.querySelectorAll(".rv").forEach(function(el){ if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("pre"); io.observe(el); } });
+
+    // count-up
+    var cio = new IntersectionObserver(function(es){ es.forEach(function(e){
+      if (!e.isIntersecting) return; cio.unobserve(e.target);
+      var el = e.target, txt = el.textContent, m = txt.match(/[\d,.]+/); if (!m) return;
+      var raw = m[0], target = parseFloat(raw.replace(/,/g, "")), dec = (raw.split(".")[1] || "").length, comma = raw.indexOf(",") >= 0;
+      var pre = txt.slice(0, m.index), post = txt.slice(m.index + raw.length), t0 = performance.now();
+      (function step(now){
+        var k = Math.min(1, (now - t0) / 1000); k = 1 - Math.pow(1 - k, 3);
+        var v = (target * k).toFixed(dec); if (comma) v = Number(v).toLocaleString("en-US");
+        el.textContent = pre + v + post; if (k < 1) requestAnimationFrame(step); else el.textContent = txt;
+      })(t0);
+    }); }, {threshold:.6});
+
+  }
+
+  // instagram-style carousel
+  var tr = $("ig-track"), slides = [].slice.call(tr.children), dots = $("ig-dots"), cur = 0;
+  slides.forEach(function(_, k){ var d = document.createElement("button"); d.type = "button"; d.setAttribute("aria-label", (k + 1) + "번째 장"); d.addEventListener("click", function(){ go(k); }); dots.appendChild(d); });
+  var dotEls = [].slice.call(dots.children);
+  function go(k){ k = Math.max(0, Math.min(slides.length - 1, k)); tr.scrollTo({left: k * tr.clientWidth, behavior: reduce ? "auto" : "smooth"}); }
+  function sync(){
+    cur = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth));
+    $("ig-count").textContent = (cur + 1) + "/" + slides.length;
+    $("ig-prev").disabled = cur === 0; $("ig-next").disabled = cur === slides.length - 1;
+    dotEls.forEach(function(d, k){ d.classList.toggle("on", k === cur); d.setAttribute("aria-current", k === cur ? "true" : "false"); });
+  }
+  tr.addEventListener("scroll", function(){ requestAnimationFrame(sync); }, {passive:true});
+  addEventListener("resize", function(){ tr.scrollLeft = cur * tr.clientWidth; });
+  $("ig-prev").addEventListener("click", function(){ go(cur - 1); });
+  $("ig-next").addEventListener("click", function(){ go(cur + 1); });
+  tr.addEventListener("keydown", function(e){ if (e.key === "ArrowRight") { e.preventDefault(); go(cur + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(cur - 1); } });
+  // mouse drag to swipe on desktop (touch swipes natively)
+  var down = false, sx = 0, sl = 0, si = 0, moved = false;
+  tr.addEventListener("pointerdown", function(e){ if (e.pointerType !== "mouse") return; down = true; moved = false; sx = e.clientX; sl = tr.scrollLeft; si = cur; tr.classList.add("drag"); tr.setPointerCapture(e.pointerId); });
+  tr.addEventListener("pointermove", function(e){ if (!down) return; var dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; tr.scrollLeft = sl - dx; });
+  function up(e){ if (!down) return; down = false; tr.classList.remove("drag"); var dx = e.clientX - sx; go(Math.abs(dx) > 40 ? si + (dx < 0 ? 1 : -1) : si); }
+  tr.addEventListener("pointerup", up); tr.addEventListener("pointercancel", up);
+  sync();
+  [["ig-like"],["ig-save"]].forEach(function(k){ var b = $(k[0]); b.addEventListener("click", function(){ b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); }); });
+  tr.addEventListener("dblclick", function(){ $("ig-like").setAttribute("aria-pressed", "true"); });
+
+  // copy
+  document.querySelectorAll("[data-copy]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var t = btn.getAttribute("data-copy");
+      function ok(){ btn.textContent = "복사됨"; setTimeout(function(){ btn.textContent = "복사"; }, 1400); }
+      function fb(){ var el = btn.parentElement.querySelector(".v"); var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "선택됨"; setTimeout(function(){ btn.textContent = "복사"; }, 1400); }
+      try { navigator.clipboard.writeText(t).then(ok, fb); } catch(e){ fb(); }
+    });
+  });
+
+  // lightbox: images grouped by their section
+  var lb = $("lb"), img = $("lbimg"), cap = $("lbcap"), stage = $("lbstage"), list = [], i = 0, opener = null;
+  function show(){ var s = list[i]; img.src = s.getAttribute("src"); img.alt = s.alt; cap.textContent = s.alt + (list.length > 1 ? "  ·  " + (i + 1) + " / " + list.length : ""); $("lbprev").hidden = $("lbnext").hidden = list.length < 2; }
+  document.querySelectorAll("img.zoom").forEach(function(el){
+    el.tabIndex = 0; el.setAttribute("role", "button");
+    function open(){ var grp = el.closest(".sub, .split, section"); list = [].slice.call(grp.querySelectorAll("img.zoom")); i = list.indexOf(el); opener = el; show(); try { lb.showModal(); } catch(e){ lb.setAttribute("open", ""); } }
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+  });
+  $("lbprev").addEventListener("click", function(){ i = (i - 1 + list.length) % list.length; show(); });
+  $("lbnext").addEventListener("click", function(){ i = (i + 1) % list.length; show(); });
+  $("lbclose").addEventListener("click", function(){ lb.close(); });
+  lb.addEventListener("click", function(e){
+    if (e.target === lb || e.target === stage) return lb.close();
+    if (e.target === img && img.naturalWidth) {
+      var r = img.getBoundingClientRect(), k = Math.min(r.width / img.naturalWidth, r.height / img.naturalHeight);
+      var w = img.naturalWidth * k, h = img.naturalHeight * k, x0 = r.left + (r.width - w) / 2, y0 = r.top + (r.height - h) / 2;
+      if (e.clientX < x0 || e.clientX > x0 + w || e.clientY < y0 || e.clientY > y0 + h) lb.close();
+    }
+  });
+  lb.addEventListener("keydown", function(e){ if (e.key === "ArrowRight" && list.length > 1) $("lbnext").click(); if (e.key === "ArrowLeft" && list.length > 1) $("lbprev").click(); });
+  lb.addEventListener("close", function(){ if (opener) opener.focus(); });
+})();
+</script>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  root.classList.add("mo");
+  var $ = function(id){ return document.getElementById(id); };
+  var clamp = function(v){ return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+  // intro: start state = big title centered; first scroll plays it through and lands at the end
+  var intro = $("intro"), big = $("ibig"), pin = intro.querySelector(".intro-pin");
+  function fit(){
+    var was = big.style.transition; big.style.transition = "none";
+    var w = Math.max.apply(null, [].map.call(big.children, function(c){ return c.offsetWidth; })), left = 0, el0 = big; while (el0 && el0 !== pin) { left += el0.offsetLeft; el0 = el0.offsetParent; }
+    var s0 = Math.max(1, Math.min(2.2, (pin.clientWidth - 2 * left) / w));
+    var top = big.offsetTop + big.offsetParent.offsetTop, h = big.offsetHeight;
+    var el = big, t = 0; while (el && el !== pin) { t += el.offsetTop; el = el.offsetParent; }
+    var ty0 = pin.clientHeight / 2 - (t + h * s0 / 2);
+    big.style.setProperty("--s0", s0.toFixed(3)); big.style.setProperty("--ty0", ty0.toFixed(1) + "px");
+    big.offsetHeight; big.style.transition = was;
+  }
+  fit(); addEventListener("resize", fit);
+  function endY(){ return intro.offsetTop + intro.offsetHeight - innerHeight; }
+  var done = scrollY > 4, lock = false;
+  root.classList.toggle("cv-done", done);
+  function goTo(y, d){
+    lock = true; done = d; root.classList.toggle("cv-done", d);
+    window.scrollTo({top:y, behavior:"smooth"});
+    setTimeout(function(){ lock = false; }, 1100);
+  }
+  addEventListener("scroll", function(){
+    if (lock) return;
+    var y = scrollY, e = endY();
+    if (!done && y > 4) { if (y < e) goTo(e, true); else { done = true; root.classList.add("cv-done"); } }
+    else if (done && y < e - 4 && y > 0) goTo(0, false);
+    else if (done && y <= 0) { done = false; root.classList.remove("cv-done"); }
+  }, {passive:true});
+
+  // heading lines
+  var heads = [].slice.call(document.querySelectorAll("main .h2"));
+  heads.forEach(function(h){
+    h.innerHTML = h.innerHTML.split(/<br\s*\/?>/i).map(function(p){ return '<span class="ln"><span>' + p.trim() + "</span></span>"; }).join(" ");
+  });
+  var io = new IntersectionObserver(function(es){ es.forEach(function(e){
+    if (!e.isIntersecting) return;
+    var t = e.target; (t._imgs || [t]).forEach(function(x, k){ x.style.setProperty("--dl", (k * .12) + "s"); x.classList.add("in"); }); io.unobserve(t);
+  }); }, {rootMargin:"0px 0px -8% 0px"});
+  heads.forEach(function(h){ io.observe(h); });
+  var iio = new IntersectionObserver(function(es){ es.forEach(function(e){
+    var t = e.target;
+    if (e.isIntersecting) t._imgs.forEach(function(x, k){ x.style.setProperty("--dl", (k * .12) + "s"); x.classList.add("in"); });
+    else if (e.boundingClientRect.top > 0) t._imgs.forEach(function(x){ x.style.transition = "none"; x.classList.remove("in"); x.offsetWidth; x.style.transition = ""; });
+  }); }, {rootMargin:"0px 0px -18% 0px"});
+  // image wipes: observe the image's box (a clipped image reports no area)
+  [].slice.call(document.querySelectorAll("main img.zoom")).forEach(function(im){
+    if (im.closest(".ig")) return;
+    var box = im.parentElement;
+    // single photo in a frame/card: lift the whole frame; photos sharing a box: lift each photo
+    var solo = box.querySelectorAll("img").length === 1 && box.tagName !== "MAIN";
+    var tgt = solo ? box : im;
+    tgt.classList.add("wipe"); if (!box._imgs) { box._imgs = []; iio.observe(box); } if (box._imgs.indexOf(tgt) < 0) box._imgs.push(tgt);
+  });
+
+  // background tint per section + parallax numbers + progress
+  var tints = {about:"#F5F4F0", projects:"#F5F4F0", p1:"#F5F4F0", p5:"#F5F4F0", p4:"#F5F4F0", p6:"#F5F4F0", p3:"#F5F4F0", p2:"#F5F4F0", results:"#F5F4F0", contact:"#F5F4F0"};
+  var tsecs = Object.keys(tints).map(function(id){ return $(id); }).filter(Boolean);
+  var curTint = "";
+  function frame(){
+    var y = scrollY, vh = innerHeight;
+    root.style.setProperty("--sp", clamp(y / (root.scrollHeight - vh)).toFixed(4));
+    var t = "#F5F4F0"; tsecs.forEach(function(s){ if (s.getBoundingClientRect().top < vh * .5) t = tints[s.id]; });
+    if (t !== curTint) { curTint = t; root.style.setProperty("--bgc", t); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // count-up: plays each time a number scrolls into view
+  var cio = new IntersectionObserver(function(es){ es.forEach(function(e){
+    var el = e.target;
+    if (!el._txt) el._txt = el.textContent;
+    var txt = el._txt, m = txt.match(/[\d,.]+/); if (!m) return;
+    var raw = m[0], target = parseFloat(raw.replace(/,/g, "")), dec = (raw.split(".")[1] || "").length, comma = raw.indexOf(",") >= 0;
+    var pre = txt.slice(0, m.index), post = txt.slice(m.index + raw.length);
+    function put(v){ v = v.toFixed(dec); if (comma) v = Number(v).toLocaleString("en-US"); el.textContent = pre + v + post; }
+    if (!e.isIntersecting) { el._run = 0; put(0); return; }
+    var id = el._run = (el._run || 0) + 1, t0 = performance.now() + 250;
+    (function step(now){
+      if (el._run !== id) return;
+      var k = Math.min(1, Math.max(0, (now - t0) / 1300)); k = 1 - Math.pow(1 - k, 3);
+      put(target * k); if (k < 1) requestAnimationFrame(step); else el.textContent = txt;
+    })(performance.now());
+  }); }, {threshold:.5});
+  document.querySelectorAll("[data-count]").forEach(function(b){ cio.observe(b); });
+
+  // VIEW cursor on zoomable images
+  if (matchMedia("(hover:hover) and (pointer:fine)").matches) {
+    var vc = $("vc");
+    addEventListener("pointermove", function(e){
+      vc.style.setProperty("--x", e.clientX + "px"); vc.style.setProperty("--y", e.clientY + "px");
+      var z = e.target.closest && e.target.closest("img.zoom");
+      vc.classList.toggle("on", !!z && !document.querySelector("dialog[open]"));
+    }, {passive:true});
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var D = {"askin": {"t": "새내기 프로젝트 웹예능 <Ask In (h)a Box>", "m": "2020 · 연출 · CAST 정민채, 김솔, 이혜인, 박유빈", "lead": "콘셉트 기획부터 대본, 콘티, 촬영 진행까지. 머릿속에 그린 예능을 처음으로 직접 연출한 작업.", "kv": [["프리 프로덕션", "새내기끼리 서로를 알아본다는 주제에 맞춰 웹예능 ‘Ask in a box’를 모티브로 전체 콘셉트를 기획했습니다. 같은 조 친구들과 대화하며 성향을 파악한 뒤 출연진의 말투로 대본을 썼고, 스튜디오 섭외와 촬영 방식, 콘티 작업도 전부 담당했습니다."], ["촬영", "팀원 모두가 출연해야 해서 과 선배들의 도움을 받아 촬영했습니다. 최대한 적은 테이크로 끝내기 위해 카메라 3대를 두고 촬영했고, 대본을 인쇄해 팀원들에게 나눠 예능 촬영의 피로도를 줄였습니다."], ["포스트 프로덕션", "편집자에게 인트로 영상 등 편집 소스와 참고할 예능 영상을 전달해, 예능처럼 편집되도록 방향을 잡았습니다."]], "img": ["../img/askin-cover.jpg", "../img/askin-1.jpg", "../img/askin-2.jpg"], "links": [["영상 보기", "https://youtu.be/tctvrMOi5rY"]]}, "webdrama": {"t": "웹드라마 프로젝트 2부작", "m": "2024 · 조연출 · CAST 강지은, 강석환", "lead": "배우 지원자 약 250명을 검토해 섭외하고, 현장 스크립트와 녹음까지 맡았습니다.", "stats": [["2,317회", "1화 조회수"], ["5,376회", "2화 조회수"], ["약 250명", "배우 지원자 검토"]], "note": "조회수는 2026.10 기준", "kv": [["프리 프로덕션", "배우 모집을 담당해 약 250명의 프로필과 연기 영상을 검토하며 영상에 가장 잘 어울릴 배우를 섭외했습니다. 이후 미술 감독님과 협업해 배우 의상을 선정하고, 연출 감독님의 기획과 콘티에 맞춰 소품과 미술 연출을 함께 진행했습니다."], ["촬영", "슬레이터 및 스크립트를 담당해 현장에서 각 분야 담당과의 소통을 도우며 촬영이 원활하게 진행되도록 했습니다. 음향 담당과 배우들의 내레이션 녹음 작업도 함께 했습니다."], ["포스트 프로덕션", "편집자에게 촬영과 내레이션 녹음의 스크립트를 정리해 전달하여 편집이 수월하도록 도왔습니다."]], "img": ["../img/wd-cover.jpg", "../img/wd-1.jpg", "../img/wd-2.jpg"], "links": [["1화 보기", "https://www.youtube.com/watch?v=QHlmC7J3rNA"], ["2화 보기", "https://www.youtube.com/watch?v=2XSOkKmtrEc"]]}, "marigold": {"t": "<Marigold> Live Clip", "m": "2024 · 아트팀 · CAST 인하대학교 밴드 동아리 INDKY", "lead": "밴드 세션 구도와 의상 콘셉트, 현장 조명까지 화면에 담기는 아트를 맡았습니다.", "kv": [["프리 프로덕션", "연출부 전체 기획으로서 영상의 콘셉트와 밴드 세션의 구도를 함께 정했습니다. 아트팀으로서는 의상 콘셉트를 논의하고, 영상의 구도를 연출팀과 함께 작업했습니다."], ["촬영", "현장에서 각 분야 담당과 소통하며 카메라에 미술 요소가 잘 담기도록 팀원과 함께 수정해 나갔습니다. 조명팀과 함께 현장에서 조명 위치를 다시 잡아 카메라에 더 아름답게 잡히도록 연출했습니다."]], "img": ["../img/mg-cover.jpg", "../img/mg-1.jpg", "../img/mg-2.jpg"], "links": [["영상 보기", "https://www.youtube.com/watch?v=3kiDytXKUSI"]]}, "mv": {"t": "<친구로 지내다 보면> MV", "m": "2024 · 편집 · CAST 유서영, 유재현", "lead": "콘티 단계부터 함께 다듬고, 컷 편집과 색보정, 썸네일·포스터까지 맡았습니다.", "kv": [["프리 프로덕션", "연출을 처음 맡은 감독님의 콘티에서 컷 전환이 어색한 구간이나 음악 길이에 비해 컷 수가 적은 부분에 수정을 제안하며 함께 다듬었습니다. PD와 함께 촬영 로케이션(스튜디오) 섭외도 진행했습니다."], ["촬영", "슬레이터를 맡아 촬영 소스 정리를 돕고, 각 분야 담당과의 소통을 도왔습니다."], ["포스트 프로덕션", "연출자의 컨펌을 받아가며 컷 편집, 색보정, 합성 등 후반 작업을 진행했습니다. 가사와 연출 의도에 맞춰 스토리 흐름을 살리도록 컷을 구성했고, 차분한 느낌을 원한 연출 의도에 맞게 색보정을 해 연출자 확인을 약 5회 거쳐 최종본을 확정했습니다."], ["썸네일·포스터", "썸네일은 친구 이상을 바라는 여자 주인공의 감정이 가장 잘 드러나는 우산 장면을 골랐고, 작은 화면에서도 읽히도록 타이틀 크기와 위치를 조정했습니다. 포스터는 별도 촬영 없이 급하게 요청받아, 촬영 소스의 정면샷으로 두 출연자가 모두 담기도록 배치하고 경계를 나눈 뒤 크레딧과 타이틀을 기재했습니다."]], "img": ["../img/mv-1.jpg", "../img/mv-cover.jpg"], "links": [["영상 보기", "https://www.youtube.com/watch?v=T9Tq5qo6uT4"]]}};
+  var dlg = document.getElementById("sheet"), box = document.getElementById("sheet-in");
+  function esc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function open(k){
+    var d = D[k]; if (!d) return;
+    var lk = '<div class="links">' + d.links.map(function(x){ return '<a href="' + x[1] + '" target="_blank" rel="noopener">' + esc(x[0]) + "</a>"; }).join("") + "</div>";
+    var h = '<div class="sh-head"><div><p class="sh-m">' + esc(d.m) + '</p><h3 class="sh-t">' + esc(d.t) + '</h3></div>' + lk + '</div><p class="sh-lead">' + esc(d.lead) + '</p>';
+    if (d.stats) h += '<div class="sh-stats">' + d.stats.map(function(x){ return "<div><b>" + esc(x[0]) + "</b><span>" + esc(x[1]) + "</span></div>"; }).join("") + "</div>" + (d.note ? '<p class="note">' + esc(d.note) + "</p>" : "");
+    h += '<dl class="sh-kv">' + d.kv.map(function(x){ return "<div><dt>" + esc(x[0]) + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") + "</dl>";
+    h += '<div class="sh-imgs">' + d.img.map(function(src){ return '<img src="' + src + '" alt="' + esc(d.t) + ' 스틸" loading="lazy">'; }).join("") + "</div>";
+    box.innerHTML = h; dlg.scrollTop = 0;
+    try { dlg.showModal(); } catch(e){ dlg.setAttribute("open", ""); }
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target.closest("[data-sheet-open]");
+    if (b) { open(b.getAttribute("data-sheet-open")); return; }
+    var c = e.target.closest("[data-sheet]");
+    if (c && !e.target.closest("a, img.zoom, button")) open(c.getAttribute("data-sheet"));
+  });
+  dlg.querySelector(".sh-x").addEventListener("click", function(){ dlg.close(); });
+  dlg.addEventListener("click", function(e){
+    if (e.target !== dlg) return;
+    var r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
+})();
+</script>
+</body>
+</html>
