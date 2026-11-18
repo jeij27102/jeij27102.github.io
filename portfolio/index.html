@@ -11,6 +11,7 @@
 <meta property="og:image" content="https://jeij27102.github.io/img/og-cover.jpg">
 <meta property="og:url" content="https://jeij27102.github.io/portfolio/">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
@@ -533,7 +534,7 @@ th{background:var(--bg);color:var(--muted);font-weight:600}
 .ab-list{border-top-width:1px}
 .ab-list dt{color:var(--muted);font-weight:600}
 /* Thank you */
-.thanks h2{font-family:var(--f-display);font-weight:500;letter-spacing:-.01em;font-size:clamp(2.6rem,8vw,5rem)}
+.thanks h2{font-family:var(--f-latin);font-weight:800;letter-spacing:-.035em;font-size:clamp(2.8rem,9vw,5.6rem);margin-top:18px}
 /* 모션은 절제 */
 .toc a,.hl [data-sheet]{transition:background .2s}
 @media (hover:hover){.hl [data-sheet]:hover{transform:none;box-shadow:none;border-color:var(--ink)}}
@@ -544,6 +545,34 @@ dialog.sheet::backdrop{background:rgba(24,24,22,.5)}
 .sh-x{border-radius:4px}
 .ig-av{box-shadow:none}
 .h2[style*="f-latin"]{font-weight:600!important;letter-spacing:-.02em}
+
+/* ===== 굵은 고딕 · 자간 정리 ===== */
+:root{
+  --f-display:"Pretendard Variable","Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-body:"Pretendard Variable","Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-latin:"Inter Tight","Pretendard Variable","Pretendard","Noto Sans KR",system-ui,sans-serif;
+}
+body{letter-spacing:-.01em}
+.h2,.sub-head h3,.toc h3,.hl h4,.concl h4,.bda h4,.sh-t{font-weight:800;letter-spacing:-.035em}
+.h2{line-height:1.32}
+.sub-head h3,.toc h3,.hl h4{font-weight:700;letter-spacing:-.03em}
+.intro-big{font-weight:800;letter-spacing:-.045em;line-height:.9}
+.intro-lines{margin-top:clamp(36px,5vw,56px)}
+.intro-lines .cv-role{margin-bottom:clamp(14px,1.6vw,20px);font-size:.75rem;letter-spacing:.24em}
+.il{font-family:var(--f-display);font-weight:800;letter-spacing:-.04em;line-height:1.28;font-size:clamp(1.6rem,4vw,3.3rem)}
+.thanks .pill{justify-content:center}
+.thanks .lead{margin-top:20px}
+.contact-row{margin-top:40px}
+.contact-row div{font-family:var(--f-latin);font-weight:600;letter-spacing:-.01em}
+.stat b{font-weight:800;letter-spacing:-.03em}
+.callout,.concl .q{font-family:var(--f-body);font-weight:600}
+.intro-big{font-size:clamp(3.2rem,14.6vw,12.2rem)}
+@media (min-width:900px){
+  .intro-lines{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);column-gap:40px;align-items:start;border-top:1px solid transparent;padding-top:28px;transition:border-color .6s .5s}
+  .cv-done .intro-lines,html:not(.mo) .intro-lines{border-top-color:var(--line)}
+  .intro-lines .cv-role{grid-column:1;grid-row:1/4;margin:6px 0 0}
+  .intro-lines .il{grid-column:2}
+}
 </style>
 </head>
 <body>
