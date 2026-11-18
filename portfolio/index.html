@@ -568,10 +568,8 @@ body{letter-spacing:-.01em}
 .callout,.concl .q{font-family:var(--f-body);font-weight:600}
 .intro-big{font-size:clamp(3.2rem,14.6vw,12.2rem)}
 @media (min-width:900px){
-  .intro-lines{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);column-gap:40px;align-items:start;border-top:1px solid transparent;padding-top:28px;transition:border-color .6s .5s}
+  .intro-lines{display:flex;flex-direction:column;align-items:flex-end;text-align:right;border-top:1px solid transparent;padding-top:28px;transition:border-color .6s .5s}
   .cv-done .intro-lines,html:not(.mo) .intro-lines{border-top-color:var(--line)}
-  .intro-lines .cv-role{grid-column:1;grid-row:1/4;margin:6px 0 0}
-  .intro-lines .il{grid-column:2}
 }
 </style>
 </head>
@@ -598,8 +596,7 @@ body{letter-spacing:-.01em}
     <div class="intro-stack">
       <h1 class="intro-big" id="ibig"><span>PORTFOLIO</span></h1>
       <div class="intro-lines">
-        <p class="cv-role">Content Marketing · Planning</p>
-        <p class="il"><span>팬의 마음으로 기획하고,</span></p>
+                <p class="il"><span>팬의 마음으로 기획하고,</span></p>
         <p class="il em"><span>끝까지 직접 만들어 파는</span></p>
         <p class="il"><span>콘텐츠 기획자, 정민채.</span></p>
       </div>
